@@ -1,0 +1,12 @@
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Local data drops (원본 엑셀 등은 커밋하지 않음)
+*.xlsx
+*.xls
+*.csv
