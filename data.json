@@ -1,0 +1,3939 @@
+{
+ "fx": 220,
+ "months": [
+  "1월",
+  "2월",
+  "3월",
+  "4월",
+  "5월",
+  "6월"
+ ],
+ "series": [
+  {
+   "month": "1월",
+   "salesKRW": 246147220,
+   "targetKRW": 207894478,
+   "achv": 118.4,
+   "uv": 199810,
+   "pv": 707956,
+   "costKRW": 21747220,
+   "oyKRW": 14013780,
+   "stKRW": 7733440,
+   "roas": 11.32,
+   "xhsAdKRW": 6802165,
+   "xhsGmvKRW": 14668975,
+   "xhsRoas": 2.2,
+   "xhsShare": 7.7,
+   "xhsUV": 15390
+  },
+  {
+   "month": "2월",
+   "salesKRW": 182585480,
+   "targetKRW": 174286731,
+   "achv": 104.8,
+   "uv": 168326,
+   "pv": 576639,
+   "costKRW": 17392980,
+   "oyKRW": 8685380,
+   "stKRW": 8707600,
+   "roas": 10.5,
+   "xhsAdKRW": 3506316,
+   "xhsGmvKRW": 8847021,
+   "xhsRoas": 2.5,
+   "xhsShare": 3.9,
+   "xhsUV": 6634
+  },
+  {
+   "month": "3월",
+   "salesKRW": 198126280,
+   "targetKRW": 189120173,
+   "achv": 104.8,
+   "uv": 165905,
+   "pv": 585263,
+   "costKRW": 28343480,
+   "oyKRW": 16712520,
+   "stKRW": 11630960,
+   "roas": 6.99,
+   "xhsAdKRW": 7458977,
+   "xhsGmvKRW": 16496143,
+   "xhsRoas": 2.2,
+   "xhsShare": 8.3,
+   "xhsUV": 13762
+  },
+  {
+   "month": "4월",
+   "salesKRW": 250766780,
+   "targetKRW": 250767217,
+   "achv": 100.0,
+   "uv": 214152,
+   "pv": 650392,
+   "costKRW": 40361860,
+   "oyKRW": 17063200,
+   "stKRW": 23298660,
+   "roas": 6.21,
+   "xhsAdKRW": 8807847,
+   "xhsGmvKRW": 23904129,
+   "xhsRoas": 2.7,
+   "xhsShare": 6.7,
+   "xhsUV": 14425
+  },
+  {
+   "month": "5월",
+   "salesKRW": 197929380,
+   "targetKRW": 193473144,
+   "achv": 102.3,
+   "uv": 153240,
+   "pv": 535140,
+   "costKRW": 43368820,
+   "oyKRW": 27554340,
+   "stKRW": 15814480,
+   "roas": 4.56,
+   "xhsAdKRW": 13706143,
+   "xhsGmvKRW": 13412199,
+   "xhsRoas": 1.0,
+   "xhsShare": 6.8,
+   "xhsUV": 10392
+  },
+  {
+   "month": "6월",
+   "salesKRW": 149683160,
+   "targetKRW": 150500000,
+   "achv": 99.5,
+   "uv": 121834,
+   "pv": 417926,
+   "costKRW": 36985080,
+   "oyKRW": 27992140,
+   "stKRW": 8992940,
+   "roas": 4.05,
+   "xhsAdKRW": 22497515,
+   "xhsGmvKRW": 19522494,
+   "xhsRoas": 0.9,
+   "xhsShare": 12.5,
+   "xhsUV": 15271
+  }
+ ],
+ "byMonth": {
+  "1월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 62153,
+     "payKRW": 121186560,
+     "payCNY": 550848,
+     "conv": 5.89,
+     "share": 49.2
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9115,
+     "payKRW": 21953800,
+     "payCNY": 99790,
+     "conv": 16.22,
+     "share": 8.9
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 14440,
+     "payKRW": 16654440,
+     "payCNY": 75702,
+     "conv": 3.53,
+     "share": 6.8
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 8780,
+     "payKRW": 14905880,
+     "payCNY": 67754,
+     "conv": 9.2,
+     "share": 6.1
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 6855,
+     "payKRW": 13508220,
+     "payCNY": 61401,
+     "conv": 5.11,
+     "share": 5.5
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 5388,
+     "payKRW": 8350320,
+     "payCNY": 37956,
+     "conv": 6.64,
+     "share": 3.4
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 6106,
+     "payKRW": 6705820,
+     "payCNY": 30481,
+     "conv": 3.7,
+     "share": 2.7
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 8406,
+     "payKRW": 4602400,
+     "payCNY": 20920,
+     "conv": 4.53,
+     "share": 1.9
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 3920,
+     "payKRW": 3896640,
+     "payCNY": 17712,
+     "conv": 3.01,
+     "share": 1.6
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6729,
+     "payKRW": 3767500,
+     "payCNY": 17125,
+     "conv": 5.08,
+     "share": 1.5
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 6755,
+     "payKRW": 3702160,
+     "payCNY": 16828,
+     "conv": 2.75,
+     "share": 1.5
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 7313,
+     "payKRW": 3315840,
+     "payCNY": 15072,
+     "conv": 1.79,
+     "share": 1.3
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 2321,
+     "payKRW": 2672780,
+     "payCNY": 12149,
+     "conv": 8.79,
+     "share": 1.1
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9209,
+     "payKRW": 2452120,
+     "payCNY": 11146,
+     "conv": 1.25,
+     "share": 1.0
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3586,
+     "payKRW": 1934680,
+     "payCNY": 8794,
+     "conv": 3.49,
+     "share": 0.8
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 3356,
+     "payKRW": 1745480,
+     "payCNY": 7934,
+     "conv": 3.04,
+     "share": 0.7
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1207,
+     "payKRW": 1691140,
+     "payCNY": 7687,
+     "conv": 3.98,
+     "share": 0.7
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2096,
+     "payKRW": 1678600,
+     "payCNY": 7630,
+     "conv": 3.29,
+     "share": 0.7
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2145,
+     "payKRW": 1629760,
+     "payCNY": 7408,
+     "conv": 3.96,
+     "share": 0.7
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 998,
+     "payKRW": 1533840,
+     "payCNY": 6972,
+     "conv": 8.72,
+     "share": 0.6
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 3264,
+     "payKRW": 1274020,
+     "payCNY": 5791,
+     "conv": 2.02,
+     "share": 0.5
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 1700,
+     "payKRW": 845680,
+     "payCNY": 3844,
+     "conv": 2.82,
+     "share": 0.3
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4342,
+     "payKRW": 834240,
+     "payCNY": 3792,
+     "conv": 0.92,
+     "share": 0.3
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 801,
+     "payKRW": 750640,
+     "payCNY": 3412,
+     "conv": 6.37,
+     "share": 0.3
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1113,
+     "payKRW": 640200,
+     "payCNY": 2910,
+     "conv": 3.5,
+     "share": 0.3
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 481,
+     "payKRW": 631840,
+     "payCNY": 2872,
+     "conv": 3.53,
+     "share": 0.3
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 596,
+     "payKRW": 514580,
+     "payCNY": 2339,
+     "conv": 3.36,
+     "share": 0.2
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 609,
+     "payKRW": 485980,
+     "payCNY": 2209,
+     "conv": 3.45,
+     "share": 0.2
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3590,
+     "payKRW": 416240,
+     "payCNY": 1892,
+     "conv": 1.0,
+     "share": 0.2
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6569,
+     "payKRW": 366960,
+     "payCNY": 1668,
+     "conv": 0.84,
+     "share": 0.1
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1018,
+     "payKRW": 284020,
+     "payCNY": 1291,
+     "conv": 1.38,
+     "share": 0.1
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 1523,
+     "payKRW": 280720,
+     "payCNY": 1276,
+     "conv": 1.25,
+     "share": 0.1
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 490,
+     "payKRW": 279620,
+     "payCNY": 1271,
+     "conv": 4.08,
+     "share": 0.1
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 852,
+     "payKRW": 188320,
+     "payCNY": 856,
+     "conv": 1.06,
+     "share": 0.1
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 446,
+     "payKRW": 174460,
+     "payCNY": 793,
+     "conv": 2.02,
+     "share": 0.1
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 289,
+     "payKRW": 137060,
+     "payCNY": 623,
+     "conv": 2.42,
+     "share": 0.1
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 777,
+     "payKRW": 100760,
+     "payCNY": 458,
+     "conv": 1.29,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 316,
+     "payKRW": 53900,
+     "payCNY": 245,
+     "conv": 1.27,
+     "share": 0.0
+    },
+    {
+     "name": "윤곽 형광 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 42,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 26,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 21,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 14,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 16,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 823051",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 804531",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256714",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 246147220,
+   "costItems": [
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 7733440,
+     "prev": 0,
+     "diff": 7733440
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 7211600,
+     "prev": 0,
+     "diff": 7211600
+    },
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 6802180,
+     "prev": 0,
+     "diff": 6802180
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 99272,
+      "buyers": 4979,
+      "conv": 5.02
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 48887,
+      "buyers": 2236,
+      "conv": 4.57
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 37699,
+      "buyers": 4432,
+      "conv": 11.76
+     }
+    ],
+    "subs": [
+     {
+      "name": "검색",
+      "visitors": 62864,
+      "buyers": 2753,
+      "conv": 4.38
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 46669,
+      "buyers": 1995,
+      "conv": 4.27
+     },
+     {
+      "name": "추천 피드",
+      "visitors": 29586,
+      "buyers": 505,
+      "conv": 1.71
+     },
+     {
+      "name": "장바구니",
+      "visitors": 21184,
+      "buyers": 3514,
+      "conv": 16.59
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 10956,
+      "buyers": 949,
+      "conv": 8.66
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 10105,
+      "buyers": 414,
+      "conv": 4.1
+     },
+     {
+      "name": "타오바오 라이브",
+      "visitors": 4417,
+      "buyers": 379,
+      "conv": 8.58
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 3023,
+      "buyers": 645,
+      "conv": 21.34
+     },
+     {
+      "name": "메시지 알림",
+      "visitors": 1560,
+      "buyers": 205,
+      "conv": 13.14
+     },
+     {
+      "name": "티몰 랭킹",
+      "visitors": 1357,
+      "buyers": 14,
+      "conv": 1.03
+     }
+    ]
+   }
+  },
+  "2월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 50297,
+     "payKRW": 79514380,
+     "payCNY": 361429,
+     "conv": 4.79,
+     "share": 43.5
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 10417,
+     "payKRW": 28045600,
+     "payCNY": 127480,
+     "conv": 13.34,
+     "share": 15.4
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 10921,
+     "payKRW": 14473580,
+     "payCNY": 65789,
+     "conv": 3.92,
+     "share": 7.9
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 7074,
+     "payKRW": 11962500,
+     "payCNY": 54375,
+     "conv": 4.4,
+     "share": 6.6
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 8173,
+     "payKRW": 9494760,
+     "payCNY": 43158,
+     "conv": 6.23,
+     "share": 5.2
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 7716,
+     "payKRW": 6157580,
+     "payCNY": 27989,
+     "conv": 3.76,
+     "share": 3.4
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 5950,
+     "payKRW": 5531460,
+     "payCNY": 25143,
+     "conv": 2.57,
+     "share": 3.0
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 3766,
+     "payKRW": 3790820,
+     "payCNY": 17231,
+     "conv": 3.08,
+     "share": 2.1
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 6596,
+     "payKRW": 2715240,
+     "payCNY": 12342,
+     "conv": 2.29,
+     "share": 1.5
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 2026,
+     "payKRW": 2239380,
+     "payCNY": 10179,
+     "conv": 7.8,
+     "share": 1.2
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1199,
+     "payKRW": 2089340,
+     "payCNY": 9497,
+     "conv": 4.09,
+     "share": 1.1
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6837,
+     "payKRW": 1757140,
+     "payCNY": 7987,
+     "conv": 2.49,
+     "share": 1.0
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1283,
+     "payKRW": 1479720,
+     "payCNY": 6726,
+     "conv": 3.51,
+     "share": 0.8
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 5260,
+     "payKRW": 1406460,
+     "payCNY": 6393,
+     "conv": 1.18,
+     "share": 0.8
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 8870,
+     "payKRW": 1129700,
+     "payCNY": 5135,
+     "conv": 0.62,
+     "share": 0.6
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1941,
+     "payKRW": 1115180,
+     "payCNY": 5069,
+     "conv": 3.61,
+     "share": 0.6
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3758,
+     "payKRW": 1114960,
+     "payCNY": 5068,
+     "conv": 1.94,
+     "share": 0.6
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 1981,
+     "payKRW": 1052700,
+     "payCNY": 4785,
+     "conv": 2.93,
+     "share": 0.6
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6713,
+     "payKRW": 1038620,
+     "payCNY": 4721,
+     "conv": 0.79,
+     "share": 0.6
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2015,
+     "payKRW": 1006720,
+     "payCNY": 4576,
+     "conv": 2.78,
+     "share": 0.6
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 2786,
+     "payKRW": 906400,
+     "payCNY": 4120,
+     "conv": 1.54,
+     "share": 0.5
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 688,
+     "payKRW": 806960,
+     "payCNY": 3668,
+     "conv": 7.7,
+     "share": 0.4
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 1691,
+     "payKRW": 778360,
+     "payCNY": 3538,
+     "conv": 2.48,
+     "share": 0.4
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1020,
+     "payKRW": 541640,
+     "payCNY": 2462,
+     "conv": 3.92,
+     "share": 0.3
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1847,
+     "payKRW": 511500,
+     "payCNY": 2325,
+     "conv": 1.41,
+     "share": 0.3
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 341,
+     "payKRW": 272360,
+     "payCNY": 1238,
+     "conv": 4.11,
+     "share": 0.1
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 393,
+     "payKRW": 265320,
+     "payCNY": 1206,
+     "conv": 4.83,
+     "share": 0.1
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1297,
+     "payKRW": 258060,
+     "payCNY": 1173,
+     "conv": 1.0,
+     "share": 0.1
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 879,
+     "payKRW": 257840,
+     "payCNY": 1172,
+     "conv": 1.37,
+     "share": 0.1
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 696,
+     "payKRW": 255420,
+     "payCNY": 1161,
+     "conv": 1.44,
+     "share": 0.1
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 171,
+     "payKRW": 176220,
+     "payCNY": 801,
+     "conv": 5.26,
+     "share": 0.1
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 1450,
+     "payKRW": 100540,
+     "payCNY": 457,
+     "conv": 0.55,
+     "share": 0.1
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 915,
+     "payKRW": 94380,
+     "payCNY": 429,
+     "conv": 1.2,
+     "share": 0.1
+    },
+    {
+     "name": "코드 804531",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 82940,
+     "payCNY": 377,
+     "conv": 100.0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 642,
+     "payKRW": 75460,
+     "payCNY": 343,
+     "conv": 1.09,
+     "share": 0.0
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 361,
+     "payKRW": 41140,
+     "payCNY": 187,
+     "conv": 0.55,
+     "share": 0.0
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 147,
+     "payKRW": 39160,
+     "payCNY": 178,
+     "conv": 1.36,
+     "share": 0.0
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 58,
+     "payKRW": 5940,
+     "payCNY": 27,
+     "conv": 1.72,
+     "share": 0.0
+    },
+    {
+     "name": "윤곽 형광 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 42,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 27,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 17,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 13,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 881881",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 823051",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 244674",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 556684",
+     "status": "온라인",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 15,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256714",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 182585480,
+   "costItems": [
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 5297380,
+     "prev": 7733440,
+     "diff": -2436060
+    },
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 3506360,
+     "prev": 6802180,
+     "diff": -3295820
+    },
+    {
+     "owner": "스틸",
+     "item": "도우인 라이브방송(Still 부담 수수료)",
+     "cur": 3410220,
+     "prev": 0,
+     "diff": 3410220
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 3330800,
+     "prev": 7211600,
+     "diff": -3880800
+    },
+    {
+     "owner": "OY",
+     "item": "라이브방송 올리브영 지원분",
+     "cur": 1848220,
+     "prev": 0,
+     "diff": 1848220
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 89452,
+      "buyers": 3763,
+      "conv": 4.21
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 32326,
+      "buyers": 1358,
+      "conv": 4.2
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 32461,
+      "buyers": 3083,
+      "conv": 9.5
+     }
+    ],
+    "subs": [
+     {
+      "name": "검색",
+      "visitors": 57178,
+      "buyers": 2292,
+      "conv": 4.01
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 29862,
+      "buyers": 1171,
+      "conv": 3.92
+     },
+     {
+      "name": "추천 피드",
+      "visitors": 27517,
+      "buyers": 397,
+      "conv": 1.44
+     },
+     {
+      "name": "장바구니",
+      "visitors": 17903,
+      "buyers": 2417,
+      "conv": 13.5
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 9502,
+      "buyers": 664,
+      "conv": 6.99
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 8339,
+      "buyers": 305,
+      "conv": 3.66
+     },
+     {
+      "name": "타오바오 라이브",
+      "visitors": 3331,
+      "buyers": 276,
+      "conv": 8.29
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 2033,
+      "buyers": 403,
+      "conv": 19.82
+     },
+     {
+      "name": "티몰 랭킹",
+      "visitors": 1325,
+      "buyers": 16,
+      "conv": 1.21
+     },
+     {
+      "name": "메시지 알림",
+      "visitors": 1293,
+      "buyers": 143,
+      "conv": 11.06
+     }
+    ]
+   }
+  },
+  "3월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 56525,
+     "payKRW": 94428180,
+     "payCNY": 429219,
+     "conv": 4.78,
+     "share": 47.7
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9693,
+     "payKRW": 25733620,
+     "payCNY": 116971,
+     "conv": 13.26,
+     "share": 13.0
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 10927,
+     "payKRW": 15835820,
+     "payCNY": 71981,
+     "conv": 4.09,
+     "share": 8.0
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 7959,
+     "payKRW": 12037520,
+     "payCNY": 54716,
+     "conv": 3.87,
+     "share": 6.1
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 7682,
+     "payKRW": 9796380,
+     "payCNY": 44529,
+     "conv": 6.55,
+     "share": 4.9
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 3780,
+     "payKRW": 5291220,
+     "payCNY": 24051,
+     "conv": 4.31,
+     "share": 2.7
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 5564,
+     "payKRW": 4425960,
+     "payCNY": 20118,
+     "conv": 3.47,
+     "share": 2.2
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 4085,
+     "payKRW": 3560480,
+     "payCNY": 16184,
+     "conv": 2.84,
+     "share": 1.8
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 5332,
+     "payKRW": 3110800,
+     "payCNY": 14140,
+     "conv": 3.26,
+     "share": 1.6
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 8397,
+     "payKRW": 3014000,
+     "payCNY": 13700,
+     "conv": 4.53,
+     "share": 1.5
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3046,
+     "payKRW": 2752640,
+     "payCNY": 12512,
+     "conv": 10.54,
+     "share": 1.4
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9559,
+     "payKRW": 2047760,
+     "payCNY": 9308,
+     "conv": 1.15,
+     "share": 1.0
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 5920,
+     "payKRW": 2000020,
+     "payCNY": 9091,
+     "conv": 1.35,
+     "share": 1.0
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2655,
+     "payKRW": 1794320,
+     "payCNY": 8156,
+     "conv": 3.92,
+     "share": 0.9
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1743,
+     "payKRW": 1635480,
+     "payCNY": 7434,
+     "conv": 6.71,
+     "share": 0.8
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1290,
+     "payKRW": 1632400,
+     "payCNY": 7420,
+     "conv": 3.49,
+     "share": 0.8
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1379,
+     "payKRW": 1397000,
+     "payCNY": 6350,
+     "conv": 3.26,
+     "share": 0.7
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2136,
+     "payKRW": 1042360,
+     "payCNY": 4738,
+     "conv": 2.53,
+     "share": 0.5
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 2892,
+     "payKRW": 1020800,
+     "payCNY": 4640,
+     "conv": 1.76,
+     "share": 0.5
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 1944,
+     "payKRW": 958980,
+     "payCNY": 4359,
+     "conv": 2.67,
+     "share": 0.5
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4101,
+     "payKRW": 910140,
+     "payCNY": 4137,
+     "conv": 2.68,
+     "share": 0.5
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 675,
+     "payKRW": 761860,
+     "payCNY": 3463,
+     "conv": 7.41,
+     "share": 0.4
+    },
+    {
+     "name": "코드 804531",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 702900,
+     "payCNY": 3195,
+     "conv": 50.0,
+     "share": 0.4
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1471,
+     "payKRW": 658680,
+     "payCNY": 2994,
+     "conv": 1.56,
+     "share": 0.3
+    },
+    {
+     "name": "[기획] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1397,
+     "payKRW": 463980,
+     "payCNY": 2109,
+     "conv": 1.22,
+     "share": 0.2
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1135,
+     "payKRW": 288200,
+     "payCNY": 1310,
+     "conv": 0.79,
+     "share": 0.1
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 981,
+     "payKRW": 199320,
+     "payCNY": 906,
+     "conv": 2.14,
+     "share": 0.1
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 220,
+     "payKRW": 191400,
+     "payCNY": 870,
+     "conv": 3.64,
+     "share": 0.1
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 1470,
+     "payKRW": 191180,
+     "payCNY": 869,
+     "conv": 1.09,
+     "share": 0.1
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 505,
+     "payKRW": 53900,
+     "payCNY": 245,
+     "conv": 0.79,
+     "share": 0.0
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 192,
+     "payKRW": 51920,
+     "payCNY": 236,
+     "conv": 1.56,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 264,
+     "payKRW": 48180,
+     "payCNY": 219,
+     "conv": 1.89,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 177,
+     "payKRW": 39160,
+     "payCNY": 178,
+     "conv": 1.13,
+     "share": 0.0
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 431,
+     "payKRW": 34540,
+     "payCNY": 157,
+     "conv": 0.46,
+     "share": 0.0
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 33,
+     "payKRW": 15180,
+     "payCNY": 69,
+     "conv": 3.03,
+     "share": 0.0
+    },
+    {
+     "name": "윤곽 형광 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 10,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 18,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 18,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 15,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 19,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 823051",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 13,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 107,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 37,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 20,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 47,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256714",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 198126280,
+   "costItems": [
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 9768660,
+     "prev": 5297380,
+     "diff": 4471280
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 8688240,
+     "prev": 3330800,
+     "diff": 5357440
+    },
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 7458880,
+     "prev": 3506360,
+     "diff": 3952520
+    },
+    {
+     "owner": "스틸",
+     "item": "도우인 라이브방송(Still 부담 수수료)",
+     "cur": 1862300,
+     "prev": 3410220,
+     "diff": -1547920
+    },
+    {
+     "owner": "OY",
+     "item": "라이브방송 올리브영 지원분",
+     "cur": 565400,
+     "prev": 1848220,
+     "diff": -1282820
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 206154,
+      "buyers": 3796,
+      "conv": 1.84
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 50854,
+      "buyers": 1798,
+      "conv": 3.54
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 33240,
+      "buyers": 3386,
+      "conv": 10.19
+     }
+    ],
+    "subs": [
+     {
+      "name": "추천 피드",
+      "visitors": 97387,
+      "buyers": 478,
+      "conv": 0.49
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 48652,
+      "buyers": 1609,
+      "conv": 3.31
+     },
+     {
+      "name": "검색",
+      "visitors": 46269,
+      "buyers": 1889,
+      "conv": 4.08
+     },
+     {
+      "name": "타오바오 SNS 피드",
+      "visitors": 28372,
+      "buyers": 0,
+      "conv": 0.0
+     },
+     {
+      "name": "장바구니",
+      "visitors": 17711,
+      "buyers": 2549,
+      "conv": 14.39
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 9998,
+      "buyers": 746,
+      "conv": 7.46
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 8880,
+      "buyers": 349,
+      "conv": 3.93
+     },
+     {
+      "name": "타오바오 라이브",
+      "visitors": 3865,
+      "buyers": 251,
+      "conv": 6.49
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 3019,
+      "buyers": 559,
+      "conv": 18.52
+     },
+     {
+      "name": "메시지 알림",
+      "visitors": 1228,
+      "buyers": 127,
+      "conv": 10.34
+     }
+    ]
+   }
+  },
+  "4월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 63820,
+     "payKRW": 101548480,
+     "payCNY": 461584,
+     "conv": 4.5,
+     "share": 40.5
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 79148,
+     "payKRW": 76101520,
+     "payCNY": 345916,
+     "conv": 3.22,
+     "share": 30.3
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7994,
+     "payKRW": 21280380,
+     "payCNY": 96729,
+     "conv": 13.54,
+     "share": 8.5
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 8960,
+     "payKRW": 12325940,
+     "payCNY": 56027,
+     "conv": 6.93,
+     "share": 4.9
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 5768,
+     "payKRW": 10799360,
+     "payCNY": 49088,
+     "conv": 4.32,
+     "share": 4.3
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 3422,
+     "payKRW": 5565560,
+     "payCNY": 25298,
+     "conv": 4.56,
+     "share": 2.2
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 6440,
+     "payKRW": 4495260,
+     "payCNY": 20433,
+     "conv": 3.25,
+     "share": 1.8
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 6486,
+     "payKRW": 2773760,
+     "payCNY": 12608,
+     "conv": 2.39,
+     "share": 1.1
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 7138,
+     "payKRW": 2627020,
+     "payCNY": 11941,
+     "conv": 1.49,
+     "share": 1.0
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 5847,
+     "payKRW": 2124100,
+     "payCNY": 9655,
+     "conv": 1.93,
+     "share": 0.8
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1658,
+     "payKRW": 1964380,
+     "payCNY": 8929,
+     "conv": 3.92,
+     "share": 0.8
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1862,
+     "payKRW": 1894200,
+     "payCNY": 8610,
+     "conv": 7.95,
+     "share": 0.8
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1197,
+     "payKRW": 1598300,
+     "payCNY": 7265,
+     "conv": 3.68,
+     "share": 0.6
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 3112,
+     "payKRW": 1263680,
+     "payCNY": 5744,
+     "conv": 1.99,
+     "share": 0.5
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1789,
+     "payKRW": 1182280,
+     "payCNY": 5374,
+     "conv": 2.01,
+     "share": 0.5
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 3653,
+     "payKRW": 1034440,
+     "payCNY": 4702,
+     "conv": 1.53,
+     "share": 0.4
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 2577,
+     "payKRW": 925100,
+     "payCNY": 4205,
+     "conv": 1.9,
+     "share": 0.4
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 838,
+     "payKRW": 661980,
+     "payCNY": 3009,
+     "conv": 4.89,
+     "share": 0.3
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 649,
+     "payKRW": 272140,
+     "payCNY": 1237,
+     "conv": 5.7,
+     "share": 0.1
+    },
+    {
+     "name": "[기획] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 674,
+     "payKRW": 227480,
+     "payCNY": 1034,
+     "conv": 1.19,
+     "share": 0.1
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 142,
+     "payKRW": 76120,
+     "payCNY": 346,
+     "conv": 1.41,
+     "share": 0.0
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 275,
+     "payKRW": 19580,
+     "payCNY": 89,
+     "conv": 0.36,
+     "share": 0.0
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 133,
+     "payKRW": 5720,
+     "payCNY": 26,
+     "conv": 0.75,
+     "share": 0.0
+    },
+    {
+     "name": "윤곽 형광 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 15,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 14,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 71,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 8,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 823051",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 804531",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 40,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 15,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 56,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 13,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 100,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 17,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 66,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 18,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 44,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 26,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 250766780,
+   "costItems": [
+    {
+     "owner": "스틸",
+     "item": "도우인 라이브방송(Still 부담 수수료)",
+     "cur": 12362240,
+     "prev": 1862300,
+     "diff": 10499940
+    },
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 10936420,
+     "prev": 9768660,
+     "diff": 1167760
+    },
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 8807920,
+     "prev": 7458880,
+     "diff": 1349040
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 4725380,
+     "prev": 8688240,
+     "diff": -3962860
+    },
+    {
+     "owner": "OY",
+     "item": "라이브방송 올리브영 지원분",
+     "cur": 3529900,
+     "prev": 565400,
+     "diff": 2964500
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 136609,
+      "buyers": 4708,
+      "conv": 3.45
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 63113,
+      "buyers": 1838,
+      "conv": 2.91
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 34331,
+      "buyers": 3899,
+      "conv": 11.36
+     }
+    ],
+    "subs": [
+     {
+      "name": "타오바오 라이브",
+      "visitors": 72377,
+      "buyers": 1697,
+      "conv": 2.34
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 62189,
+      "buyers": 1699,
+      "conv": 2.73
+     },
+     {
+      "name": "검색",
+      "visitors": 38343,
+      "buyers": 1560,
+      "conv": 4.07
+     },
+     {
+      "name": "장바구니",
+      "visitors": 19855,
+      "buyers": 3155,
+      "conv": 15.89
+     },
+     {
+      "name": "추천 피드",
+      "visitors": 16808,
+      "buyers": 312,
+      "conv": 1.86
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 9154,
+      "buyers": 693,
+      "conv": 7.57
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 8771,
+      "buyers": 320,
+      "conv": 3.65
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 1976,
+      "buyers": 531,
+      "conv": 26.87
+     },
+     {
+      "name": "타오바오 SNS 피드",
+      "visitors": 1801,
+      "buyers": 0,
+      "conv": 0.0
+     },
+     {
+      "name": "티몰 랭킹",
+      "visitors": 1664,
+      "buyers": 25,
+      "conv": 1.5
+     }
+    ]
+   }
+  },
+  "5월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 53596,
+     "payKRW": 85792740,
+     "payCNY": 389967,
+     "conv": 5.02,
+     "share": 43.3
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 18780,
+     "payKRW": 47146660,
+     "payCNY": 214303,
+     "conv": 13.94,
+     "share": 23.8
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 13245,
+     "payKRW": 11307780,
+     "payCNY": 51399,
+     "conv": 2.57,
+     "share": 5.7
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 8383,
+     "payKRW": 10008240,
+     "payCNY": 45492,
+     "conv": 6.58,
+     "share": 5.1
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 5475,
+     "payKRW": 8331620,
+     "payCNY": 37871,
+     "conv": 4.22,
+     "share": 4.2
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 7506,
+     "payKRW": 8251100,
+     "payCNY": 37505,
+     "conv": 5.36,
+     "share": 4.2
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 9814,
+     "payKRW": 7560080,
+     "payCNY": 34364,
+     "conv": 2.56,
+     "share": 3.8
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 6575,
+     "payKRW": 4145900,
+     "payCNY": 18845,
+     "conv": 3.92,
+     "share": 2.1
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 8702,
+     "payKRW": 3219040,
+     "payCNY": 14632,
+     "conv": 1.52,
+     "share": 1.6
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 3642,
+     "payKRW": 2647700,
+     "payCNY": 12035,
+     "conv": 4.12,
+     "share": 1.3
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 2125,
+     "payKRW": 1751640,
+     "payCNY": 7962,
+     "conv": 6.64,
+     "share": 0.9
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2471,
+     "payKRW": 1364880,
+     "payCNY": 6204,
+     "conv": 3.2,
+     "share": 0.7
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 3347,
+     "payKRW": 1288980,
+     "payCNY": 5859,
+     "conv": 1.85,
+     "share": 0.7
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 1932,
+     "payKRW": 1179420,
+     "payCNY": 5361,
+     "conv": 3.62,
+     "share": 0.6
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1591,
+     "payKRW": 1155880,
+     "payCNY": 5254,
+     "conv": 1.95,
+     "share": 0.6
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1009,
+     "payKRW": 999460,
+     "payCNY": 4543,
+     "conv": 3.17,
+     "share": 0.5
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 791,
+     "payKRW": 636240,
+     "payCNY": 2892,
+     "conv": 5.94,
+     "share": 0.3
+    },
+    {
+     "name": "[기획] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1540,
+     "payKRW": 592680,
+     "payCNY": 2694,
+     "conv": 1.75,
+     "share": 0.3
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 2060,
+     "payKRW": 526900,
+     "payCNY": 2395,
+     "conv": 0.73,
+     "share": 0.3
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 77,
+     "payKRW": 22440,
+     "payCNY": 102,
+     "conv": 1.3,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 25,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 64,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 72,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 40,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 56,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 44,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 556684",
+     "status": "온라인",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 8,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 20,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 74,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 9,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 27,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 45,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 15,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 6,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 197929380,
+   "costItems": [
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 13706220,
+     "prev": 8807920,
+     "diff": 4898300
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 11380600,
+     "prev": 4725380,
+     "diff": 6655220
+    },
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 8791420,
+     "prev": 10936420,
+     "diff": -2145000
+    },
+    {
+     "owner": "스틸",
+     "item": "도우인 라이브방송(Still 부담 수수료)",
+     "cur": 7023060,
+     "prev": 12362240,
+     "diff": -5339180
+    },
+    {
+     "owner": "OY",
+     "item": "라이브방송 올리브영 지원분",
+     "cur": 2467520,
+     "prev": 3529900,
+     "diff": -1062380
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 108919,
+      "buyers": 4399,
+      "conv": 4.04
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 54374,
+      "buyers": 1793,
+      "conv": 3.3
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 36610,
+      "buyers": 3421,
+      "conv": 9.34
+     }
+    ],
+    "subs": [
+     {
+      "name": "검색",
+      "visitors": 55997,
+      "buyers": 2666,
+      "conv": 4.76
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 53491,
+      "buyers": 1687,
+      "conv": 3.15
+     },
+     {
+      "name": "장바구니",
+      "visitors": 22182,
+      "buyers": 2677,
+      "conv": 12.07
+     },
+     {
+      "name": "추천 피드",
+      "visitors": 17320,
+      "buyers": 296,
+      "conv": 1.71
+     },
+     {
+      "name": "타오바오 SNS 피드",
+      "visitors": 15838,
+      "buyers": 0,
+      "conv": 0.0
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 9491,
+      "buyers": 635,
+      "conv": 6.69
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 8427,
+      "buyers": 355,
+      "conv": 4.21
+     },
+     {
+      "name": "타오바오 라이브",
+      "visitors": 6284,
+      "buyers": 407,
+      "conv": 6.48
+     },
+     {
+      "name": "티몰 랭킹",
+      "visitors": 2337,
+      "buyers": 39,
+      "conv": 1.67
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 1816,
+      "buyers": 440,
+      "conv": 24.23
+     }
+    ]
+   }
+  },
+  "6월": {
+   "products": [
+    {
+     "name": "소프트 블러링 아이팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 45964,
+     "payKRW": 76720160,
+     "payCNY": 348728,
+     "conv": 5.11,
+     "share": 51.3
+    },
+    {
+     "name": "믹스 블러링 볼륨 쉐딩",
+     "status": "온라인",
+     "new": false,
+     "uv": 11338,
+     "payKRW": 17938140,
+     "payCNY": 81537,
+     "conv": 8.62,
+     "share": 12.0
+    },
+    {
+     "name": "워터 글로우 코팅밤AD(쿠션)",
+     "status": "온라인",
+     "new": false,
+     "uv": 7437,
+     "payKRW": 14685000,
+     "payCNY": 66750,
+     "conv": 5.15,
+     "share": 9.8
+    },
+    {
+     "name": "쉐이킹 블러 치크",
+     "status": "온라인",
+     "new": false,
+     "uv": 5867,
+     "payKRW": 8262980,
+     "payCNY": 37559,
+     "conv": 7.07,
+     "share": 5.5
+    },
+    {
+     "name": "16색 아이섀도우 팔레트(데일리)",
+     "status": "온라인",
+     "new": false,
+     "uv": 7781,
+     "payKRW": 7499360,
+     "payCNY": 34088,
+     "conv": 2.9,
+     "share": 5.0
+    },
+    {
+     "name": "디파이닝 커버 파운데이션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 5206,
+     "payKRW": 5297160,
+     "payCNY": 24078,
+     "conv": 3.46,
+     "share": 3.5
+    },
+    {
+     "name": "워터풀 글로우 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 5510,
+     "payKRW": 3161400,
+     "payCNY": 14370,
+     "conv": 3.47,
+     "share": 2.1
+    },
+    {
+     "name": "6색 멀티 팔레트",
+     "status": "온라인",
+     "new": false,
+     "uv": 6809,
+     "payKRW": 2888600,
+     "payCNY": 13130,
+     "conv": 1.89,
+     "share": 1.9
+    },
+    {
+     "name": "워터풀 글로우 틴트(신규)",
+     "status": "온라인",
+     "new": false,
+     "uv": 2845,
+     "payKRW": 2501620,
+     "payCNY": 11371,
+     "conv": 6.92,
+     "share": 1.7
+    },
+    {
+     "name": "볼드 립 블러 틴트",
+     "status": "온라인",
+     "new": true,
+     "uv": 5101,
+     "payKRW": 2241360,
+     "payCNY": 10188,
+     "conv": 1.67,
+     "share": 1.5
+    },
+    {
+     "name": "헬시 글로우 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 4066,
+     "payKRW": 1844480,
+     "payCNY": 8384,
+     "conv": 2.46,
+     "share": 1.2
+    },
+    {
+     "name": "매트 그레이 쿠션",
+     "status": "온라인",
+     "new": false,
+     "uv": 1990,
+     "payKRW": 1659680,
+     "payCNY": 7544,
+     "conv": 2.56,
+     "share": 1.1
+    },
+    {
+     "name": "소프트 블러링 밤 스틱",
+     "status": "온라인",
+     "new": false,
+     "uv": 2549,
+     "payKRW": 1229580,
+     "payCNY": 5589,
+     "conv": 2.43,
+     "share": 0.8
+    },
+    {
+     "name": "워터 블러링 레이어 틴트",
+     "status": "온라인",
+     "new": false,
+     "uv": 1611,
+     "payKRW": 949960,
+     "payCNY": 4318,
+     "conv": 3.66,
+     "share": 0.6
+    },
+    {
+     "name": "눈썹연필·아이브로우",
+     "status": "온라인",
+     "new": false,
+     "uv": 698,
+     "payKRW": 725780,
+     "payCNY": 3299,
+     "conv": 7.74,
+     "share": 0.5
+    },
+    {
+     "name": "디파이닝 커버 컨실러",
+     "status": "온라인",
+     "new": false,
+     "uv": 1208,
+     "payKRW": 635360,
+     "payCNY": 2888,
+     "conv": 3.23,
+     "share": 0.4
+    },
+    {
+     "name": "스테이 픽서 세팅 미스트",
+     "status": "온라인",
+     "new": true,
+     "uv": 1677,
+     "payKRW": 397540,
+     "payCNY": 1807,
+     "conv": 1.55,
+     "share": 0.3
+    },
+    {
+     "name": "워터 글로우 코팅밤(구형)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1159,
+     "payKRW": 356400,
+     "payCNY": 1620,
+     "conv": 0.86,
+     "share": 0.2
+    },
+    {
+     "name": "[기획] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 517,
+     "payKRW": 329560,
+     "payCNY": 1498,
+     "conv": 2.71,
+     "share": 0.2
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션(브러시증정)",
+     "status": "온라인",
+     "new": false,
+     "uv": 1128,
+     "payKRW": 281600,
+     "payCNY": 1280,
+     "conv": 0.62,
+     "share": 0.2
+    },
+    {
+     "name": "[특가] 러비 미광 립 틴트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 22,
+     "payKRW": 40480,
+     "payCNY": 184,
+     "conv": 4.55,
+     "share": 0.0
+    },
+    {
+     "name": "와이드 파운데이션 브러시",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 924,
+     "payKRW": 36960,
+     "payCNY": 168,
+     "conv": 0.22,
+     "share": 0.0
+    },
+    {
+     "name": "윤곽 형광 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "정형 컨실러 조색 팔레트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 4,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "퓨어 소이 파우더 팩트",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 446381",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 32,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 650539",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 894878",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 41,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 986222",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 094402",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 7,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 706355",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 812800",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 024570",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[한정특가] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 30,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 425092",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 825154",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 28,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 36,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 645525",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 44,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 297069",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 14,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 199861",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 18,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 워터 글로우 코팅 쿠션",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 56,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 618845",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "[임박] 디파이닝 커버 컨실러",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 101223",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 14,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 256425",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 188739",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 3,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 627629",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 2,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 868814",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 31,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 255590",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 5,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 503424",
+     "status": "품절/내림",
+     "new": true,
+     "uv": 12,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    },
+    {
+     "name": "코드 530064",
+     "status": "품절/내림",
+     "new": false,
+     "uv": 1,
+     "payKRW": 0,
+     "payCNY": 0,
+     "conv": 0,
+     "share": 0.0
+    }
+   ],
+   "productTotalKRW": 149683160,
+   "costItems": [
+    {
+     "owner": "OY",
+     "item": "샤오홍씽 CID 효과광고(聚光)",
+     "cur": 22497420,
+     "prev": 13706220,
+     "diff": 8791200
+    },
+    {
+     "owner": "스틸",
+     "item": "티몰 유료광고(내부광고 소모액)",
+     "cur": 8992940,
+     "prev": 8791420,
+     "diff": 201520
+    },
+    {
+     "owner": "OY",
+     "item": "KOL/KOC/SNS 바이럴 마케팅",
+     "cur": 5494720,
+     "prev": 11380600,
+     "diff": -5885880
+    },
+    {
+     "owner": "스틸",
+     "item": "도우인 라이브방송(Still 부담 수수료)",
+     "cur": 0,
+     "prev": 7023060,
+     "diff": -7023060
+    },
+    {
+     "owner": "OY",
+     "item": "라이브방송 올리브영 지원분",
+     "cur": 0,
+     "prev": 2467520,
+     "diff": -2467520
+    }
+   ],
+   "traffic": {
+    "groups": [
+     {
+      "name": "자연 유입(무료)",
+      "visitors": 74094,
+      "buyers": 2744,
+      "conv": 3.7
+     },
+     {
+      "name": "유료 광고",
+      "visitors": 37456,
+      "buyers": 1266,
+      "conv": 3.38
+     },
+     {
+      "name": "자발적 재방문",
+      "visitors": 27733,
+      "buyers": 2629,
+      "conv": 9.48
+     }
+    ],
+    "subs": [
+     {
+      "name": "검색",
+      "visitors": 42834,
+      "buyers": 1375,
+      "conv": 3.21
+     },
+     {
+      "name": "키워드 광고(무계)",
+      "visitors": 36850,
+      "buyers": 1202,
+      "conv": 3.26
+     },
+     {
+      "name": "장바구니",
+      "visitors": 15332,
+      "buyers": 2037,
+      "conv": 13.29
+     },
+     {
+      "name": "추천 피드",
+      "visitors": 14447,
+      "buyers": 294,
+      "conv": 2.04
+     },
+     {
+      "name": "이미지 검색",
+      "visitors": 7580,
+      "buyers": 292,
+      "conv": 3.85
+     },
+     {
+      "name": "마이 타오바오",
+      "visitors": 6910,
+      "buyers": 457,
+      "conv": 6.61
+     },
+     {
+      "name": "타오바오 SNS 피드",
+      "visitors": 4265,
+      "buyers": 0,
+      "conv": 0.0
+     },
+     {
+      "name": "타오바오 라이브",
+      "visitors": 4080,
+      "buyers": 282,
+      "conv": 6.91
+     },
+     {
+      "name": "티몰 랭킹",
+      "visitors": 1429,
+      "buyers": 24,
+      "conv": 1.68
+     },
+     {
+      "name": "타오진비(포인트)",
+      "visitors": 1222,
+      "buyers": 265,
+      "conv": 21.69
+     }
+    ]
+   }
+  }
+ }
+}
