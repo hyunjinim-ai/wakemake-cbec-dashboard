@@ -2,35 +2,29 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>웨이크메이크 중국 역직구 대시보드 · 티몰글로벌 6월</title>
+<title>웨이크메이크·컬러그램 중국 역직구 통합 대시보드</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <style>
   :root{
     --font-sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Segoe UI",system-ui,sans-serif;
-
     --bg:#F4F8EA; --bg-2:#EEF4DE;
     --surface:#FFFFFF; --surface-2:#FBFDF6;
     --border:#E4EDD3; --border-2:#D2E0B8;
     --ink:#23302A; --ink-2:#566052; --ink-3:#8A957C;
-
     --green:#6F9A16; --green-2:#9BCE26; --green-soft:#EDF6D6;
     --coral:#E05656; --coral-2:#FF7878; --coral-soft:#FCE7E4;
-    --blue:#3C93AB; --gold:#D99A00; --purple:#8E6FC0; --navy:#33475A;
+    --blue:#3C93AB; --blue-soft:#E1F0F4; --gold:#D99A00; --purple:#8E6FC0; --navy:#33475A;
     --good:#6F9A16; --warn:#C98A00; --warn-soft:#FBF0D2; --bad:#E05656;
-
     --shadow:0 1px 2px rgba(40,60,30,.05), 0 6px 20px rgba(60,90,40,.06);
     --radius:16px;
   }
   @media (prefers-color-scheme:dark){
     :root{
-      --bg:#10140D; --bg-2:#151A0F;
-      --surface:#191F12; --surface-2:#1D2416;
-      --border:#2B3620; --border-2:#3B4B29;
-      --ink:#EAF1DC; --ink-2:#A6B398; --ink-3:#74806A;
-      --green:#B4DE4E; --green-2:#9BCE26; --green-soft:#242E14;
-      --coral:#FF9494; --coral-2:#FF7878; --coral-soft:#33201F;
-      --blue:#6FC3D8; --gold:#F4B740; --purple:#B49BE0; --navy:#9FB6C9;
+      --bg:#10140D; --bg-2:#151A0F; --surface:#191F12; --surface-2:#1D2416;
+      --border:#2B3620; --border-2:#3B4B29; --ink:#EAF1DC; --ink-2:#A6B398; --ink-3:#74806A;
+      --green:#B4DE4E; --green-2:#9BCE26; --green-soft:#242E14; --coral:#FF9494; --coral-2:#FF7878;
+      --coral-soft:#33201F; --blue:#6FC3D8; --blue-soft:#16282E; --gold:#F4B740; --purple:#B49BE0; --navy:#9FB6C9;
       --good:#B4DE4E; --warn:#F4B740; --warn-soft:#312813; --bad:#FF8A8A;
       --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
     }
@@ -39,7 +33,7 @@
     --bg:#F4F8EA; --bg-2:#EEF4DE; --surface:#FFFFFF; --surface-2:#FBFDF6;
     --border:#E4EDD3; --border-2:#D2E0B8; --ink:#23302A; --ink-2:#566052; --ink-3:#8A957C;
     --green:#6F9A16; --green-2:#9BCE26; --green-soft:#EDF6D6; --coral:#E05656; --coral-2:#FF7878;
-    --coral-soft:#FCE7E4; --blue:#3C93AB; --gold:#D99A00; --purple:#8E6FC0; --navy:#33475A;
+    --coral-soft:#FCE7E4; --blue:#3C93AB; --blue-soft:#E1F0F4; --gold:#D99A00; --purple:#8E6FC0; --navy:#33475A;
     --good:#6F9A16; --warn:#C98A00; --warn-soft:#FBF0D2; --bad:#E05656;
     --shadow:0 1px 2px rgba(40,60,30,.05), 0 6px 20px rgba(60,90,40,.06);
   }
@@ -47,7 +41,7 @@
     --bg:#10140D; --bg-2:#151A0F; --surface:#191F12; --surface-2:#1D2416;
     --border:#2B3620; --border-2:#3B4B29; --ink:#EAF1DC; --ink-2:#A6B398; --ink-3:#74806A;
     --green:#B4DE4E; --green-2:#9BCE26; --green-soft:#242E14; --coral:#FF9494; --coral-2:#FF7878;
-    --coral-soft:#33201F; --blue:#6FC3D8; --gold:#F4B740; --purple:#B49BE0; --navy:#9FB6C9;
+    --coral-soft:#33201F; --blue:#6FC3D8; --blue-soft:#16282E; --gold:#F4B740; --purple:#B49BE0; --navy:#9FB6C9;
     --good:#B4DE4E; --warn:#F4B740; --warn-soft:#312813; --bad:#FF8A8A;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
   }
@@ -60,12 +54,15 @@
 
   /* header */
   header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
-    gap:16px;padding-bottom:18px;border-bottom:3px solid var(--green-2)}
+    gap:16px;padding-bottom:16px;border-bottom:3px solid var(--green-2)}
   .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:7px}
-  h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+  h1{margin:0;font-size:25px;font-weight:800;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
   .sub{margin-top:8px;font-size:13px;color:var(--ink-2)}
   .sub b{color:var(--ink);font-weight:700}
-  .hchips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .topctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .msel{border:1px solid var(--border-2);background:var(--surface);color:var(--ink);font-family:inherit;
+    font-weight:700;font-size:13px;border-radius:11px;padding:8px 11px;cursor:pointer}
+  .msel:focus-visible{outline:2px solid var(--green);outline-offset:2px}
   .monthpill{display:inline-flex;align-items:baseline;gap:6px;background:var(--green);color:#fff;
     padding:8px 14px;border-radius:999px;font-weight:800;font-size:14px}
   :root[data-theme="dark"] .monthpill{color:#12160B}
@@ -76,14 +73,34 @@
   .tbtn:hover{border-color:var(--green);color:var(--green)}
   .tbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
+  /* tabs (top-level views) */
+  .tabs{display:flex;gap:4px;margin:16px 0 2px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .tab{appearance:none;border:none;background:none;padding:11px 15px;font:inherit;font-weight:800;font-size:14px;
+    color:var(--ink-3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
+  .tab:hover{color:var(--ink-2)}
+  .tab.active{color:var(--green);border-bottom-color:var(--green)}
+  .tab:focus-visible{outline:2px solid var(--green);outline-offset:-4px;border-radius:6px}
+  .view{display:none} .view.active{display:block}
+
+  /* platform selector */
+  .psel{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 6px;align-items:center}
+  #p-brand{margin-top:18px} #p-sel{margin-top:6px}
+  .selbl{font-size:11px;color:var(--ink-3);font-weight:800;letter-spacing:.04em;align-self:center;margin-right:4px}
+  .pbtn{appearance:none;border:1px solid var(--border-2);background:var(--surface);color:var(--ink-2);
+    padding:8px 15px;border-radius:999px;font:inherit;font-weight:700;font-size:12.5px;cursor:pointer}
+  .pbtn:hover{border-color:var(--green)}
+  .pbtn.active{background:var(--green);border-color:var(--green);color:#fff}
+  :root[data-theme="dark"] .pbtn.active{color:#12160B}
+  @media (prefers-color-scheme:dark){.pbtn.active{color:#12160B}}
+
   /* kpi */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
   @media(max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
   .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
     padding:16px 16px 15px;box-shadow:var(--shadow);position:relative;overflow:hidden}
   .kpi .k-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
   .kpi .k-label{font-size:12px;font-weight:700;color:var(--ink-2)}
-  .kpi .k-val{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-top:9px;line-height:1}
+  .kpi .k-val{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:9px;line-height:1}
   .kpi .k-foot{font-size:11.5px;color:var(--ink-3);margin-top:8px}
   .k-accent{position:absolute;left:0;top:0;bottom:0;width:4px}
   .mom{font-size:11.5px;font-weight:800;white-space:nowrap;display:inline-flex;align-items:center;gap:2px}
@@ -102,8 +119,18 @@
   .dot{width:7px;height:7px;border-radius:50%;flex:none}
   .ins-item b{color:var(--ink);font-weight:700}
 
+  /* unmatched review callout */
+  .unmatch{border-left-color:var(--bad)}
+  .unmatch .tag{color:var(--bad);background:var(--coral-soft)}
+  .urow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--border);font-size:12.5px}
+  .urow:last-child{border-bottom:none}
+  .urow .ucn{font-weight:800;color:var(--ink);min-width:96px}
+  .urow .uval{font-weight:800;color:var(--bad);white-space:nowrap;margin-left:auto}
+  .urow .ureason{color:var(--ink-2);flex:1;min-width:0}
+  .urow .ucand{font-size:11px;color:var(--ink-3)}
+
   /* sections */
-  section.blk{margin-top:30px}
+  section.blk{margin-top:28px}
   .s-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
   .s-head .s-eye{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
   .s-head h2{margin:2px 0 0;font-size:18px;font-weight:800;letter-spacing:-.01em}
@@ -141,10 +168,13 @@
   .pb-track{height:9px;background:var(--bg-2);border-radius:6px;overflow:hidden}
   .pb-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--green-2))}
   .pb-fill.alt{background:linear-gradient(90deg,var(--coral),var(--coral-2))}
+  .pb-fill.blu{background:linear-gradient(90deg,var(--blue),var(--blue))}
   .chip{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:5px;letter-spacing:.02em;flex:none}
   .chip.new{background:var(--coral-soft);color:var(--coral)}
   .chip.off{background:var(--bg-2);color:var(--ink-3)}
   .chip.on{background:var(--green-soft);color:var(--green)}
+  .chip.rev{background:var(--warn-soft);color:var(--warn)}
+  .chip.ok{background:var(--green-soft);color:var(--green)}
 
   /* table */
   .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border)}
@@ -170,7 +200,21 @@
   .stat .st-v{font-size:18px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
   .stat .st-s{font-size:10.5px;color:var(--ink-3);margin-top:2px}
 
-  /* xhs card */
+  /* brand cards (daily) */
+  .brandcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  @media(max-width:640px){.brandcards{grid-template-columns:1fr}}
+  .bcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:15px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .bcard .b-accent{position:absolute;left:0;top:0;bottom:0;width:5px}
+  .bcard .b-name{font-size:13px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:7px}
+  .bcard .b-val{font-size:24px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .bcard .b-sub{font-size:11.5px;color:var(--ink-3);margin-top:5px}
+  .bmini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .bmini .bm{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:8px 9px}
+  .bmini .bm .l{font-size:10px;color:var(--ink-3);font-weight:600}
+  .bmini .bm .v{font-size:14px;font-weight:800;margin-top:2px}
+
+  /* xhs / kv card */
   .xhs{border-left:4px solid var(--bad)}
   .xhs.warnb{border-left-color:var(--warn)}
   .kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--border);font-size:12.5px}
@@ -179,6 +223,19 @@
   .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px}
   .badge.bad{background:var(--coral-soft);color:var(--bad)}
   .badge.good{background:var(--green-soft);color:var(--good)}
+
+  /* funnel */
+  .funnel{display:flex;flex-direction:column;gap:8px}
+  .fn{display:flex;align-items:center;gap:10px}
+  .fn .fl{font-size:12px;color:var(--ink-2);font-weight:700;width:96px;flex:none}
+  .fn .ft{flex:1;height:26px;background:var(--bg-2);border-radius:7px;overflow:hidden;position:relative}
+  .fn .ft i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--blue),var(--blue))}
+  .fn .fv{font-size:12px;font-weight:800;white-space:nowrap;width:120px;text-align:right;flex:none}
+
+  /* platform split bar */
+  .splitbar{display:flex;height:34px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .splitbar .seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;min-width:0}
+  :root[data-theme="dark"] .splitbar .seg{color:#0c0f08}
 
   /* traffic groups */
   .tg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
@@ -197,151 +254,200 @@
     font-weight:800;font-size:11px;display:grid;place-items:center;margin-top:1px}
   .rec b{color:var(--ink);font-weight:700}
 
+  .note{font-size:11.5px;color:var(--ink-3);margin-top:10px;padding:9px 12px;background:var(--surface-2);
+    border:1px dashed var(--border-2);border-radius:10px}
+
   footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--border);
     font-size:11px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
 
   /* tooltip */
   .tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .1s;
     background:var(--navy);color:#fff;padding:8px 11px;border-radius:9px;font-size:11.5px;font-weight:600;
-    white-space:pre-line;line-height:1.45;box-shadow:0 6px 22px rgba(0,0,0,.24);max-width:260px}
-  :root[data-theme="dark"] .tip{background:#05070a;border:1px solid var(--border-2)}
+    white-space:pre-line;line-height:1.45;box-shadow:0 6px 22px rgba(0,0,0,.24);max-width:280px}
+  :root[data-theme="dark"] .tip{background:#05070a;border:1px solid var(--border-2);color:#EAF1DC}
   @media (prefers-color-scheme:dark){.tip{background:#05070a}}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<style>
-  .topctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .msel{border:1px solid var(--border-2);background:var(--surface);color:var(--ink);font-family:inherit;
-    font-weight:700;font-size:13px;border-radius:11px;padding:8px 11px;cursor:pointer}
-  .msel:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-</style>
 <div class="wrap">
   <header class="top">
     <div>
-      <div class="eyebrow">China Cross-Border · Tmall Global</div>
-      <h1>웨이크메이크 중국 역직구 대시보드</h1>
-      <div class="sub">티몰글로벌(天猫国际) 자영점 · <b>2026년 상반기(1–6월)</b> 성과 &amp; 마케팅 비용 &nbsp;·&nbsp; 환율 <b>1元 = 220원</b></div>
+      <div class="eyebrow">China Cross-Border · Tmall · Douyin · RED</div>
+      <h1>웨이크메이크 · 컬러그램 중국 역직구 통합 대시보드</h1>
+      <div class="sub">티몰글로벌(天猫国际) · 도우인(抖音) · 샤오홍슈(小红书) &nbsp;·&nbsp; 환율 <b>1元 = 220원</b> · 증정 제외 결제금액</div>
     </div>
     <div class="topctrl">
-      <select id="monthSel" class="msel" aria-label="기준월 선택"></select>
-      <span class="monthpill" id="mpill"></span>
       <button class="tbtn" id="themeBtn" title="라이트/다크 전환" aria-label="테마 전환">◐</button>
     </div>
   </header>
 
-  <div class="kpis" id="kpis"></div>
-  <div class="callout" id="insight"></div>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab" data-view="daily" role="tab">① 일자별 매출</button>
+    <button class="tab" data-view="platforms" role="tab">② 플랫폼 통합</button>
+    <button class="tab" data-view="tmall" role="tab">③ 티몰 월별</button>
+  </nav>
 
-  <!-- ① 추이 -->
-  <section class="blk">
-    <div class="s-head">
-      <div><div class="s-eye">Performance Trend</div><h2>① 상반기 매출·효율 추이</h2></div>
-      <div class="s-src">일자별매출 · 목표 · 마케팅비<br>단위 KRW(₩) · 환율 220원</div>
+  <!-- =========================== VIEW ① 일자별 =========================== -->
+  <section id="view-daily" class="view">
+    <div class="s-head" style="margin-top:18px">
+      <div><div class="s-eye">Daily Sell-out · by Brand</div><h2 id="d-title">일자별 매출 — 브랜드별</h2></div>
+      <div class="s-src" id="d-src"></div>
     </div>
-    <div class="grid2">
+    <div class="brandcards" id="d-brandcards"></div>
+    <section class="blk">
       <div class="card">
-        <div class="card-h"><div><div class="c-t">월별 티몰 매출 vs 목표</div><div class="c-s">막대: 실적(증정 제외) · 선: 목표 · 선택월 강조</div></div>
-          <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>실적</span><span class="lg line"><i style="background:var(--coral-2)"></i>목표</span></div></div>
-        <div id="ch-sales"></div>
+        <div class="card-h">
+          <div><div class="c-t">일자별 결제금액 추이</div><div class="c-s">브랜드별 분리 · 마커=피크/급락일 · 환율 220원</div></div>
+          <div class="legend">
+            <span class="lg line"><i style="background:var(--green-2)"></i>웨이크메이크</span>
+            <span class="lg line"><i style="background:var(--coral-2)"></i>컬러그램</span>
+          </div>
+        </div>
+        <div id="d-chart"></div>
       </div>
+    </section>
+    <div class="callout" id="d-insight"></div>
+    <section class="blk">
       <div class="card">
-        <div class="card-h"><div><div class="c-t">마케팅비 &amp; 통합 ROAS</div><div class="c-s">막대: OY·스틸 · 선: ROAS(우축) · 선택월 강조</div></div>
-          <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span><span class="lg line"><i style="background:var(--navy)"></i>ROAS</span></div></div>
-        <div id="ch-cost"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ② sell-out -->
-  <section class="blk">
-    <div class="s-head">
-      <div><div class="s-eye">Sell-out</div><h2 id="h2Sell"></h2></div>
-      <div class="s-src" id="sell-src"></div>
-    </div>
-    <div class="grid-3-2">
-      <div class="card">
-        <div class="card-h"><div><div class="c-t">매출 상위 상품 (증정품 제외)</div><div class="c-s">막대 길이=결제금액 · 우측=점유율</div></div></div>
-        <div class="pbars" id="prodbars"></div>
-      </div>
-      <div class="card">
-        <div class="card-h"><div><div class="c-t">Sell-out 스냅샷</div></div></div>
-        <div class="statrow" id="sellstats"></div>
-        <div style="margin-top:13px" class="card-h"><div><div class="c-t" style="font-size:12.5px">구매전환율 상위 (UV≥500)</div><div class="c-s">트래픽을 태우면 매출 레버리지가 큰 고전환 SKU</div></div></div>
-        <div class="pbars" id="convstars"></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:14px">
-      <div class="card-h"><div><div class="c-t">상품별 상세 (판매 발생 SKU)</div><div class="c-s" id="tbl-note"></div></div></div>
-      <div class="tbl-wrap">
-        <table id="prodtable">
-          <thead><tr><th class="l">#</th><th class="l">상품명</th><th class="l">상태</th><th>UV</th><th>결제금액(₩)</th><th>점유율</th><th>구매전환율</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ③ 마케팅 비용 -->
-  <section class="blk">
-    <div class="s-head">
-      <div><div class="s-eye">Marketing Cost</div><h2 id="h2Mkt"></h2></div>
-      <div class="s-src">주체별(OY·스틸) · 항목별 · 전월 대비<br>샤오홍슈 CID 성과 포함</div>
-    </div>
-    <div class="grid-3-2">
-      <div class="card">
-        <div class="card-h"><div><div class="c-t">항목별 집행 &amp; 전월 대비</div><div class="c-s" id="cost-total"></div></div>
-          <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span></div></div>
-        <div class="tbl-wrap" style="border:none">
-          <table id="costtable">
-            <thead><tr><th class="l">주체</th><th class="l">항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr></thead>
+        <div class="card-h"><div><div class="c-t">일자별 상세</div><div class="c-s">브랜드별 결제금액·주문수</div></div></div>
+        <div class="tbl-wrap">
+          <table id="d-table">
+            <thead><tr><th class="l">일자</th><th class="l">요일</th>
+              <th>웨메 결제(₩)</th><th>웨메 주문</th><th>컬그 결제(₩)</th><th>컬그 주문</th><th>합계(₩)</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
       </div>
-      <div>
-        <div class="card" style="margin-bottom:14px">
-          <div class="card-h"><div><div class="c-t">주체별 비중</div><div class="c-s" id="donutSub"></div></div></div>
-          <div style="display:flex;align-items:center;gap:16px"><div id="donut" style="flex:none"></div><div id="donut-legend" style="flex:1;min-width:0"></div></div>
-        </div>
-        <div class="card xhs warnb" id="xhscard">
-          <div class="card-h"><div><div class="c-t">샤오홍슈(小红书) CID 성과</div><div class="c-s">효과광고(聚光)</div></div><span class="badge bad" id="xhs-badge"></span></div>
-          <div id="xhs-kv"></div>
-        </div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:14px">
-      <div class="card-h"><div><div class="c-t">전문가 액션 제안</div><div class="c-s">선택월 데이터 기반 · 중국 역직구 운영 관점</div></div></div>
-      <div class="recs" id="recs"></div>
-    </div>
+    </section>
+    <div class="note" id="d-note"></div>
   </section>
 
-  <!-- ④ 유입경로 -->
-  <section class="blk">
-    <div class="s-head">
-      <div><div class="s-eye">Traffic Source</div><h2 id="h2Traf"></h2></div>
-      <div class="s-src">자연·유료·재방문<br>방문자·구매자·전환율</div>
+  <!-- =========================== VIEW ② 플랫폼 통합 =========================== -->
+  <section id="view-platforms" class="view">
+    <div class="psel" id="p-brand" role="tablist" aria-label="브랜드 선택"></div>
+    <div class="psel" id="p-sel" role="tablist" aria-label="플랫폼 선택"></div>
+    <div id="p-body"></div>
+  </section>
+
+  <!-- =========================== VIEW ③ 티몰 월별 (기존) =========================== -->
+  <section id="view-tmall" class="view">
+    <div class="s-head" style="margin-top:18px">
+      <div><div class="s-eye">Tmall Global · Monthly</div><h2>티몰글로벌 월별 성과</h2></div>
+      <div class="topctrl">
+        <select id="monthSel" class="msel" aria-label="기준월 선택"></select>
+        <span class="monthpill" id="mpill"></span>
+      </div>
     </div>
-    <div class="card">
-      <div class="tg" id="tgroups"></div>
-      <div class="card-h"><div><div class="c-t">세부 채널 방문자 Top</div><div class="c-s">막대=방문자 · 우측=구매전환율</div></div></div>
-      <div class="pbars" id="trafbars"></div>
-    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="callout" id="insight"></div>
+
+    <section class="blk">
+      <div class="s-head">
+        <div><div class="s-eye">Performance Trend</div><h2>① 상반기 매출·효율 추이</h2></div>
+        <div class="s-src">일자별매출 · 목표 · 마케팅비<br>단위 KRW(₩) · 환율 220원</div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-h"><div><div class="c-t">월별 티몰 매출 vs 목표</div><div class="c-s">막대: 실적(증정 제외) · 선: 목표 · 선택월 강조</div></div>
+            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>실적</span><span class="lg line"><i style="background:var(--coral-2)"></i>목표</span></div></div>
+          <div id="ch-sales"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><div><div class="c-t">마케팅비 &amp; 통합 ROAS</div><div class="c-s">막대: OY·스틸 · 선: ROAS(우축) · 선택월 강조</div></div>
+            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span><span class="lg line"><i style="background:var(--navy)"></i>ROAS</span></div></div>
+          <div id="ch-cost"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="s-head">
+        <div><div class="s-eye">Sell-out</div><h2 id="h2Sell"></h2></div>
+        <div class="s-src" id="sell-src"></div>
+      </div>
+      <div class="grid-3-2">
+        <div class="card">
+          <div class="card-h"><div><div class="c-t">매출 상위 상품 (증정품 제외)</div><div class="c-s">막대 길이=결제금액 · 우측=점유율</div></div></div>
+          <div class="pbars" id="prodbars"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><div><div class="c-t">Sell-out 스냅샷</div></div></div>
+          <div class="statrow" id="sellstats"></div>
+          <div style="margin-top:13px" class="card-h"><div><div class="c-t" style="font-size:12.5px">구매전환율 상위 (UV≥500)</div><div class="c-s">트래픽을 태우면 매출 레버리지가 큰 고전환 SKU</div></div></div>
+          <div class="pbars" id="convstars"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-h"><div><div class="c-t">상품별 상세 (판매 발생 SKU)</div><div class="c-s" id="tbl-note"></div></div></div>
+        <div class="tbl-wrap">
+          <table id="prodtable">
+            <thead><tr><th class="l">#</th><th class="l">상품명</th><th class="l">상태</th><th>UV</th><th>결제금액(₩)</th><th>점유율</th><th>구매전환율</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="s-head">
+        <div><div class="s-eye">Marketing Cost</div><h2 id="h2Mkt"></h2></div>
+        <div class="s-src">주체별(OY·스틸) · 항목별 · 전월 대비<br>샤오홍슈 CID 성과 포함</div>
+      </div>
+      <div class="grid-3-2">
+        <div class="card">
+          <div class="card-h"><div><div class="c-t">항목별 집행 &amp; 전월 대비</div><div class="c-s" id="cost-total"></div></div>
+            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span></div></div>
+          <div class="tbl-wrap" style="border:none">
+            <table id="costtable">
+              <thead><tr><th class="l">주체</th><th class="l">항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-h"><div><div class="c-t">주체별 비중</div><div class="c-s" id="donutSub"></div></div></div>
+            <div style="display:flex;align-items:center;gap:16px"><div id="donut" style="flex:none"></div><div id="donut-legend" style="flex:1;min-width:0"></div></div>
+          </div>
+          <div class="card xhs warnb" id="xhscard">
+            <div class="card-h"><div><div class="c-t">샤오홍슈(小红书) CID 성과</div><div class="c-s">효과광고(聚光)</div></div><span class="badge bad" id="xhs-badge"></span></div>
+            <div id="xhs-kv"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-h"><div><div class="c-t">전문가 액션 제안</div><div class="c-s">선택월 데이터 기반 · 중국 역직구 운영 관점</div></div></div>
+        <div class="recs" id="recs"></div>
+      </div>
+    </section>
+
+    <section class="blk">
+      <div class="s-head">
+        <div><div class="s-eye">Traffic Source</div><h2 id="h2Traf"></h2></div>
+        <div class="s-src">자연·유료·재방문<br>방문자·구매자·전환율</div>
+      </div>
+      <div class="card">
+        <div class="tg" id="tgroups"></div>
+        <div class="card-h"><div><div class="c-t">세부 채널 방문자 Top</div><div class="c-s">막대=방문자 · 우측=구매전환율</div></div></div>
+        <div class="pbars" id="trafbars"></div>
+      </div>
+    </section>
   </section>
 
   <footer>
-    <span>데이터: 티몰글로벌 자영점 로우데이터(상품별판매·유입경로·마케팅비) · 증정품 제외 결제금액 · 환율 1元=220원</span>
+    <span>데이터: 티몰글로벌·도우인·샤오홍슈 로우데이터 · 증정품 제외 결제금액 · 환율 1元=220원</span>
     <span id="foot-meta"></span>
   </footer>
 </div>
 <div class="tip" id="tip"></div>
 
 <script>
-const DATA = {"fx":220,"months":["1월","2월","3월","4월","5월","6월"],"series":[{"month":"1월","salesKRW":246147220,"targetKRW":207894478,"achv":118.4,"uv":199810,"pv":707956,"costKRW":21747220,"oyKRW":14013780,"stKRW":7733440,"roas":11.32,"xhsAdKRW":6802165,"xhsGmvKRW":14668975,"xhsRoas":2.2,"xhsShare":7.7,"xhsUV":15390},{"month":"2월","salesKRW":182585480,"targetKRW":174286731,"achv":104.8,"uv":168326,"pv":576639,"costKRW":17392980,"oyKRW":8685380,"stKRW":8707600,"roas":10.5,"xhsAdKRW":3506316,"xhsGmvKRW":8847021,"xhsRoas":2.5,"xhsShare":3.9,"xhsUV":6634},{"month":"3월","salesKRW":198126280,"targetKRW":189120173,"achv":104.8,"uv":165905,"pv":585263,"costKRW":28343480,"oyKRW":16712520,"stKRW":11630960,"roas":6.99,"xhsAdKRW":7458977,"xhsGmvKRW":16496143,"xhsRoas":2.2,"xhsShare":8.3,"xhsUV":13762},{"month":"4월","salesKRW":250766780,"targetKRW":250767217,"achv":100.0,"uv":214152,"pv":650392,"costKRW":40361860,"oyKRW":17063200,"stKRW":23298660,"roas":6.21,"xhsAdKRW":8807847,"xhsGmvKRW":23904129,"xhsRoas":2.7,"xhsShare":6.7,"xhsUV":14425},{"month":"5월","salesKRW":197929380,"targetKRW":193473144,"achv":102.3,"uv":153240,"pv":535140,"costKRW":43368820,"oyKRW":27554340,"stKRW":15814480,"roas":4.56,"xhsAdKRW":13706143,"xhsGmvKRW":13412199,"xhsRoas":1.0,"xhsShare":6.8,"xhsUV":10392},{"month":"6월","salesKRW":149683160,"targetKRW":150500000,"achv":99.5,"uv":121834,"pv":417926,"costKRW":36985080,"oyKRW":27992140,"stKRW":8992940,"roas":4.05,"xhsAdKRW":22497515,"xhsGmvKRW":19522494,"xhsRoas":0.9,"xhsShare":12.5,"xhsUV":15271}],"byMonth":{"1월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":62153,"payKRW":121186560,"payCNY":550848,"conv":5.89,"share":49.2},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":9115,"payKRW":21953800,"payCNY":99790,"conv":16.22,"share":8.9},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":14440,"payKRW":16654440,"payCNY":75702,"conv":3.53,"share":6.8},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":8780,"payKRW":14905880,"payCNY":67754,"conv":9.2,"share":6.1},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":6855,"payKRW":13508220,"payCNY":61401,"conv":5.11,"share":5.5},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":5388,"payKRW":8350320,"payCNY":37956,"conv":6.64,"share":3.4},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":6106,"payKRW":6705820,"payCNY":30481,"conv":3.7,"share":2.7},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":8406,"payKRW":4602400,"payCNY":20920,"conv":4.53,"share":1.9},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":3920,"payKRW":3896640,"payCNY":17712,"conv":3.01,"share":1.6},{"name":"코드 645525","status":"품절/내림","new":false,"uv":6729,"payKRW":3767500,"payCNY":17125,"conv":5.08,"share":1.5},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":6755,"payKRW":3702160,"payCNY":16828,"conv":2.75,"share":1.5},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":7313,"payKRW":3315840,"payCNY":15072,"conv":1.79,"share":1.3},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":2321,"payKRW":2672780,"payCNY":12149,"conv":8.79,"share":1.1},{"name":"코드 101223","status":"품절/내림","new":false,"uv":9209,"payKRW":2452120,"payCNY":11146,"conv":1.25,"share":1.0},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":3586,"payKRW":1934680,"payCNY":8794,"conv":3.49,"share":0.8},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":3356,"payKRW":1745480,"payCNY":7934,"conv":3.04,"share":0.7},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1207,"payKRW":1691140,"payCNY":7687,"conv":3.98,"share":0.7},{"name":"코드 894878","status":"품절/내림","new":false,"uv":2096,"payKRW":1678600,"payCNY":7630,"conv":3.29,"share":0.7},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":2145,"payKRW":1629760,"payCNY":7408,"conv":3.96,"share":0.7},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":998,"payKRW":1533840,"payCNY":6972,"conv":8.72,"share":0.6},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":3264,"payKRW":1274020,"payCNY":5791,"conv":2.02,"share":0.5},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":1700,"payKRW":845680,"payCNY":3844,"conv":2.82,"share":0.3},{"name":"코드 530064","status":"품절/내림","new":false,"uv":4342,"payKRW":834240,"payCNY":3792,"conv":0.92,"share":0.3},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":801,"payKRW":750640,"payCNY":3412,"conv":6.37,"share":0.3},{"name":"코드 255590","status":"품절/내림","new":false,"uv":1113,"payKRW":640200,"payCNY":2910,"conv":3.5,"share":0.3},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":481,"payKRW":631840,"payCNY":2872,"conv":3.53,"share":0.3},{"name":"코드 256425","status":"품절/내림","new":true,"uv":596,"payKRW":514580,"payCNY":2339,"conv":3.36,"share":0.2},{"name":"코드 188739","status":"품절/내림","new":false,"uv":609,"payKRW":485980,"payCNY":2209,"conv":3.45,"share":0.2},{"name":"코드 618845","status":"품절/내림","new":false,"uv":3590,"payKRW":416240,"payCNY":1892,"conv":1.0,"share":0.2},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":6569,"payKRW":366960,"payCNY":1668,"conv":0.84,"share":0.1},{"name":"코드 297069","status":"품절/내림","new":false,"uv":1018,"payKRW":284020,"payCNY":1291,"conv":1.38,"share":0.1},{"name":"코드 825154","status":"품절/내림","new":true,"uv":1523,"payKRW":280720,"payCNY":1276,"conv":1.25,"share":0.1},{"name":"코드 503424","status":"품절/내림","new":true,"uv":490,"payKRW":279620,"payCNY":1271,"conv":4.08,"share":0.1},{"name":"코드 425092","status":"품절/내림","new":false,"uv":852,"payKRW":188320,"payCNY":856,"conv":1.06,"share":0.1},{"name":"코드 812800","status":"품절/내림","new":false,"uv":446,"payKRW":174460,"payCNY":793,"conv":2.02,"share":0.1},{"name":"코드 868814","status":"품절/내림","new":true,"uv":289,"payKRW":137060,"payCNY":623,"conv":2.42,"share":0.1},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":777,"payKRW":100760,"payCNY":458,"conv":1.29,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":316,"payKRW":53900,"payCNY":245,"conv":1.27,"share":0.0},{"name":"윤곽 형광 조색 팔레트","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":42,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":26,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":21,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":16,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 804531","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":246147220,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":7733440,"prev":0,"diff":7733440},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":7211600,"prev":0,"diff":7211600},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":6802180,"prev":0,"diff":6802180}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":99272,"buyers":4979,"conv":5.02},{"name":"유료 광고","visitors":48887,"buyers":2236,"conv":4.57},{"name":"자발적 재방문","visitors":37699,"buyers":4432,"conv":11.76}],"subs":[{"name":"검색","visitors":62864,"buyers":2753,"conv":4.38},{"name":"키워드 광고(무계)","visitors":46669,"buyers":1995,"conv":4.27},{"name":"추천 피드","visitors":29586,"buyers":505,"conv":1.71},{"name":"장바구니","visitors":21184,"buyers":3514,"conv":16.59},{"name":"마이 타오바오","visitors":10956,"buyers":949,"conv":8.66},{"name":"이미지 검색","visitors":10105,"buyers":414,"conv":4.1},{"name":"타오바오 라이브","visitors":4417,"buyers":379,"conv":8.58},{"name":"타오진비(포인트)","visitors":3023,"buyers":645,"conv":21.34},{"name":"메시지 알림","visitors":1560,"buyers":205,"conv":13.14},{"name":"티몰 랭킹","visitors":1357,"buyers":14,"conv":1.03}]}},"2월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":50297,"payKRW":79514380,"payCNY":361429,"conv":4.79,"share":43.5},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":10417,"payKRW":28045600,"payCNY":127480,"conv":13.34,"share":15.4},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":10921,"payKRW":14473580,"payCNY":65789,"conv":3.92,"share":7.9},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":7074,"payKRW":11962500,"payCNY":54375,"conv":4.4,"share":6.6},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":8173,"payKRW":9494760,"payCNY":43158,"conv":6.23,"share":5.2},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":7716,"payKRW":6157580,"payCNY":27989,"conv":3.76,"share":3.4},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":5950,"payKRW":5531460,"payCNY":25143,"conv":2.57,"share":3.0},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":3766,"payKRW":3790820,"payCNY":17231,"conv":3.08,"share":2.1},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":6596,"payKRW":2715240,"payCNY":12342,"conv":2.29,"share":1.5},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":2026,"payKRW":2239380,"payCNY":10179,"conv":7.8,"share":1.2},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":1199,"payKRW":2089340,"payCNY":9497,"conv":4.09,"share":1.1},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":6837,"payKRW":1757140,"payCNY":7987,"conv":2.49,"share":1.0},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1283,"payKRW":1479720,"payCNY":6726,"conv":3.51,"share":0.8},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":5260,"payKRW":1406460,"payCNY":6393,"conv":1.18,"share":0.8},{"name":"코드 530064","status":"품절/내림","new":false,"uv":8870,"payKRW":1129700,"payCNY":5135,"conv":0.62,"share":0.6},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":1941,"payKRW":1115180,"payCNY":5069,"conv":3.61,"share":0.6},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":3758,"payKRW":1114960,"payCNY":5068,"conv":1.94,"share":0.6},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":1981,"payKRW":1052700,"payCNY":4785,"conv":2.93,"share":0.6},{"name":"코드 101223","status":"품절/내림","new":false,"uv":6713,"payKRW":1038620,"payCNY":4721,"conv":0.79,"share":0.6},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":2015,"payKRW":1006720,"payCNY":4576,"conv":2.78,"share":0.6},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":2786,"payKRW":906400,"payCNY":4120,"conv":1.54,"share":0.5},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":688,"payKRW":806960,"payCNY":3668,"conv":7.7,"share":0.4},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":1691,"payKRW":778360,"payCNY":3538,"conv":2.48,"share":0.4},{"name":"코드 645525","status":"품절/내림","new":false,"uv":1020,"payKRW":541640,"payCNY":2462,"conv":3.92,"share":0.3},{"name":"코드 894878","status":"품절/내림","new":false,"uv":1847,"payKRW":511500,"payCNY":2325,"conv":1.41,"share":0.3},{"name":"코드 256425","status":"품절/내림","new":true,"uv":341,"payKRW":272360,"payCNY":1238,"conv":4.11,"share":0.1},{"name":"코드 503424","status":"품절/내림","new":true,"uv":393,"payKRW":265320,"payCNY":1206,"conv":4.83,"share":0.1},{"name":"코드 425092","status":"품절/내림","new":false,"uv":1297,"payKRW":258060,"payCNY":1173,"conv":1.0,"share":0.1},{"name":"코드 297069","status":"품절/내림","new":false,"uv":879,"payKRW":257840,"payCNY":1172,"conv":1.37,"share":0.1},{"name":"코드 618845","status":"품절/내림","new":false,"uv":696,"payKRW":255420,"payCNY":1161,"conv":1.44,"share":0.1},{"name":"코드 188739","status":"품절/내림","new":false,"uv":171,"payKRW":176220,"payCNY":801,"conv":5.26,"share":0.1},{"name":"코드 825154","status":"품절/내림","new":true,"uv":1450,"payKRW":100540,"payCNY":457,"conv":0.55,"share":0.1},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":915,"payKRW":94380,"payCNY":429,"conv":1.2,"share":0.1},{"name":"코드 804531","status":"품절/내림","new":false,"uv":1,"payKRW":82940,"payCNY":377,"conv":100.0,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":642,"payKRW":75460,"payCNY":343,"conv":1.09,"share":0.0},{"name":"코드 812800","status":"품절/내림","new":false,"uv":361,"payKRW":41140,"payCNY":187,"conv":0.55,"share":0.0},{"name":"코드 868814","status":"품절/내림","new":true,"uv":147,"payKRW":39160,"payCNY":178,"conv":1.36,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":58,"payKRW":5940,"payCNY":27,"conv":1.72,"share":0.0},{"name":"윤곽 형광 조색 팔레트","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":42,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":27,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":17,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 881881","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 244674","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 556684","status":"온라인","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 255590","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":182585480,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":5297380,"prev":7733440,"diff":-2436060},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":3506360,"prev":6802180,"diff":-3295820},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":3410220,"prev":0,"diff":3410220},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":3330800,"prev":7211600,"diff":-3880800},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":1848220,"prev":0,"diff":1848220}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":89452,"buyers":3763,"conv":4.21},{"name":"유료 광고","visitors":32326,"buyers":1358,"conv":4.2},{"name":"자발적 재방문","visitors":32461,"buyers":3083,"conv":9.5}],"subs":[{"name":"검색","visitors":57178,"buyers":2292,"conv":4.01},{"name":"키워드 광고(무계)","visitors":29862,"buyers":1171,"conv":3.92},{"name":"추천 피드","visitors":27517,"buyers":397,"conv":1.44},{"name":"장바구니","visitors":17903,"buyers":2417,"conv":13.5},{"name":"마이 타오바오","visitors":9502,"buyers":664,"conv":6.99},{"name":"이미지 검색","visitors":8339,"buyers":305,"conv":3.66},{"name":"타오바오 라이브","visitors":3331,"buyers":276,"conv":8.29},{"name":"타오진비(포인트)","visitors":2033,"buyers":403,"conv":19.82},{"name":"티몰 랭킹","visitors":1325,"buyers":16,"conv":1.21},{"name":"메시지 알림","visitors":1293,"buyers":143,"conv":11.06}]}},"3월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":56525,"payKRW":94428180,"payCNY":429219,"conv":4.78,"share":47.7},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":9693,"payKRW":25733620,"payCNY":116971,"conv":13.26,"share":13.0},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":10927,"payKRW":15835820,"payCNY":71981,"conv":4.09,"share":8.0},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":7959,"payKRW":12037520,"payCNY":54716,"conv":3.87,"share":6.1},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":7682,"payKRW":9796380,"payCNY":44529,"conv":6.55,"share":4.9},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":3780,"payKRW":5291220,"payCNY":24051,"conv":4.31,"share":2.7},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":5564,"payKRW":4425960,"payCNY":20118,"conv":3.47,"share":2.2},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":4085,"payKRW":3560480,"payCNY":16184,"conv":2.84,"share":1.8},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":5332,"payKRW":3110800,"payCNY":14140,"conv":3.26,"share":1.6},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":8397,"payKRW":3014000,"payCNY":13700,"conv":4.53,"share":1.5},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":3046,"payKRW":2752640,"payCNY":12512,"conv":10.54,"share":1.4},{"name":"코드 101223","status":"품절/내림","new":false,"uv":9559,"payKRW":2047760,"payCNY":9308,"conv":1.15,"share":1.0},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":5920,"payKRW":2000020,"payCNY":9091,"conv":1.35,"share":1.0},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":2655,"payKRW":1794320,"payCNY":8156,"conv":3.92,"share":0.9},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":1743,"payKRW":1635480,"payCNY":7434,"conv":6.71,"share":0.8},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":1290,"payKRW":1632400,"payCNY":7420,"conv":3.49,"share":0.8},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1379,"payKRW":1397000,"payCNY":6350,"conv":3.26,"share":0.7},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":2136,"payKRW":1042360,"payCNY":4738,"conv":2.53,"share":0.5},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":2892,"payKRW":1020800,"payCNY":4640,"conv":1.76,"share":0.5},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":1944,"payKRW":958980,"payCNY":4359,"conv":2.67,"share":0.5},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":4101,"payKRW":910140,"payCNY":4137,"conv":2.68,"share":0.5},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":675,"payKRW":761860,"payCNY":3463,"conv":7.41,"share":0.4},{"name":"코드 804531","status":"품절/내림","new":false,"uv":4,"payKRW":702900,"payCNY":3195,"conv":50.0,"share":0.4},{"name":"코드 297069","status":"품절/내림","new":false,"uv":1471,"payKRW":658680,"payCNY":2994,"conv":1.56,"share":0.3},{"name":"[기획] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":1397,"payKRW":463980,"payCNY":2109,"conv":1.22,"share":0.2},{"name":"코드 627629","status":"품절/내림","new":false,"uv":1135,"payKRW":288200,"payCNY":1310,"conv":0.79,"share":0.1},{"name":"코드 894878","status":"품절/내림","new":false,"uv":981,"payKRW":199320,"payCNY":906,"conv":2.14,"share":0.1},{"name":"코드 255590","status":"품절/내림","new":false,"uv":220,"payKRW":191400,"payCNY":870,"conv":3.64,"share":0.1},{"name":"코드 825154","status":"품절/내림","new":true,"uv":1470,"payKRW":191180,"payCNY":869,"conv":1.09,"share":0.1},{"name":"코드 425092","status":"품절/내림","new":false,"uv":505,"payKRW":53900,"payCNY":245,"conv":0.79,"share":0.0},{"name":"코드 812800","status":"품절/내림","new":false,"uv":192,"payKRW":51920,"payCNY":236,"conv":1.56,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":264,"payKRW":48180,"payCNY":219,"conv":1.89,"share":0.0},{"name":"코드 256425","status":"품절/내림","new":true,"uv":177,"payKRW":39160,"payCNY":178,"conv":1.13,"share":0.0},{"name":"코드 530064","status":"품절/내림","new":false,"uv":431,"payKRW":34540,"payCNY":157,"conv":0.46,"share":0.0},{"name":"코드 503424","status":"품절/내림","new":true,"uv":33,"payKRW":15180,"payCNY":69,"conv":3.03,"share":0.0},{"name":"윤곽 형광 조색 팔레트","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":10,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":19,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","status":"품절/내림","new":false,"uv":107,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":37,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","status":"품절/내림","new":false,"uv":20,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","status":"품절/내림","new":true,"uv":47,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":198126280,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":9768660,"prev":5297380,"diff":4471280},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":8688240,"prev":3330800,"diff":5357440},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":7458880,"prev":3506360,"diff":3952520},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":1862300,"prev":3410220,"diff":-1547920},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":565400,"prev":1848220,"diff":-1282820}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":206154,"buyers":3796,"conv":1.84},{"name":"유료 광고","visitors":50854,"buyers":1798,"conv":3.54},{"name":"자발적 재방문","visitors":33240,"buyers":3386,"conv":10.19}],"subs":[{"name":"추천 피드","visitors":97387,"buyers":478,"conv":0.49},{"name":"키워드 광고(무계)","visitors":48652,"buyers":1609,"conv":3.31},{"name":"검색","visitors":46269,"buyers":1889,"conv":4.08},{"name":"타오바오 SNS 피드","visitors":28372,"buyers":0,"conv":0.0},{"name":"장바구니","visitors":17711,"buyers":2549,"conv":14.39},{"name":"마이 타오바오","visitors":9998,"buyers":746,"conv":7.46},{"name":"이미지 검색","visitors":8880,"buyers":349,"conv":3.93},{"name":"타오바오 라이브","visitors":3865,"buyers":251,"conv":6.49},{"name":"타오진비(포인트)","visitors":3019,"buyers":559,"conv":18.52},{"name":"메시지 알림","visitors":1228,"buyers":127,"conv":10.34}]}},"4월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":63820,"payKRW":101548480,"payCNY":461584,"conv":4.5,"share":40.5},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":79148,"payKRW":76101520,"payCNY":345916,"conv":3.22,"share":30.3},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":7994,"payKRW":21280380,"payCNY":96729,"conv":13.54,"share":8.5},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":8960,"payKRW":12325940,"payCNY":56027,"conv":6.93,"share":4.9},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":5768,"payKRW":10799360,"payCNY":49088,"conv":4.32,"share":4.3},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":3422,"payKRW":5565560,"payCNY":25298,"conv":4.56,"share":2.2},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":6440,"payKRW":4495260,"payCNY":20433,"conv":3.25,"share":1.8},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":6486,"payKRW":2773760,"payCNY":12608,"conv":2.39,"share":1.1},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":7138,"payKRW":2627020,"payCNY":11941,"conv":1.49,"share":1.0},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":5847,"payKRW":2124100,"payCNY":9655,"conv":1.93,"share":0.8},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1658,"payKRW":1964380,"payCNY":8929,"conv":3.92,"share":0.8},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":1862,"payKRW":1894200,"payCNY":8610,"conv":7.95,"share":0.8},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":1197,"payKRW":1598300,"payCNY":7265,"conv":3.68,"share":0.6},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":3112,"payKRW":1263680,"payCNY":5744,"conv":1.99,"share":0.5},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":1789,"payKRW":1182280,"payCNY":5374,"conv":2.01,"share":0.5},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":3653,"payKRW":1034440,"payCNY":4702,"conv":1.53,"share":0.4},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":2577,"payKRW":925100,"payCNY":4205,"conv":1.9,"share":0.4},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":838,"payKRW":661980,"payCNY":3009,"conv":4.89,"share":0.3},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":649,"payKRW":272140,"payCNY":1237,"conv":5.7,"share":0.1},{"name":"[기획] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":674,"payKRW":227480,"payCNY":1034,"conv":1.19,"share":0.1},{"name":"코드 255590","status":"품절/내림","new":false,"uv":142,"payKRW":76120,"payCNY":346,"conv":1.41,"share":0.0},{"name":"코드 297069","status":"품절/내림","new":false,"uv":275,"payKRW":19580,"payCNY":89,"conv":0.36,"share":0.0},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":133,"payKRW":5720,"payCNY":26,"conv":0.75,"share":0.0},{"name":"윤곽 형광 조색 팔레트","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","status":"품절/내림","new":false,"uv":71,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","status":"품절/내림","new":false,"uv":8,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 804531","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","status":"품절/내림","new":true,"uv":40,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":100,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","status":"품절/내림","new":false,"uv":17,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","status":"품절/내림","new":false,"uv":66,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","status":"품절/내림","new":true,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","status":"품절/내림","new":true,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","status":"품절/내림","new":true,"uv":26,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":250766780,"costItems":[{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":12362240,"prev":1862300,"diff":10499940},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":10936420,"prev":9768660,"diff":1167760},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":8807920,"prev":7458880,"diff":1349040},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":4725380,"prev":8688240,"diff":-3962860},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":3529900,"prev":565400,"diff":2964500}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":136609,"buyers":4708,"conv":3.45},{"name":"유료 광고","visitors":63113,"buyers":1838,"conv":2.91},{"name":"자발적 재방문","visitors":34331,"buyers":3899,"conv":11.36}],"subs":[{"name":"타오바오 라이브","visitors":72377,"buyers":1697,"conv":2.34},{"name":"키워드 광고(무계)","visitors":62189,"buyers":1699,"conv":2.73},{"name":"검색","visitors":38343,"buyers":1560,"conv":4.07},{"name":"장바구니","visitors":19855,"buyers":3155,"conv":15.89},{"name":"추천 피드","visitors":16808,"buyers":312,"conv":1.86},{"name":"마이 타오바오","visitors":9154,"buyers":693,"conv":7.57},{"name":"이미지 검색","visitors":8771,"buyers":320,"conv":3.65},{"name":"타오진비(포인트)","visitors":1976,"buyers":531,"conv":26.87},{"name":"타오바오 SNS 피드","visitors":1801,"buyers":0,"conv":0.0},{"name":"티몰 랭킹","visitors":1664,"buyers":25,"conv":1.5}]}},"5월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":53596,"payKRW":85792740,"payCNY":389967,"conv":5.02,"share":43.3},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":18780,"payKRW":47146660,"payCNY":214303,"conv":13.94,"share":23.8},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":13245,"payKRW":11307780,"payCNY":51399,"conv":2.57,"share":5.7},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":8383,"payKRW":10008240,"payCNY":45492,"conv":6.58,"share":5.1},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":5475,"payKRW":8331620,"payCNY":37871,"conv":4.22,"share":4.2},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":7506,"payKRW":8251100,"payCNY":37505,"conv":5.36,"share":4.2},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":9814,"payKRW":7560080,"payCNY":34364,"conv":2.56,"share":3.8},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":6575,"payKRW":4145900,"payCNY":18845,"conv":3.92,"share":2.1},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":8702,"payKRW":3219040,"payCNY":14632,"conv":1.52,"share":1.6},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":3642,"payKRW":2647700,"payCNY":12035,"conv":4.12,"share":1.3},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":2125,"payKRW":1751640,"payCNY":7962,"conv":6.64,"share":0.9},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":2471,"payKRW":1364880,"payCNY":6204,"conv":3.2,"share":0.7},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":3347,"payKRW":1288980,"payCNY":5859,"conv":1.85,"share":0.7},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":1932,"payKRW":1179420,"payCNY":5361,"conv":3.62,"share":0.6},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":1591,"payKRW":1155880,"payCNY":5254,"conv":1.95,"share":0.6},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1009,"payKRW":999460,"payCNY":4543,"conv":3.17,"share":0.5},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":791,"payKRW":636240,"payCNY":2892,"conv":5.94,"share":0.3},{"name":"[기획] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":1540,"payKRW":592680,"payCNY":2694,"conv":1.75,"share":0.3},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":2060,"payKRW":526900,"payCNY":2395,"conv":0.73,"share":0.3},{"name":"코드 255590","status":"품절/내림","new":false,"uv":77,"payKRW":22440,"payCNY":102,"conv":1.3,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":25,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","status":"품절/내림","new":false,"uv":64,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":72,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","status":"품절/내림","new":true,"uv":40,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","status":"품절/내림","new":false,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 556684","status":"온라인","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 297069","status":"품절/내림","new":false,"uv":8,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":20,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":74,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","status":"품절/내림","new":false,"uv":27,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","status":"품절/내림","new":true,"uv":45,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","status":"품절/내림","new":true,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":197929380,"costItems":[{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":13706220,"prev":8807920,"diff":4898300},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":11380600,"prev":4725380,"diff":6655220},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":8791420,"prev":10936420,"diff":-2145000},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":7023060,"prev":12362240,"diff":-5339180},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":2467520,"prev":3529900,"diff":-1062380}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":108919,"buyers":4399,"conv":4.04},{"name":"유료 광고","visitors":54374,"buyers":1793,"conv":3.3},{"name":"자발적 재방문","visitors":36610,"buyers":3421,"conv":9.34}],"subs":[{"name":"검색","visitors":55997,"buyers":2666,"conv":4.76},{"name":"키워드 광고(무계)","visitors":53491,"buyers":1687,"conv":3.15},{"name":"장바구니","visitors":22182,"buyers":2677,"conv":12.07},{"name":"추천 피드","visitors":17320,"buyers":296,"conv":1.71},{"name":"타오바오 SNS 피드","visitors":15838,"buyers":0,"conv":0.0},{"name":"마이 타오바오","visitors":9491,"buyers":635,"conv":6.69},{"name":"이미지 검색","visitors":8427,"buyers":355,"conv":4.21},{"name":"타오바오 라이브","visitors":6284,"buyers":407,"conv":6.48},{"name":"티몰 랭킹","visitors":2337,"buyers":39,"conv":1.67},{"name":"타오진비(포인트)","visitors":1816,"buyers":440,"conv":24.23}]}},"6월":{"products":[{"name":"소프트 블러링 아이팔레트","status":"온라인","new":false,"uv":45964,"payKRW":76720160,"payCNY":348728,"conv":5.11,"share":51.3},{"name":"믹스 블러링 볼륨 쉐딩","status":"온라인","new":false,"uv":11338,"payKRW":17938140,"payCNY":81537,"conv":8.62,"share":12.0},{"name":"워터 글로우 코팅밤AD(쿠션)","status":"온라인","new":false,"uv":7437,"payKRW":14685000,"payCNY":66750,"conv":5.15,"share":9.8},{"name":"쉐이킹 블러 치크","status":"온라인","new":false,"uv":5867,"payKRW":8262980,"payCNY":37559,"conv":7.07,"share":5.5},{"name":"16색 아이섀도우 팔레트(데일리)","status":"온라인","new":false,"uv":7781,"payKRW":7499360,"payCNY":34088,"conv":2.9,"share":5.0},{"name":"디파이닝 커버 파운데이션(브러시증정)","status":"온라인","new":false,"uv":5206,"payKRW":5297160,"payCNY":24078,"conv":3.46,"share":3.5},{"name":"워터풀 글로우 틴트","status":"온라인","new":false,"uv":5510,"payKRW":3161400,"payCNY":14370,"conv":3.47,"share":2.1},{"name":"6색 멀티 팔레트","status":"온라인","new":false,"uv":6809,"payKRW":2888600,"payCNY":13130,"conv":1.89,"share":1.9},{"name":"워터풀 글로우 틴트(신규)","status":"온라인","new":false,"uv":2845,"payKRW":2501620,"payCNY":11371,"conv":6.92,"share":1.7},{"name":"볼드 립 블러 틴트","status":"온라인","new":true,"uv":5101,"payKRW":2241360,"payCNY":10188,"conv":1.67,"share":1.5},{"name":"헬시 글로우 밤 스틱","status":"온라인","new":false,"uv":4066,"payKRW":1844480,"payCNY":8384,"conv":2.46,"share":1.2},{"name":"매트 그레이 쿠션","status":"온라인","new":false,"uv":1990,"payKRW":1659680,"payCNY":7544,"conv":2.56,"share":1.1},{"name":"소프트 블러링 밤 스틱","status":"온라인","new":false,"uv":2549,"payKRW":1229580,"payCNY":5589,"conv":2.43,"share":0.8},{"name":"워터 블러링 레이어 틴트","status":"온라인","new":false,"uv":1611,"payKRW":949960,"payCNY":4318,"conv":3.66,"share":0.6},{"name":"눈썹연필·아이브로우","status":"온라인","new":false,"uv":698,"payKRW":725780,"payCNY":3299,"conv":7.74,"share":0.5},{"name":"디파이닝 커버 컨실러","status":"온라인","new":false,"uv":1208,"payKRW":635360,"payCNY":2888,"conv":3.23,"share":0.4},{"name":"스테이 픽서 세팅 미스트","status":"온라인","new":true,"uv":1677,"payKRW":397540,"payCNY":1807,"conv":1.55,"share":0.3},{"name":"워터 글로우 코팅밤(구형)","status":"온라인","new":false,"uv":1159,"payKRW":356400,"payCNY":1620,"conv":0.86,"share":0.2},{"name":"[기획] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":517,"payKRW":329560,"payCNY":1498,"conv":2.71,"share":0.2},{"name":"워터 글로우 코팅 쿠션(브러시증정)","status":"온라인","new":false,"uv":1128,"payKRW":281600,"payCNY":1280,"conv":0.62,"share":0.2},{"name":"[특가] 러비 미광 립 틴트","status":"품절/내림","new":false,"uv":22,"payKRW":40480,"payCNY":184,"conv":4.55,"share":0.0},{"name":"와이드 파운데이션 브러시","status":"품절/내림","new":false,"uv":924,"payKRW":36960,"payCNY":168,"conv":0.22,"share":0.0},{"name":"윤곽 형광 조색 팔레트","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","status":"품절/내림","new":false,"uv":32,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","status":"품절/내림","new":false,"uv":41,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[한정특가] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":30,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","status":"품절/내림","new":true,"uv":28,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":36,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","status":"품절/내림","new":false,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 297069","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","status":"품절/내림","new":true,"uv":31,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 255590","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":149683160,"costItems":[{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":22497420,"prev":13706220,"diff":8791200},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":8992940,"prev":8791420,"diff":201520},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":5494720,"prev":11380600,"diff":-5885880},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":0,"prev":7023060,"diff":-7023060},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":0,"prev":2467520,"diff":-2467520}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":74094,"buyers":2744,"conv":3.7},{"name":"유료 광고","visitors":37456,"buyers":1266,"conv":3.38},{"name":"자발적 재방문","visitors":27733,"buyers":2629,"conv":9.48}],"subs":[{"name":"검색","visitors":42834,"buyers":1375,"conv":3.21},{"name":"키워드 광고(무계)","visitors":36850,"buyers":1202,"conv":3.26},{"name":"장바구니","visitors":15332,"buyers":2037,"conv":13.29},{"name":"추천 피드","visitors":14447,"buyers":294,"conv":2.04},{"name":"이미지 검색","visitors":7580,"buyers":292,"conv":3.85},{"name":"마이 타오바오","visitors":6910,"buyers":457,"conv":6.61},{"name":"타오바오 SNS 피드","visitors":4265,"buyers":0,"conv":0.0},{"name":"타오바오 라이브","visitors":4080,"buyers":282,"conv":6.91},{"name":"티몰 랭킹","visitors":1429,"buyers":24,"conv":1.68},{"name":"타오진비(포인트)","visitors":1222,"buyers":265,"conv":21.69}]}}}};
+const DATA = {"fx":220,"months":["1월","2월","3월","4월","5월","6월"],"series":[{"month":"1월","salesKRW":246147220,"targetKRW":207894478,"achv":118.4,"uv":199810,"pv":707956,"costKRW":21747220,"oyKRW":14013780,"stKRW":7733440,"roas":11.32,"xhsAdKRW":6802165,"xhsGmvKRW":14668975,"xhsRoas":2.2,"xhsShare":7.7,"xhsUV":15390},{"month":"2월","salesKRW":182585480,"targetKRW":174286731,"achv":104.8,"uv":168326,"pv":576639,"costKRW":17392980,"oyKRW":8685380,"stKRW":8707600,"roas":10.5,"xhsAdKRW":3506316,"xhsGmvKRW":8847021,"xhsRoas":2.5,"xhsShare":3.9,"xhsUV":6634},{"month":"3월","salesKRW":198126280,"targetKRW":189120173,"achv":104.8,"uv":165905,"pv":585263,"costKRW":28343480,"oyKRW":16712520,"stKRW":11630960,"roas":6.99,"xhsAdKRW":7458977,"xhsGmvKRW":16496143,"xhsRoas":2.2,"xhsShare":8.3,"xhsUV":13762},{"month":"4월","salesKRW":250766780,"targetKRW":250767217,"achv":100.0,"uv":214152,"pv":650392,"costKRW":40361860,"oyKRW":17063200,"stKRW":23298660,"roas":6.21,"xhsAdKRW":8807847,"xhsGmvKRW":23904129,"xhsRoas":2.7,"xhsShare":6.7,"xhsUV":14425},{"month":"5월","salesKRW":197929380,"targetKRW":193473144,"achv":102.3,"uv":153240,"pv":535140,"costKRW":43368820,"oyKRW":27554340,"stKRW":15814480,"roas":4.56,"xhsAdKRW":13706143,"xhsGmvKRW":13412199,"xhsRoas":1.0,"xhsShare":6.8,"xhsUV":10392},{"month":"6월","salesKRW":149683160,"targetKRW":150500000,"achv":99.5,"uv":121834,"pv":417926,"costKRW":36985080,"oyKRW":27992140,"stKRW":8992940,"roas":4.05,"xhsAdKRW":22497515,"xhsGmvKRW":19522494,"xhsRoas":0.9,"xhsShare":12.5,"xhsUV":15271}],"byMonth":{"1월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":62153,"payKRW":121186560,"payCNY":550848,"conv":5.89,"share":49.2},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":9115,"payKRW":21953800,"payCNY":99790,"conv":16.22,"share":8.9},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":14440,"payKRW":16654440,"payCNY":75702,"conv":3.53,"share":6.8},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":8780,"payKRW":14905880,"payCNY":67754,"conv":9.2,"share":6.1},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":6855,"payKRW":13508220,"payCNY":61401,"conv":5.11,"share":5.5},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":5388,"payKRW":8350320,"payCNY":37956,"conv":6.64,"share":3.4},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":6106,"payKRW":6705820,"payCNY":30481,"conv":3.7,"share":2.7},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":8406,"payKRW":4602400,"payCNY":20920,"conv":4.53,"share":1.9},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":3920,"payKRW":3896640,"payCNY":17712,"conv":3.01,"share":1.6},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":6729,"payKRW":3767500,"payCNY":17125,"conv":5.08,"share":1.5},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":6755,"payKRW":3702160,"payCNY":16828,"conv":2.75,"share":1.5},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":7313,"payKRW":3315840,"payCNY":15072,"conv":1.79,"share":1.3},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":2321,"payKRW":2672780,"payCNY":12149,"conv":8.79,"share":1.1},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":9209,"payKRW":2452120,"payCNY":11146,"conv":1.25,"share":1.0},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":3586,"payKRW":1934680,"payCNY":8794,"conv":3.49,"share":0.8},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":3356,"payKRW":1745480,"payCNY":7934,"conv":3.04,"share":0.7},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1207,"payKRW":1691140,"payCNY":7687,"conv":3.98,"share":0.7},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":2096,"payKRW":1678600,"payCNY":7630,"conv":3.29,"share":0.7},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":2145,"payKRW":1629760,"payCNY":7408,"conv":3.96,"share":0.7},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":998,"payKRW":1533840,"payCNY":6972,"conv":8.72,"share":0.6},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":3264,"payKRW":1274020,"payCNY":5791,"conv":2.02,"share":0.5},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":1700,"payKRW":845680,"payCNY":3844,"conv":2.82,"share":0.3},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":4342,"payKRW":834240,"payCNY":3792,"conv":0.92,"share":0.3},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":801,"payKRW":750640,"payCNY":3412,"conv":6.37,"share":0.3},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":1113,"payKRW":640200,"payCNY":2910,"conv":3.5,"share":0.3},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":481,"payKRW":631840,"payCNY":2872,"conv":3.53,"share":0.3},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":596,"payKRW":514580,"payCNY":2339,"conv":3.36,"share":0.2},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":609,"payKRW":485980,"payCNY":2209,"conv":3.45,"share":0.2},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":3590,"payKRW":416240,"payCNY":1892,"conv":1.0,"share":0.2},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":6569,"payKRW":366960,"payCNY":1668,"conv":0.84,"share":0.1},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":1018,"payKRW":284020,"payCNY":1291,"conv":1.38,"share":0.1},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":1523,"payKRW":280720,"payCNY":1276,"conv":1.25,"share":0.1},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":490,"payKRW":279620,"payCNY":1271,"conv":4.08,"share":0.1},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":852,"payKRW":188320,"payCNY":856,"conv":1.06,"share":0.1},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":446,"payKRW":174460,"payCNY":793,"conv":2.02,"share":0.1},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":289,"payKRW":137060,"payCNY":623,"conv":2.42,"share":0.1},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":777,"payKRW":100760,"payCNY":458,"conv":1.29,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":316,"payKRW":53900,"payCNY":245,"conv":1.27,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":42,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":26,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":21,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":16,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","id":"817711823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 804531","id":"913101804531","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","id":"1005382256714","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":246147220,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":7733440,"prev":0,"diff":7733440},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":7211600,"prev":0,"diff":7211600},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":6802180,"prev":0,"diff":6802180}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":99272,"buyers":4979,"conv":5.02},{"name":"유료 광고","visitors":48887,"buyers":2236,"conv":4.57},{"name":"자발적 재방문","visitors":37699,"buyers":4432,"conv":11.76}],"subs":[{"name":"검색","visitors":62864,"buyers":2753,"conv":4.38},{"name":"키워드 광고(무계)","visitors":46669,"buyers":1995,"conv":4.27},{"name":"추천 피드","visitors":29586,"buyers":505,"conv":1.71},{"name":"장바구니","visitors":21184,"buyers":3514,"conv":16.59},{"name":"마이 타오바오","visitors":10956,"buyers":949,"conv":8.66},{"name":"이미지 검색","visitors":10105,"buyers":414,"conv":4.1},{"name":"타오바오 라이브","visitors":4417,"buyers":379,"conv":8.58},{"name":"타오진비(포인트)","visitors":3023,"buyers":645,"conv":21.34},{"name":"메시지 알림","visitors":1560,"buyers":205,"conv":13.14},{"name":"티몰 랭킹","visitors":1357,"buyers":14,"conv":1.03}]}},"2월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":50297,"payKRW":79514380,"payCNY":361429,"conv":4.79,"share":43.5},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":10417,"payKRW":28045600,"payCNY":127480,"conv":13.34,"share":15.4},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":10921,"payKRW":14473580,"payCNY":65789,"conv":3.92,"share":7.9},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":7074,"payKRW":11962500,"payCNY":54375,"conv":4.4,"share":6.6},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":8173,"payKRW":9494760,"payCNY":43158,"conv":6.23,"share":5.2},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":7716,"payKRW":6157580,"payCNY":27989,"conv":3.76,"share":3.4},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":5950,"payKRW":5531460,"payCNY":25143,"conv":2.57,"share":3.0},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":3766,"payKRW":3790820,"payCNY":17231,"conv":3.08,"share":2.1},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":6596,"payKRW":2715240,"payCNY":12342,"conv":2.29,"share":1.5},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":2026,"payKRW":2239380,"payCNY":10179,"conv":7.8,"share":1.2},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":1199,"payKRW":2089340,"payCNY":9497,"conv":4.09,"share":1.1},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":6837,"payKRW":1757140,"payCNY":7987,"conv":2.49,"share":1.0},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1283,"payKRW":1479720,"payCNY":6726,"conv":3.51,"share":0.8},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":5260,"payKRW":1406460,"payCNY":6393,"conv":1.18,"share":0.8},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":8870,"payKRW":1129700,"payCNY":5135,"conv":0.62,"share":0.6},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":1941,"payKRW":1115180,"payCNY":5069,"conv":3.61,"share":0.6},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":3758,"payKRW":1114960,"payCNY":5068,"conv":1.94,"share":0.6},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":1981,"payKRW":1052700,"payCNY":4785,"conv":2.93,"share":0.6},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":6713,"payKRW":1038620,"payCNY":4721,"conv":0.79,"share":0.6},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":2015,"payKRW":1006720,"payCNY":4576,"conv":2.78,"share":0.6},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":2786,"payKRW":906400,"payCNY":4120,"conv":1.54,"share":0.5},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":688,"payKRW":806960,"payCNY":3668,"conv":7.7,"share":0.4},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":1691,"payKRW":778360,"payCNY":3538,"conv":2.48,"share":0.4},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":1020,"payKRW":541640,"payCNY":2462,"conv":3.92,"share":0.3},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":1847,"payKRW":511500,"payCNY":2325,"conv":1.41,"share":0.3},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":341,"payKRW":272360,"payCNY":1238,"conv":4.11,"share":0.1},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":393,"payKRW":265320,"payCNY":1206,"conv":4.83,"share":0.1},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":1297,"payKRW":258060,"payCNY":1173,"conv":1.0,"share":0.1},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":879,"payKRW":257840,"payCNY":1172,"conv":1.37,"share":0.1},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":696,"payKRW":255420,"payCNY":1161,"conv":1.44,"share":0.1},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":171,"payKRW":176220,"payCNY":801,"conv":5.26,"share":0.1},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":1450,"payKRW":100540,"payCNY":457,"conv":0.55,"share":0.1},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":915,"payKRW":94380,"payCNY":429,"conv":1.2,"share":0.1},{"name":"코드 804531","id":"913101804531","status":"품절/내림","new":false,"uv":1,"payKRW":82940,"payCNY":377,"conv":100.0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":642,"payKRW":75460,"payCNY":343,"conv":1.09,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":361,"payKRW":41140,"payCNY":187,"conv":0.55,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":147,"payKRW":39160,"payCNY":178,"conv":1.36,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":58,"payKRW":5940,"payCNY":27,"conv":1.72,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":42,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":27,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":17,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 881881","id":"802479881881","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","id":"817711823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 244674","id":"923778244674","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 556684","id":"930947556684","status":"온라인","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","id":"1005382256714","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":182585480,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":5297380,"prev":7733440,"diff":-2436060},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":3506360,"prev":6802180,"diff":-3295820},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":3410220,"prev":0,"diff":3410220},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":3330800,"prev":7211600,"diff":-3880800},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":1848220,"prev":0,"diff":1848220}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":89452,"buyers":3763,"conv":4.21},{"name":"유료 광고","visitors":32326,"buyers":1358,"conv":4.2},{"name":"자발적 재방문","visitors":32461,"buyers":3083,"conv":9.5}],"subs":[{"name":"검색","visitors":57178,"buyers":2292,"conv":4.01},{"name":"키워드 광고(무계)","visitors":29862,"buyers":1171,"conv":3.92},{"name":"추천 피드","visitors":27517,"buyers":397,"conv":1.44},{"name":"장바구니","visitors":17903,"buyers":2417,"conv":13.5},{"name":"마이 타오바오","visitors":9502,"buyers":664,"conv":6.99},{"name":"이미지 검색","visitors":8339,"buyers":305,"conv":3.66},{"name":"타오바오 라이브","visitors":3331,"buyers":276,"conv":8.29},{"name":"타오진비(포인트)","visitors":2033,"buyers":403,"conv":19.82},{"name":"티몰 랭킹","visitors":1325,"buyers":16,"conv":1.21},{"name":"메시지 알림","visitors":1293,"buyers":143,"conv":11.06}]}},"3월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":56525,"payKRW":94428180,"payCNY":429219,"conv":4.78,"share":47.7},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":9693,"payKRW":25733620,"payCNY":116971,"conv":13.26,"share":13.0},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":10927,"payKRW":15835820,"payCNY":71981,"conv":4.09,"share":8.0},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":7959,"payKRW":12037520,"payCNY":54716,"conv":3.87,"share":6.1},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":7682,"payKRW":9796380,"payCNY":44529,"conv":6.55,"share":4.9},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":3780,"payKRW":5291220,"payCNY":24051,"conv":4.31,"share":2.7},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":5564,"payKRW":4425960,"payCNY":20118,"conv":3.47,"share":2.2},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":4085,"payKRW":3560480,"payCNY":16184,"conv":2.84,"share":1.8},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":5332,"payKRW":3110800,"payCNY":14140,"conv":3.26,"share":1.6},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":8397,"payKRW":3014000,"payCNY":13700,"conv":4.53,"share":1.5},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":3046,"payKRW":2752640,"payCNY":12512,"conv":10.54,"share":1.4},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":9559,"payKRW":2047760,"payCNY":9308,"conv":1.15,"share":1.0},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":5920,"payKRW":2000020,"payCNY":9091,"conv":1.35,"share":1.0},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":2655,"payKRW":1794320,"payCNY":8156,"conv":3.92,"share":0.9},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":1743,"payKRW":1635480,"payCNY":7434,"conv":6.71,"share":0.8},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":1290,"payKRW":1632400,"payCNY":7420,"conv":3.49,"share":0.8},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1379,"payKRW":1397000,"payCNY":6350,"conv":3.26,"share":0.7},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":2136,"payKRW":1042360,"payCNY":4738,"conv":2.53,"share":0.5},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":2892,"payKRW":1020800,"payCNY":4640,"conv":1.76,"share":0.5},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":1944,"payKRW":958980,"payCNY":4359,"conv":2.67,"share":0.5},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":4101,"payKRW":910140,"payCNY":4137,"conv":2.68,"share":0.5},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":675,"payKRW":761860,"payCNY":3463,"conv":7.41,"share":0.4},{"name":"코드 804531","id":"913101804531","status":"품절/내림","new":false,"uv":4,"payKRW":702900,"payCNY":3195,"conv":50.0,"share":0.4},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":1471,"payKRW":658680,"payCNY":2994,"conv":1.56,"share":0.3},{"name":"[기획] 디파이닝 커버 컨실러","id":"1025567503245","status":"품절/내림","new":false,"uv":1397,"payKRW":463980,"payCNY":2109,"conv":1.22,"share":0.2},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":1135,"payKRW":288200,"payCNY":1310,"conv":0.79,"share":0.1},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":981,"payKRW":199320,"payCNY":906,"conv":2.14,"share":0.1},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":220,"payKRW":191400,"payCNY":870,"conv":3.64,"share":0.1},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":1470,"payKRW":191180,"payCNY":869,"conv":1.09,"share":0.1},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":505,"payKRW":53900,"payCNY":245,"conv":0.79,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":192,"payKRW":51920,"payCNY":236,"conv":1.56,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":264,"payKRW":48180,"payCNY":219,"conv":1.89,"share":0.0},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":177,"payKRW":39160,"payCNY":178,"conv":1.13,"share":0.0},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":431,"payKRW":34540,"payCNY":157,"conv":0.46,"share":0.0},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":33,"payKRW":15180,"payCNY":69,"conv":3.03,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":10,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":19,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","id":"817711823051","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":107,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":37,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":20,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":47,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256714","id":"1005382256714","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":198126280,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":9768660,"prev":5297380,"diff":4471280},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":8688240,"prev":3330800,"diff":5357440},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":7458880,"prev":3506360,"diff":3952520},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":1862300,"prev":3410220,"diff":-1547920},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":565400,"prev":1848220,"diff":-1282820}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":206154,"buyers":3796,"conv":1.84},{"name":"유료 광고","visitors":50854,"buyers":1798,"conv":3.54},{"name":"자발적 재방문","visitors":33240,"buyers":3386,"conv":10.19}],"subs":[{"name":"추천 피드","visitors":97387,"buyers":478,"conv":0.49},{"name":"키워드 광고(무계)","visitors":48652,"buyers":1609,"conv":3.31},{"name":"검색","visitors":46269,"buyers":1889,"conv":4.08},{"name":"타오바오 SNS 피드","visitors":28372,"buyers":0,"conv":0.0},{"name":"장바구니","visitors":17711,"buyers":2549,"conv":14.39},{"name":"마이 타오바오","visitors":9998,"buyers":746,"conv":7.46},{"name":"이미지 검색","visitors":8880,"buyers":349,"conv":3.93},{"name":"타오바오 라이브","visitors":3865,"buyers":251,"conv":6.49},{"name":"타오진비(포인트)","visitors":3019,"buyers":559,"conv":18.52},{"name":"메시지 알림","visitors":1228,"buyers":127,"conv":10.34}]}},"4월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":63820,"payKRW":101548480,"payCNY":461584,"conv":4.5,"share":40.5},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":79148,"payKRW":76101520,"payCNY":345916,"conv":3.22,"share":30.3},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":7994,"payKRW":21280380,"payCNY":96729,"conv":13.54,"share":8.5},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":8960,"payKRW":12325940,"payCNY":56027,"conv":6.93,"share":4.9},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":5768,"payKRW":10799360,"payCNY":49088,"conv":4.32,"share":4.3},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":3422,"payKRW":5565560,"payCNY":25298,"conv":4.56,"share":2.2},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":6440,"payKRW":4495260,"payCNY":20433,"conv":3.25,"share":1.8},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":6486,"payKRW":2773760,"payCNY":12608,"conv":2.39,"share":1.1},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":7138,"payKRW":2627020,"payCNY":11941,"conv":1.49,"share":1.0},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":5847,"payKRW":2124100,"payCNY":9655,"conv":1.93,"share":0.8},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1658,"payKRW":1964380,"payCNY":8929,"conv":3.92,"share":0.8},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":1862,"payKRW":1894200,"payCNY":8610,"conv":7.95,"share":0.8},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":1197,"payKRW":1598300,"payCNY":7265,"conv":3.68,"share":0.6},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":3112,"payKRW":1263680,"payCNY":5744,"conv":1.99,"share":0.5},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":1789,"payKRW":1182280,"payCNY":5374,"conv":2.01,"share":0.5},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":3653,"payKRW":1034440,"payCNY":4702,"conv":1.53,"share":0.4},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":2577,"payKRW":925100,"payCNY":4205,"conv":1.9,"share":0.4},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":838,"payKRW":661980,"payCNY":3009,"conv":4.89,"share":0.3},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":649,"payKRW":272140,"payCNY":1237,"conv":5.7,"share":0.1},{"name":"[기획] 디파이닝 커버 컨실러","id":"1025567503245","status":"품절/내림","new":false,"uv":674,"payKRW":227480,"payCNY":1034,"conv":1.19,"share":0.1},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":142,"payKRW":76120,"payCNY":346,"conv":1.41,"share":0.0},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":275,"payKRW":19580,"payCNY":89,"conv":0.36,"share":0.0},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":133,"payKRW":5720,"payCNY":26,"conv":0.75,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":71,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":8,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 823051","id":"817711823051","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 804531","id":"913101804531","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":40,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":13,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":100,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":17,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":66,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":26,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":250766780,"costItems":[{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":12362240,"prev":1862300,"diff":10499940},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":10936420,"prev":9768660,"diff":1167760},{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":8807920,"prev":7458880,"diff":1349040},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":4725380,"prev":8688240,"diff":-3962860},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":3529900,"prev":565400,"diff":2964500}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":136609,"buyers":4708,"conv":3.45},{"name":"유료 광고","visitors":63113,"buyers":1838,"conv":2.91},{"name":"자발적 재방문","visitors":34331,"buyers":3899,"conv":11.36}],"subs":[{"name":"타오바오 라이브","visitors":72377,"buyers":1697,"conv":2.34},{"name":"키워드 광고(무계)","visitors":62189,"buyers":1699,"conv":2.73},{"name":"검색","visitors":38343,"buyers":1560,"conv":4.07},{"name":"장바구니","visitors":19855,"buyers":3155,"conv":15.89},{"name":"추천 피드","visitors":16808,"buyers":312,"conv":1.86},{"name":"마이 타오바오","visitors":9154,"buyers":693,"conv":7.57},{"name":"이미지 검색","visitors":8771,"buyers":320,"conv":3.65},{"name":"타오진비(포인트)","visitors":1976,"buyers":531,"conv":26.87},{"name":"타오바오 SNS 피드","visitors":1801,"buyers":0,"conv":0.0},{"name":"티몰 랭킹","visitors":1664,"buyers":25,"conv":1.5}]}},"5월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":53596,"payKRW":85792740,"payCNY":389967,"conv":5.02,"share":43.3},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":18780,"payKRW":47146660,"payCNY":214303,"conv":13.94,"share":23.8},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":13245,"payKRW":11307780,"payCNY":51399,"conv":2.57,"share":5.7},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":8383,"payKRW":10008240,"payCNY":45492,"conv":6.58,"share":5.1},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":5475,"payKRW":8331620,"payCNY":37871,"conv":4.22,"share":4.2},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":7506,"payKRW":8251100,"payCNY":37505,"conv":5.36,"share":4.2},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":9814,"payKRW":7560080,"payCNY":34364,"conv":2.56,"share":3.8},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":6575,"payKRW":4145900,"payCNY":18845,"conv":3.92,"share":2.1},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":8702,"payKRW":3219040,"payCNY":14632,"conv":1.52,"share":1.6},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":3642,"payKRW":2647700,"payCNY":12035,"conv":4.12,"share":1.3},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":2125,"payKRW":1751640,"payCNY":7962,"conv":6.64,"share":0.9},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":2471,"payKRW":1364880,"payCNY":6204,"conv":3.2,"share":0.7},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":3347,"payKRW":1288980,"payCNY":5859,"conv":1.85,"share":0.7},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":1932,"payKRW":1179420,"payCNY":5361,"conv":3.62,"share":0.6},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":1591,"payKRW":1155880,"payCNY":5254,"conv":1.95,"share":0.6},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1009,"payKRW":999460,"payCNY":4543,"conv":3.17,"share":0.5},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":791,"payKRW":636240,"payCNY":2892,"conv":5.94,"share":0.3},{"name":"[기획] 디파이닝 커버 컨실러","id":"1025567503245","status":"품절/내림","new":false,"uv":1540,"payKRW":592680,"payCNY":2694,"conv":1.75,"share":0.3},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":2060,"payKRW":526900,"payCNY":2395,"conv":0.73,"share":0.3},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":77,"payKRW":22440,"payCNY":102,"conv":1.3,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":25,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":64,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":72,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":40,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 556684","id":"930947556684","status":"온라인","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":8,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":20,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":74,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":9,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":27,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":45,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":15,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":6,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":197929380,"costItems":[{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":13706220,"prev":8807920,"diff":4898300},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":11380600,"prev":4725380,"diff":6655220},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":8791420,"prev":10936420,"diff":-2145000},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":7023060,"prev":12362240,"diff":-5339180},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":2467520,"prev":3529900,"diff":-1062380}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":108919,"buyers":4399,"conv":4.04},{"name":"유료 광고","visitors":54374,"buyers":1793,"conv":3.3},{"name":"자발적 재방문","visitors":36610,"buyers":3421,"conv":9.34}],"subs":[{"name":"검색","visitors":55997,"buyers":2666,"conv":4.76},{"name":"키워드 광고(무계)","visitors":53491,"buyers":1687,"conv":3.15},{"name":"장바구니","visitors":22182,"buyers":2677,"conv":12.07},{"name":"추천 피드","visitors":17320,"buyers":296,"conv":1.71},{"name":"타오바오 SNS 피드","visitors":15838,"buyers":0,"conv":0.0},{"name":"마이 타오바오","visitors":9491,"buyers":635,"conv":6.69},{"name":"이미지 검색","visitors":8427,"buyers":355,"conv":4.21},{"name":"타오바오 라이브","visitors":6284,"buyers":407,"conv":6.48},{"name":"티몰 랭킹","visitors":2337,"buyers":39,"conv":1.67},{"name":"타오진비(포인트)","visitors":1816,"buyers":440,"conv":24.23}]}},"6월":{"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":45964,"payKRW":76720160,"payCNY":348728,"conv":5.11,"share":51.3},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":11338,"payKRW":17938140,"payCNY":81537,"conv":8.62,"share":12.0},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":7437,"payKRW":14685000,"payCNY":66750,"conv":5.15,"share":9.8},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":5867,"payKRW":8262980,"payCNY":37559,"conv":7.07,"share":5.5},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":7781,"payKRW":7499360,"payCNY":34088,"conv":2.9,"share":5.0},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":5206,"payKRW":5297160,"payCNY":24078,"conv":3.46,"share":3.5},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":5510,"payKRW":3161400,"payCNY":14370,"conv":3.47,"share":2.1},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":6809,"payKRW":2888600,"payCNY":13130,"conv":1.89,"share":1.9},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":2845,"payKRW":2501620,"payCNY":11371,"conv":6.92,"share":1.7},{"name":"볼드 립 블러 틴트","id":"1056920657682","status":"온라인","new":true,"uv":5101,"payKRW":2241360,"payCNY":10188,"conv":1.67,"share":1.5},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":4066,"payKRW":1844480,"payCNY":8384,"conv":2.46,"share":1.2},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1990,"payKRW":1659680,"payCNY":7544,"conv":2.56,"share":1.1},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":2549,"payKRW":1229580,"payCNY":5589,"conv":2.43,"share":0.8},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":1611,"payKRW":949960,"payCNY":4318,"conv":3.66,"share":0.6},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":698,"payKRW":725780,"payCNY":3299,"conv":7.74,"share":0.5},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":1208,"payKRW":635360,"payCNY":2888,"conv":3.23,"share":0.4},{"name":"스테이 픽서 세팅 미스트","id":"1055872138792","status":"온라인","new":true,"uv":1677,"payKRW":397540,"payCNY":1807,"conv":1.55,"share":0.3},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":1159,"payKRW":356400,"payCNY":1620,"conv":0.86,"share":0.2},{"name":"[기획] 디파이닝 커버 컨실러","id":"1025567503245","status":"품절/내림","new":false,"uv":517,"payKRW":329560,"payCNY":1498,"conv":2.71,"share":0.2},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":1128,"payKRW":281600,"payCNY":1280,"conv":0.62,"share":0.2},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":22,"payKRW":40480,"payCNY":184,"conv":4.55,"share":0.0},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":924,"payKRW":36960,"payCNY":168,"conv":0.22,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":32,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":41,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":30,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":28,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":36,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":31,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":149683160,"costItems":[{"owner":"OY","item":"샤오홍씽 CID 효과광고(聚光)","cur":22497420,"prev":13706220,"diff":8791200},{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":8992940,"prev":8791420,"diff":201520},{"owner":"OY","item":"KOL/KOC/SNS 바이럴 마케팅","cur":5494720,"prev":11380600,"diff":-5885880},{"owner":"스틸","item":"도우인 라이브방송(Still 부담 수수료)","cur":0,"prev":7023060,"diff":-7023060},{"owner":"OY","item":"라이브방송 올리브영 지원분","cur":0,"prev":2467520,"diff":-2467520}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":74094,"buyers":2744,"conv":3.7},{"name":"유료 광고","visitors":37456,"buyers":1266,"conv":3.38},{"name":"자발적 재방문","visitors":27733,"buyers":2629,"conv":9.48}],"subs":[{"name":"검색","visitors":42834,"buyers":1375,"conv":3.21},{"name":"키워드 광고(무계)","visitors":36850,"buyers":1202,"conv":3.26},{"name":"장바구니","visitors":15332,"buyers":2037,"conv":13.29},{"name":"추천 피드","visitors":14447,"buyers":294,"conv":2.04},{"name":"이미지 검색","visitors":7580,"buyers":292,"conv":3.85},{"name":"마이 타오바오","visitors":6910,"buyers":457,"conv":6.61},{"name":"타오바오 SNS 피드","visitors":4265,"buyers":0,"conv":0.0},{"name":"타오바오 라이브","visitors":4080,"buyers":282,"conv":6.91},{"name":"티몰 랭킹","visitors":1429,"buyers":24,"conv":1.68},{"name":"타오진비(포인트)","visitors":1222,"buyers":265,"conv":21.69}]}}},"daily":{"month":"6월","brands":["웨이크메이크","컬러그램"],"platformLabel":"도우인(抖音) 역직구 · 海外旗舰店","metricNote":"일 결제금액(用户支付金额) · 증정 제외 · 환율 220원","coverage":"2026-06-01 ~ 2026-06-22","dates":["2026-06-01","2026-06-02","2026-06-03","2026-06-04","2026-06-05","2026-06-06","2026-06-07","2026-06-08","2026-06-09","2026-06-10","2026-06-11","2026-06-12","2026-06-13","2026-06-14","2026-06-15","2026-06-16","2026-06-17","2026-06-18","2026-06-19","2026-06-20","2026-06-21","2026-06-22"],"series":{"웨이크메이크":[{"date":"2026-06-01","salesKRW":1910476,"gmvKRW":2130678,"orders":87,"buyers":82,"aov":23298},{"date":"2026-06-02","salesKRW":1387877,"gmvKRW":1415656,"orders":61,"buyers":52,"aov":26690},{"date":"2026-06-03","salesKRW":1651142,"gmvKRW":1750936,"orders":69,"buyers":64,"aov":25799},{"date":"2026-06-04","salesKRW":1827707,"gmvKRW":1903812,"orders":75,"buyers":69,"aov":26488},{"date":"2026-06-05","salesKRW":1309636,"gmvKRW":1375372,"orders":57,"buyers":54,"aov":24253},{"date":"2026-06-06","salesKRW":2291496,"gmvKRW":2486972,"orders":107,"buyers":85,"aov":26959},{"date":"2026-06-07","salesKRW":2013752,"gmvKRW":2119810,"orders":84,"buyers":78,"aov":25817},{"date":"2026-06-08","salesKRW":2237156,"gmvKRW":2364019,"orders":98,"buyers":86,"aov":26013},{"date":"2026-06-09","salesKRW":2081515,"gmvKRW":2218680,"orders":108,"buyers":81,"aov":25698},{"date":"2026-06-10","salesKRW":1625210,"gmvKRW":1705704,"orders":105,"buyers":65,"aov":25003},{"date":"2026-06-11","salesKRW":3626696,"gmvKRW":4142446,"orders":224,"buyers":150,"aov":24178},{"date":"2026-06-12","salesKRW":2554952,"gmvKRW":2881842,"orders":118,"buyers":99,"aov":25808},{"date":"2026-06-13","salesKRW":2375052,"gmvKRW":2620112,"orders":112,"buyers":94,"aov":25267},{"date":"2026-06-14","salesKRW":2672916,"gmvKRW":2974297,"orders":121,"buyers":107,"aov":24981},{"date":"2026-06-15","salesKRW":3390891,"gmvKRW":3761705,"orders":160,"buyers":133,"aov":25496},{"date":"2026-06-16","salesKRW":2999344,"gmvKRW":3326558,"orders":132,"buyers":116,"aov":25857},{"date":"2026-06-17","salesKRW":2888384,"gmvKRW":3213518,"orders":139,"buyers":126,"aov":22924},{"date":"2026-06-18","salesKRW":2785719,"gmvKRW":3162678,"orders":128,"buyers":114,"aov":24435},{"date":"2026-06-19","salesKRW":2045010,"gmvKRW":2167418,"orders":86,"buyers":82,"aov":24939},{"date":"2026-06-20","salesKRW":1500323,"gmvKRW":1561932,"orders":61,"buyers":51,"aov":29418},{"date":"2026-06-21","salesKRW":2092534,"gmvKRW":2209414,"orders":89,"buyers":80,"aov":26156},{"date":"2026-06-22","salesKRW":1265537,"gmvKRW":1360634,"orders":55,"buyers":53,"aov":23879}],"컬러그램":[{"date":"2026-06-01","salesKRW":2105198,"gmvKRW":2151688,"orders":221,"buyers":175,"aov":12030},{"date":"2026-06-02","salesKRW":475603,"gmvKRW":485980,"orders":59,"buyers":41,"aov":11601},{"date":"2026-06-03","salesKRW":5635828,"gmvKRW":5820758,"orders":552,"buyers":447,"aov":12608},{"date":"2026-06-04","salesKRW":4636073,"gmvKRW":4812522,"orders":469,"buyers":372,"aov":12463},{"date":"2026-06-05","salesKRW":4222691,"gmvKRW":4299471,"orders":421,"buyers":337,"aov":12531},{"date":"2026-06-06","salesKRW":1374595,"gmvKRW":1417438,"orders":150,"buyers":114,"aov":12058},{"date":"2026-06-07","salesKRW":1147841,"gmvKRW":1174624,"orders":120,"buyers":96,"aov":11957},{"date":"2026-06-08","salesKRW":215796,"gmvKRW":222046,"orders":33,"buyers":17,"aov":12694},{"date":"2026-06-09","salesKRW":333863,"gmvKRW":353518,"orders":40,"buyers":30,"aov":11130},{"date":"2026-06-10","salesKRW":273704,"gmvKRW":283690,"orders":35,"buyers":24,"aov":11405},{"date":"2026-06-11","salesKRW":388238,"gmvKRW":407528,"orders":46,"buyers":34,"aov":11418},{"date":"2026-06-12","salesKRW":290528,"gmvKRW":306306,"orders":28,"buyers":25,"aov":11620},{"date":"2026-06-13","salesKRW":325114,"gmvKRW":344982,"orders":33,"buyers":26,"aov":12505},{"date":"2026-06-14","salesKRW":317370,"gmvKRW":323906,"orders":35,"buyers":32,"aov":9918},{"date":"2026-06-15","salesKRW":623502,"gmvKRW":661100,"orders":62,"buyers":56,"aov":11134},{"date":"2026-06-16","salesKRW":3888716,"gmvKRW":3967597,"orders":382,"buyers":339,"aov":11471},{"date":"2026-06-17","salesKRW":3508681,"gmvKRW":3537622,"orders":349,"buyers":308,"aov":11392},{"date":"2026-06-18","salesKRW":737763,"gmvKRW":771188,"orders":129,"buyers":67,"aov":11011},{"date":"2026-06-19","salesKRW":374227,"gmvKRW":380226,"orders":40,"buyers":28,"aov":13365},{"date":"2026-06-20","salesKRW":287892,"gmvKRW":292072,"orders":27,"buyers":18,"aov":15994},{"date":"2026-06-21","salesKRW":308594,"gmvKRW":310354,"orders":33,"buyers":21,"aov":14696},{"date":"2026-06-22","salesKRW":447128,"gmvKRW":449988,"orders":57,"buyers":39,"aov":11464}]},"prev":{"웨이크메이크":null,"컬러그램":null}},"platforms":{"brands":["웨이크메이크","컬러그램"],"byBrand":{"웨이크메이크":{"brand":"웨이크메이크","month":"6월","storeType":"cross","order":["티몰","도우인","샤오홍슈"],"byPlatform":{"티몰":{"label":"티몰글로벌(天猫国际)","hasData":true,"hasProductDetail":true,"kpi":{"salesKRW":149683160,"uv":121834,"costKRW":8992940,"roas":16.64,"orders":null,"buyers":null},"products":[{"name":"소프트 블러링 아이팔레트","id":"802291666650","status":"온라인","new":false,"uv":45964,"payKRW":76720160,"payCNY":348728,"conv":5.11,"share":51.3},{"name":"믹스 블러링 볼륨 쉐딩","id":"802325822279","status":"온라인","new":false,"uv":11338,"payKRW":17938140,"payCNY":81537,"conv":8.62,"share":12.0},{"name":"워터 글로우 코팅밤AD(쿠션)","id":"979107752691","status":"온라인","new":false,"uv":7437,"payKRW":14685000,"payCNY":66750,"conv":5.15,"share":9.8},{"name":"쉐이킹 블러 치크","id":"981293620333","status":"온라인","new":false,"uv":5867,"payKRW":8262980,"payCNY":37559,"conv":7.07,"share":5.5},{"name":"16색 아이섀도우 팔레트(데일리)","id":"930390492188","status":"온라인","new":false,"uv":7781,"payKRW":7499360,"payCNY":34088,"conv":2.9,"share":5.0},{"name":"디파이닝 커버 파운데이션(브러시증정)","id":"955175851181","status":"온라인","new":false,"uv":5206,"payKRW":5297160,"payCNY":24078,"conv":3.46,"share":3.5},{"name":"워터풀 글로우 틴트","id":"944149219488","status":"온라인","new":false,"uv":5510,"payKRW":3161400,"payCNY":14370,"conv":3.47,"share":2.1},{"name":"6색 멀티 팔레트","id":"915599957043","status":"온라인","new":false,"uv":6809,"payKRW":2888600,"payCNY":13130,"conv":1.89,"share":1.9},{"name":"워터풀 글로우 틴트(신규)","id":"970326378569","status":"온라인","new":false,"uv":2845,"payKRW":2501620,"payCNY":11371,"conv":6.92,"share":1.7},{"name":"볼드 립 블러 틴트","id":"1056920657682","status":"온라인","new":true,"uv":5101,"payKRW":2241360,"payCNY":10188,"conv":1.67,"share":1.5},{"name":"헬시 글로우 밤 스틱","id":"956917552339","status":"온라인","new":false,"uv":4066,"payKRW":1844480,"payCNY":8384,"conv":2.46,"share":1.2},{"name":"매트 그레이 쿠션","id":"955630790429","status":"온라인","new":false,"uv":1990,"payKRW":1659680,"payCNY":7544,"conv":2.56,"share":1.1},{"name":"소프트 블러링 밤 스틱","id":"979918030260","status":"온라인","new":false,"uv":2549,"payKRW":1229580,"payCNY":5589,"conv":2.43,"share":0.8},{"name":"워터 블러링 레이어 틴트","id":"944132243773","status":"온라인","new":false,"uv":1611,"payKRW":949960,"payCNY":4318,"conv":3.66,"share":0.6},{"name":"눈썹연필·아이브로우","id":"994394931225","status":"온라인","new":false,"uv":698,"payKRW":725780,"payCNY":3299,"conv":7.74,"share":0.5},{"name":"디파이닝 커버 컨실러","id":"991053980918","status":"온라인","new":false,"uv":1208,"payKRW":635360,"payCNY":2888,"conv":3.23,"share":0.4},{"name":"스테이 픽서 세팅 미스트","id":"1055872138792","status":"온라인","new":true,"uv":1677,"payKRW":397540,"payCNY":1807,"conv":1.55,"share":0.3},{"name":"워터 글로우 코팅밤(구형)","id":"916056804484","status":"온라인","new":false,"uv":1159,"payKRW":356400,"payCNY":1620,"conv":0.86,"share":0.2},{"name":"[기획] 디파이닝 커버 컨실러","id":"1025567503245","status":"품절/내림","new":false,"uv":517,"payKRW":329560,"payCNY":1498,"conv":2.71,"share":0.2},{"name":"워터 글로우 코팅 쿠션(브러시증정)","id":"1010846509316","status":"온라인","new":false,"uv":1128,"payKRW":281600,"payCNY":1280,"conv":0.62,"share":0.2},{"name":"[특가] 러비 미광 립 틴트","id":"923655776577","status":"품절/내림","new":false,"uv":22,"payKRW":40480,"payCNY":184,"conv":4.55,"share":0.0},{"name":"와이드 파운데이션 브러시","id":"923641001774","status":"품절/내림","new":false,"uv":924,"payKRW":36960,"payCNY":168,"conv":0.22,"share":0.0},{"name":"윤곽 형광 조색 팔레트","id":"802226967628","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"정형 컨실러 조색 팔레트","id":"802231575085","status":"품절/내림","new":false,"uv":4,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"퓨어 소이 파우더 팩트","id":"802234879735","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 446381","id":"802282446381","status":"품절/내림","new":false,"uv":32,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 650539","id":"802301650539","status":"품절/내림","new":false,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 894878","id":"802311894878","status":"품절/내림","new":false,"uv":41,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 986222","id":"802313986222","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 094402","id":"802334094402","status":"품절/내림","new":false,"uv":7,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 706355","id":"802346706355","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 812800","id":"802501812800","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 024570","id":"802528024570","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[한정특가] 워터 글로우 코팅 쿠션","id":"834612380188","status":"품절/내림","new":false,"uv":30,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 425092","id":"903542425092","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 825154","id":"915636825154","status":"품절/내림","new":true,"uv":28,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"워터 글로우 코팅 쿠션","id":"930412381224","status":"품절/내림","new":false,"uv":36,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 645525","id":"930414645525","status":"품절/내림","new":false,"uv":44,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 297069","id":"931531297069","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 199861","id":"936609199861","status":"품절/내림","new":false,"uv":18,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 워터 글로우 코팅 쿠션","id":"937100575838","status":"품절/내림","new":false,"uv":56,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 618845","id":"940119618845","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"[임박] 디파이닝 커버 컨실러","id":"943692099726","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 101223","id":"947186101223","status":"품절/내림","new":false,"uv":14,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 256425","id":"956425256425","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 188739","id":"956442188739","status":"품절/내림","new":false,"uv":3,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 627629","id":"976438627629","status":"품절/내림","new":false,"uv":2,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 868814","id":"979109868814","status":"품절/내림","new":true,"uv":31,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 255590","id":"979664255590","status":"품절/내림","new":false,"uv":5,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 503424","id":"994577503424","status":"품절/내림","new":true,"uv":12,"payKRW":0,"payCNY":0,"conv":0,"share":0.0},{"name":"코드 530064","id":"1013933530064","status":"품절/내림","new":false,"uv":1,"payKRW":0,"payCNY":0,"conv":0,"share":0.0}],"productTotalKRW":149683160,"costItems":[{"owner":"스틸","item":"티몰 유료광고(내부광고 소모액)","cur":8992940,"prev":8791420,"diff":201520}],"traffic":{"groups":[{"name":"자연 유입(무료)","visitors":74094,"buyers":2744,"conv":3.7},{"name":"유료 광고","visitors":37456,"buyers":1266,"conv":3.38},{"name":"자발적 재방문","visitors":27733,"buyers":2629,"conv":9.48}],"subs":[{"name":"검색","visitors":42834,"buyers":1375,"conv":3.21},{"name":"키워드 광고(무계)","visitors":36850,"buyers":1202,"conv":3.26},{"name":"장바구니","visitors":15332,"buyers":2037,"conv":13.29},{"name":"추천 피드","visitors":14447,"buyers":294,"conv":2.04},{"name":"이미지 검색","visitors":7580,"buyers":292,"conv":3.85},{"name":"마이 타오바오","visitors":6910,"buyers":457,"conv":6.61},{"name":"타오바오 SNS 피드","visitors":4265,"buyers":0,"conv":0.0},{"name":"타오바오 라이브","visitors":4080,"buyers":282,"conv":6.91},{"name":"티몰 랭킹","visitors":1429,"buyers":24,"conv":1.68},{"name":"타오진비(포인트)","visitors":1222,"buyers":265,"conv":21.69}]},"note":"상품별 sell-out·유입경로 전체 확보(로우데이터)"},"도우인":{"label":"도우인(抖音) 역직구","hasData":true,"hasProductDetail":false,"kpi":{"salesKRW":48533324,"gmvKRW":52854193,"costKRW":0,"roas":null,"orders":2276,"buyers":1921,"aov":21324,"uv":1416540},"products":[],"daily":[{"date":"2026-06-01","salesKRW":1910476,"orders":87,"buyers":82},{"date":"2026-06-02","salesKRW":1387877,"orders":61,"buyers":52},{"date":"2026-06-03","salesKRW":1651142,"orders":69,"buyers":64},{"date":"2026-06-04","salesKRW":1827707,"orders":75,"buyers":69},{"date":"2026-06-05","salesKRW":1309636,"orders":57,"buyers":54},{"date":"2026-06-06","salesKRW":2291496,"orders":107,"buyers":85},{"date":"2026-06-07","salesKRW":2013752,"orders":84,"buyers":78},{"date":"2026-06-08","salesKRW":2237156,"orders":98,"buyers":86},{"date":"2026-06-09","salesKRW":2081515,"orders":108,"buyers":81},{"date":"2026-06-10","salesKRW":1625210,"orders":105,"buyers":65},{"date":"2026-06-11","salesKRW":3626696,"orders":224,"buyers":150},{"date":"2026-06-12","salesKRW":2554952,"orders":118,"buyers":99},{"date":"2026-06-13","salesKRW":2375052,"orders":112,"buyers":94},{"date":"2026-06-14","salesKRW":2672916,"orders":121,"buyers":107},{"date":"2026-06-15","salesKRW":3390891,"orders":160,"buyers":133},{"date":"2026-06-16","salesKRW":2999344,"orders":132,"buyers":116},{"date":"2026-06-17","salesKRW":2888384,"orders":139,"buyers":126},{"date":"2026-06-18","salesKRW":2785719,"orders":128,"buyers":114},{"date":"2026-06-19","salesKRW":2045010,"orders":86,"buyers":82},{"date":"2026-06-20","salesKRW":1500323,"orders":61,"buyers":51},{"date":"2026-06-21","salesKRW":2092534,"orders":89,"buyers":80},{"date":"2026-06-22","salesKRW":1265537,"orders":55,"buyers":53}],"funnel":{"expUV":1416540,"clickUV":73073,"buyers":1921},"note":"스토어 단위 일자 집계 · 상품별 sell-out 은 시트 `도우인_상품별` 입력 시 표시"},"샤오홍슈":{"label":"샤오홍슈(小红书) 聚光","hasData":true,"hasProductDetail":false,"kpi":{"salesKRW":19522494,"gmvKRW":19522494,"adKRW":24015489,"costKRW":27992140,"roas":0.7,"uv":15271,"exp":2080613,"clk":227360},"categories":[{"cn":"十六色眼影","adKRW":12522442,"exp":1140543,"clk":127916,"sku":null,"ko":null,"matched":false},{"cn":"粉糖气垫","adKRW":9067687,"exp":724677,"clk":76311,"sku":"WM-CUSHION","ko":"워터 글로우 코팅 쿠션","matched":true},{"cn":"气垫种草","adKRW":771028,"exp":67046,"clk":7074,"sku":"WM-CUSHION","ko":"워터 글로우 코팅 쿠션","matched":true},{"cn":"眼影妆教","adKRW":524365,"exp":52808,"clk":5435,"sku":null,"ko":null,"matched":false},{"cn":"眼影测评","adKRW":425450,"exp":33338,"clk":2904,"sku":null,"ko":null,"matched":false},{"cn":"眼影种草","adKRW":305831,"exp":29882,"clk":4375,"sku":null,"ko":null,"matched":false},{"cn":"气垫测评","adKRW":216191,"exp":14821,"clk":1464,"sku":"WM-CUSHION","ko":"워터 글로우 코팅 쿠션","matched":true},{"cn":"眼影合集","adKRW":182494,"exp":17498,"clk":1881,"sku":null,"ko":null,"matched":false}],"products":[],"note":"聚光 로우 기준 집행 상세(카테고리별) · GMV/UV 는 기여 GMV 소스 기준(탭③과 소폭 상이)"}},"combined":{"kpi":{"salesKRW":217738978,"costKRW":36985080,"roas":5.89,"orders":2276},"bySales":[{"platform":"티몰","salesKRW":149683160},{"platform":"도우인","salesKRW":48533324},{"platform":"샤오홍슈","salesKRW":19522494}],"products":[{"sku":"WM-EYE-SOFT","ko":"소프트 블러링 아이팔레트","티몰":76720160,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-SHADE","ko":"믹스 블러링 볼륨 쉐딩","티몰":17938140,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-CUSHION","ko":"워터 글로우 코팅 쿠션","티몰":15323000,"도우인":0,"샤오홍슈_ad":10054906},{"sku":"WM-CHEEK","ko":"쉐이킹 블러 치크","티몰":8262980,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-EYE-16","ko":"16색 아이섀도우 팔레트(데일리)","티몰":7499360,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-TINT-WG","ko":"워터풀 글로우 틴트","티몰":5663020,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-FND","ko":"디파이닝 커버 파운데이션","티몰":5297160,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-EYE-MULTI","ko":"6색 멀티 팔레트","티몰":2888600,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-TINT-BOLD","ko":"볼드 립 블러 틴트","티몰":2241360,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-BALM-STICK","ko":"헬시 글로우 밤 스틱","티몰":1844480,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-CUSHION-GRAY","ko":"매트 그레이 쿠션","티몰":1659680,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-BALM-SOFT","ko":"소프트 블러링 밤 스틱","티몰":1229580,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-CONCEAL","ko":"디파이닝 커버 컨실러","티몰":964920,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-TINT-LAYER","ko":"워터 블러링 레이어 틴트","티몰":949960,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-BROW","ko":"눈썹연필·아이브로우","티몰":725780,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-MIST","ko":"스테이 픽서 세팅 미스트","티몰":397540,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-TINT-LOVELY","ko":"러비 미광 립 틴트","티몰":40480,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-BRUSH","ko":"와이드 파운데이션 브러시","티몰":36960,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-PAL-CONTOUR","ko":"윤곽 형광 조색 팔레트","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-PAL-CONCEAL","ko":"정형 컨실러 조색 팔레트","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"WM-PACT","ko":"퓨어 소이 파우더 팩트","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802282446381","ko":"코드 446381","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802301650539","ko":"코드 650539","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802311894878","ko":"코드 894878","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802313986222","ko":"코드 986222","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802334094402","ko":"코드 094402","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802346706355","ko":"코드 706355","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802501812800","ko":"코드 812800","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:802528024570","ko":"코드 024570","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:903542425092","ko":"코드 425092","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:915636825154","ko":"코드 825154","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:930414645525","ko":"코드 645525","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:931531297069","ko":"코드 297069","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:936609199861","ko":"코드 199861","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:940119618845","ko":"코드 618845","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:947186101223","ko":"코드 101223","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:956425256425","ko":"코드 256425","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:956442188739","ko":"코드 188739","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:976438627629","ko":"코드 627629","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:979109868814","ko":"코드 868814","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:979664255590","ko":"코드 255590","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:994577503424","ko":"코드 503424","티몰":0,"도우인":0,"샤오홍슈_ad":0},{"sku":"TM:1013933530064","ko":"코드 530064","티몰":0,"도우인":0,"샤오홍슈_ad":0}],"note":"매출=티몰 결제+도우인 결제+샤오홍슈 기여GMV · 비용=채널 귀속 마케팅비 합"},"unmatched":[{"platform":"샤오홍슈","cnName":"十六色眼影","metricLabel":"聚光 집행","valueKRW":12522442,"reason":"'十六色(16색)'은 문자상 16색 데일리 팔레트지만, 6월 聚光 최대 집행은 히어로 '소프트 블러링 아이팔레트'일 가능성 — 실제 프로모션 SKU 판별 필요","candidates":["16색 아이섀도우 팔레트(데일리)","소프트 블러링 아이팔레트"]},{"platform":"샤오홍슈","cnName":"眼影妆教","metricLabel":"聚光 집행","valueKRW":524365,"reason":"콘텐츠 유형(妆教=메이크업 튜토리얼) 태그 — 특정 아이섀도우 SKU 불명","candidates":["16색 아이섀도우 팔레트(데일리)","소프트 블러링 아이팔레트"]},{"platform":"샤오홍슈","cnName":"眼影测评","metricLabel":"聚光 집행","valueKRW":425450,"reason":"콘텐츠 유형(测评=리뷰) 태그 — 특정 SKU 불명","candidates":["16색 아이섀도우 팔레트(데일리)","소프트 블러링 아이팔레트"]},{"platform":"샤오홍슈","cnName":"眼影种草","metricLabel":"聚光 집행","valueKRW":305831,"reason":"콘텐츠 유형(种草=제품 소개) 태그 — 특정 SKU 불명","candidates":["16색 아이섀도우 팔레트(데일리)","소프트 블러링 아이팔레트"]},{"platform":"샤오홍슈","cnName":"眼影合集","metricLabel":"聚光 집행","valueKRW":182494,"reason":"콘텐츠 유형(合集=모음) 태그 — 특정 SKU 불명","candidates":["16색 아이섀도우 팔레트(데일리)","소프트 블러링 아이팔레트"]}]},"컬러그램":{"brand":"컬러그램","month":"6월","storeType":"cross","order":["티몰","도우인","샤오홍슈"],"byPlatform":{"티몰":{"label":"티몰글로벌(天猫国际)","hasData":false,"hasProductDetail":false,"kpi":{"salesKRW":0,"uv":0,"costKRW":0,"roas":0,"orders":null,"buyers":null},"products":[],"productTotalKRW":0,"costItems":[],"traffic":{"groups":[],"subs":[]},"note":"티몰 컬러그램 데이터 미확보 — 시트 `플랫폼_티몰` 입력 대기"},"도우인":{"label":"도우인(抖音) 역직구","hasData":true,"hasProductDetail":false,"kpi":{"salesKRW":31918944,"gmvKRW":32774603,"costKRW":0,"roas":null,"orders":3321,"buyers":2646,"aov":9611,"uv":589294},"products":[],"daily":[{"date":"2026-06-01","salesKRW":2105198,"orders":221,"buyers":175},{"date":"2026-06-02","salesKRW":475603,"orders":59,"buyers":41},{"date":"2026-06-03","salesKRW":5635828,"orders":552,"buyers":447},{"date":"2026-06-04","salesKRW":4636073,"orders":469,"buyers":372},{"date":"2026-06-05","salesKRW":4222691,"orders":421,"buyers":337},{"date":"2026-06-06","salesKRW":1374595,"orders":150,"buyers":114},{"date":"2026-06-07","salesKRW":1147841,"orders":120,"buyers":96},{"date":"2026-06-08","salesKRW":215796,"orders":33,"buyers":17},{"date":"2026-06-09","salesKRW":333863,"orders":40,"buyers":30},{"date":"2026-06-10","salesKRW":273704,"orders":35,"buyers":24},{"date":"2026-06-11","salesKRW":388238,"orders":46,"buyers":34},{"date":"2026-06-12","salesKRW":290528,"orders":28,"buyers":25},{"date":"2026-06-13","salesKRW":325114,"orders":33,"buyers":26},{"date":"2026-06-14","salesKRW":317370,"orders":35,"buyers":32},{"date":"2026-06-15","salesKRW":623502,"orders":62,"buyers":56},{"date":"2026-06-16","salesKRW":3888716,"orders":382,"buyers":339},{"date":"2026-06-17","salesKRW":3508681,"orders":349,"buyers":308},{"date":"2026-06-18","salesKRW":737763,"orders":129,"buyers":67},{"date":"2026-06-19","salesKRW":374227,"orders":40,"buyers":28},{"date":"2026-06-20","salesKRW":287892,"orders":27,"buyers":18},{"date":"2026-06-21","salesKRW":308594,"orders":33,"buyers":21},{"date":"2026-06-22","salesKRW":447128,"orders":57,"buyers":39}],"funnel":{"expUV":589294,"clickUV":63859,"buyers":2646},"note":"스토어 단위 일자 집계 · 상품별 sell-out 은 시트 `도우인_상품별` 입력 시 표시"},"샤오홍슈":{"label":"샤오홍슈(小红书) 聚光","hasData":false,"hasProductDetail":false,"kpi":{"salesKRW":0,"gmvKRW":0,"adKRW":0,"costKRW":0,"roas":0,"uv":0,"exp":0,"clk":0},"categories":[],"products":[],"note":"샤오홍슈 컬러그램 데이터 미확보 — 시트 `플랫폼_샤오홍슈` 입력 대기"}},"combined":{"kpi":{"salesKRW":31918944,"costKRW":0,"roas":0,"orders":3321},"bySales":[{"platform":"티몰","salesKRW":0},{"platform":"도우인","salesKRW":31918944},{"platform":"샤오홍슈","salesKRW":0}],"products":[],"note":"매출=티몰 결제+도우인 결제+샤오홍슈 기여GMV · 비용=채널 귀속 마케팅비 합"},"unmatched":[]}}},"mapping":{"skus":[{"sku":"WM-EYE-SOFT","ko":"소프트 블러링 아이팔레트","brand":"웨이크메이크","status":"확정","tmallIds":["802291666650"],"douyin":[],"xhs":[],"note":"티몰 히어로 SKU(6월 매출 51%)"},{"sku":"WM-EYE-16","ko":"16색 아이섀도우 팔레트(데일리)","brand":"웨이크메이크","status":"확정","tmallIds":["930390492188"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-EYE-MULTI","ko":"6색 멀티 팔레트","brand":"웨이크메이크","status":"확정","tmallIds":["915599957043"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-CUSHION","ko":"워터 글로우 코팅 쿠션","brand":"웨이크메이크","status":"확정","tmallIds":["930412381224","979107752691","834612380188","1010846509316","937100575838","916056804484"],"douyin":[],"xhs":["粉糖气垫","气垫种草","气垫测评"],"note":"샤오홍슈 聚光 '气垫(쿠션)' 계열 합산"},{"sku":"WM-CUSHION-GRAY","ko":"매트 그레이 쿠션","brand":"웨이크메이크","status":"확정","tmallIds":["955630790429"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-CONCEAL","ko":"디파이닝 커버 컨실러","brand":"웨이크메이크","status":"확정","tmallIds":["991053980918","943692099726","1025567503245"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-FND","ko":"디파이닝 커버 파운데이션","brand":"웨이크메이크","status":"확정","tmallIds":["955175851181"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-PACT","ko":"퓨어 소이 파우더 팩트","brand":"웨이크메이크","status":"확정","tmallIds":["802234879735"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-TINT-WG","ko":"워터풀 글로우 틴트","brand":"웨이크메이크","status":"확정","tmallIds":["944149219488","970326378569"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-TINT-LAYER","ko":"워터 블러링 레이어 틴트","brand":"웨이크메이크","status":"확정","tmallIds":["944132243773"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-TINT-BOLD","ko":"볼드 립 블러 틴트","brand":"웨이크메이크","status":"확정","tmallIds":["1056920657682"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-TINT-LOVELY","ko":"러비 미광 립 틴트","brand":"웨이크메이크","status":"확정","tmallIds":["923655776577"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-BALM-STICK","ko":"헬시 글로우 밤 스틱","brand":"웨이크메이크","status":"확정","tmallIds":["956917552339"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-BALM-SOFT","ko":"소프트 블러링 밤 스틱","brand":"웨이크메이크","status":"확정","tmallIds":["979918030260"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-SHADE","ko":"믹스 블러링 볼륨 쉐딩","brand":"웨이크메이크","status":"확정","tmallIds":["802325822279"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-CHEEK","ko":"쉐이킹 블러 치크","brand":"웨이크메이크","status":"확정","tmallIds":["981293620333"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-MIST","ko":"스테이 픽서 세팅 미스트","brand":"웨이크메이크","status":"확정","tmallIds":["1055872138792"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-BROW","ko":"눈썹연필·아이브로우","brand":"웨이크메이크","status":"확정","tmallIds":["994394931225"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-BRUSH","ko":"와이드 파운데이션 브러시","brand":"웨이크메이크","status":"확정","tmallIds":["923641001774"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-PAL-CONTOUR","ko":"윤곽 형광 조색 팔레트","brand":"웨이크메이크","status":"확정","tmallIds":["802226967628"],"douyin":[],"xhs":[],"note":""},{"sku":"WM-PAL-CONCEAL","ko":"정형 컨실러 조색 팔레트","brand":"웨이크메이크","status":"확정","tmallIds":["802231575085"],"douyin":[],"xhs":[],"note":""}],"ambiguous":[{"platform":"샤오홍슈","cn":"十六色眼影","candidates":["WM-EYE-16","WM-EYE-SOFT"],"reason":"'十六色(16색)'은 문자상 16색 데일리 팔레트지만, 6월 聚光 최대 집행은 히어로 '소프트 블러링 아이팔레트'일 가능성 — 실제 프로모션 SKU 판별 필요"},{"platform":"샤오홍슈","cn":"眼影妆教","candidates":["WM-EYE-16","WM-EYE-SOFT"],"reason":"콘텐츠 유형(妆教=메이크업 튜토리얼) 태그 — 특정 아이섀도우 SKU 불명"},{"platform":"샤오홍슈","cn":"眼影测评","candidates":["WM-EYE-16","WM-EYE-SOFT"],"reason":"콘텐츠 유형(测评=리뷰) 태그 — 특정 SKU 불명"},{"platform":"샤오홍슈","cn":"眼影种草","candidates":["WM-EYE-16","WM-EYE-SOFT"],"reason":"콘텐츠 유형(种草=제품 소개) 태그 — 특정 SKU 불명"},{"platform":"샤오홍슈","cn":"眼影合集","candidates":["WM-EYE-16","WM-EYE-SOFT"],"reason":"콘텐츠 유형(合集=모음) 태그 — 특정 SKU 불명"}]}};
 const S = DATA.series, MONTHS = DATA.months, FX = DATA.fx;
-let cur = MONTHS[MONTHS.length-1];
 const iOf = m => MONTHS.indexOf(m);
 
+/* ---------- formatters ---------- */
 const won=n=>'₩'+Math.round(n).toLocaleString('ko-KR');
 const intc=n=>Math.round(n).toLocaleString('ko-KR');
 const smart=n=>{n=Math.round(n);const a=Math.abs(n);if(a>=1e8)return (n/1e8).toFixed(2)+'억';if(a>=1e4)return Math.round(n/1e4).toLocaleString('ko-KR')+'만';return n.toLocaleString('ko-KR');};
@@ -349,7 +455,12 @@ const smartW=n=>(n<0?'-':'')+'₩'+smart(Math.abs(n));
 const pc=(n,d=1)=>Number(n).toFixed(d)+'%';
 const esc=s=>String(s).replace(/"/g,'&quot;');
 function mom(c,p,invert=false){ if(p===null||p===undefined||p===0||p===false) return '<span class="mom flat">–</span>'; const d=(c-p)/Math.abs(p)*100,up=d>0.5,dn=d<-0.5,good=invert?dn:up,cls=(up||dn)?(good?'up':'down'):'flat',ar=up?'▲':dn?'▼':'–'; return `<span class="mom ${cls}">${ar} ${Math.abs(d).toFixed(1)}%</span>`; }
+const DOW=['일','월','화','수','목','금','토'];
+const dow=d=>new Date(d+'T12:00:00').getDay();
+const isWeekend=d=>{const g=dow(d);return g===0||g===6;};
+const mdOf=d=>(+d.slice(5,7))+'/'+(+d.slice(8,10));
 
+/* ---------- tooltip ---------- */
 const tip=document.getElementById('tip');
 function wireTips(root){
   root.addEventListener('mousemove',e=>{const t=e.target.closest('[data-tip]');if(!t){tip.style.opacity=0;return;}
@@ -359,20 +470,339 @@ function wireTips(root){
     tip.style.left=x+'px';tip.style.top=y+'px';});
   root.addEventListener('mouseleave',()=>tip.style.opacity=0);
 }
-function ctx(){ const i=iOf(cur); return {i, J:S[i], PREV:i>0?S[i-1]:null, M:DATA.byMonth[cur]}; }
 
-/* ===== KPIs ===== */
+/* =====================================================================
+   VIEW ① 일자별 매출 (브랜드 분리 + 자동 코멘트)
+   ===================================================================== */
+const BRANDCOL={'웨이크메이크':{v:'var(--green-2)',s:'var(--green)',soft:'var(--green-soft)'},
+                '컬러그램':{v:'var(--coral-2)',s:'var(--coral)',soft:'var(--coral-soft)'}};
+function analyzeBrand(brand){
+  const a=DATA.daily.series[brand]||[]; if(!a.length) return null;
+  const n=a.length, vals=a.map(x=>x.salesKRW), sum=vals.reduce((s,x)=>s+x,0), avg=sum/n;
+  const h=Math.floor(n/2)||1;
+  const fa=vals.slice(0,h).reduce((s,x)=>s+x,0)/h;
+  const sa=vals.slice(h).reduce((s,x)=>s+x,0)/(n-h||1);
+  const trend=fa?((sa-fa)/fa*100):0;
+  let sx=0,sy=0,sxx=0,sxy=0; a.forEach((x,i)=>{sx+=i;sy+=x.salesKRW;sxx+=i*i;sxy+=i*x.salesKRW;});
+  const slope=(n*sxx-sx*sx)?(n*sxy-sx*sy)/(n*sxx-sx*sx):0;
+  const peak=a.reduce((m,x)=>x.salesKRW>m.salesKRW?x:m);
+  const trough=a.reduce((m,x)=>x.salesKRW<m.salesKRW?x:m);
+  const sd=Math.sqrt(vals.reduce((s,x)=>s+(x-avg)*(x-avg),0)/n);
+  const spikes=a.filter(x=>x.salesKRW>=avg+1.3*sd).sort((p,q)=>q.salesKRW-p.salesKRW);
+  const dips=a.filter(x=>x.salesKRW<=avg-1.3*sd).sort((p,q)=>p.salesKRW-q.salesKRW);
+  const wd=a.filter(x=>!isWeekend(x.date)), we=a.filter(x=>isWeekend(x.date));
+  const wdAvg=wd.length?wd.reduce((s,x)=>s+x.salesKRW,0)/wd.length:0;
+  const weAvg=we.length?we.reduce((s,x)=>s+x.salesKRW,0)/we.length:0;
+  const orders=a.reduce((s,x)=>s+x.orders,0), buyers=a.reduce((s,x)=>s+x.buyers,0);
+  const aov=orders?sum/orders:0;
+  return {n,sum,avg,fa,sa,trend,slope,peak,trough,sd,spikes,dips,wdAvg,weAvg,orders,buyers,aov};
+}
+function renderDaily(){
+  const D=DATA.daily;
+  document.getElementById('d-title').textContent=`일자별 매출 — 브랜드별 (${D.month})`;
+  document.getElementById('d-src').innerHTML=`${D.platformLabel}<br>${D.coverage} · ${D.metricNote}`;
+  const A={}; D.brands.forEach(b=>A[b]=analyzeBrand(b));
+  // brand summary cards
+  document.getElementById('d-brandcards').innerHTML=D.brands.map(b=>{
+    const a=A[b], c=BRANDCOL[b]||BRANDCOL['웨이크메이크']; if(!a) return '';
+    return `<div class="bcard"><div class="b-accent" style="background:${c.v}"></div>
+      <div class="b-name"><span class="dot" style="background:${c.v}"></span>${b}</div>
+      <div class="b-val num">${smartW(a.sum)}</div>
+      <div class="b-sub num">일평균 ${smartW(a.avg)} · 총 주문 ${intc(a.orders)}건 · 객단가 ${won(a.aov)}</div>
+      <div class="bmini">
+        <div class="bm"><div class="l">최고일</div><div class="v num">${smartW(a.peak.salesKRW)}</div><div class="l num">${mdOf(a.peak.date)}(${DOW[dow(a.peak.date)]})</div></div>
+        <div class="bm"><div class="l">최저일</div><div class="v num">${smartW(a.trough.salesKRW)}</div><div class="l num">${mdOf(a.trough.date)}(${DOW[dow(a.trough.date)]})</div></div>
+        <div class="bm"><div class="l">후반부 추세</div><div class="v num" style="color:${a.trend>=3?'var(--good)':a.trend<=-3?'var(--bad)':'var(--ink)'}">${a.trend>=0?'+':''}${a.trend.toFixed(0)}%</div><div class="l">전반 대비</div></div>
+      </div></div>`;
+  }).join('');
+  renderDailyChart(A);
+  renderDailyInsight(A);
+  renderDailyTable();
+  document.getElementById('d-note').innerHTML=`※ 일자별 소스는 <b>도우인 역직구(海外旗舰店)</b> 로우데이터입니다. 티몰·샤오홍슈 일자별을 구글시트 <code>일자별매출</code> 탭에 추가하면 총 매출 기준으로 자동 확장됩니다. 5월 일자별 데이터가 채워지면 '전월 대비'가 자동 표기됩니다.`;
+}
+function renderDailyChart(A){
+  const D=DATA.daily, dates=D.dates, n=dates.length;
+  const W=720,H=300,mL=46,mR=14,mT=14,mB=34,iw=W-mL-mR,ih=H-mT-mB;
+  let max=0; D.brands.forEach(b=>D.series[b].forEach(x=>{if(x.salesKRW>max)max=x.salesKRW;})); max*=1.14||1;
+  const x=i=>mL+(n>1?iw*i/(n-1):iw/2), y=v=>mT+ih*(1-v/max);
+  let g='';
+  for(let k=0;k<=4;k++){const v=max*k/4,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
+  dates.forEach((d,i)=>{ if(n<=16||i%2===0||i===n-1){const g2=dow(d);g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-12}" text-anchor="middle" ${isWeekend(d)?'style="fill:var(--coral)"':''}>${+d.slice(8,10)}</text>`;}});
+  const idx=Object.fromEntries(dates.map((d,i)=>[d,i]));
+  D.brands.forEach(b=>{
+    const c=BRANDCOL[b]||BRANDCOL['웨이크메이크'], arr=D.series[b];
+    const pts=arr.map(p=>x(idx[p.date]).toFixed(1)+','+y(p.salesKRW).toFixed(1));
+    // area
+    g+=`<polygon points="${x(idx[arr[0].date]).toFixed(1)},${(mT+ih).toFixed(1)} ${pts.join(' ')} ${x(idx[arr[arr.length-1].date]).toFixed(1)},${(mT+ih).toFixed(1)}" fill="${c.v}" fill-opacity="0.07"/>`;
+    g+=`<polyline points="${pts.join(' ')}" fill="none" stroke="${c.v}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const a=A[b];
+    arr.forEach(p=>{const big=a&&(p.date===a.peak.date), low=a&&(p.date===a.trough.date), r=(big||low)?4.6:2.6;
+      g+=`<circle class="hit" cx="${x(idx[p.date]).toFixed(1)}" cy="${y(p.salesKRW).toFixed(1)}" r="${r}" fill="${(big||low)?c.v:'var(--surface)'}" stroke="${c.v}" stroke-width="2" data-tip="${esc(b+' · '+mdOf(p.date)+'('+DOW[dow(p.date)]+')\n결제 '+won(p.salesKRW)+' · 주문 '+intc(p.orders)+'건'+(big?'\n▲ 최고일':low?'\n▼ 최저일':''))}"/>`;});
+  });
+  document.getElementById('d-chart').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="일자별 브랜드 매출">${g}</svg>`;
+}
+function renderDailyInsight(A){
+  const D=DATA.daily, items=[];
+  D.brands.forEach(b=>{const a=A[b];if(!a)return;const c=BRANDCOL[b]||BRANDCOL['웨이크메이크'];
+    const dir=a.trend>=3?'상승':a.trend<=-3?'하락':'보합';
+    const dirC=a.trend>=3?'var(--good)':a.trend<=-3?'var(--bad)':'var(--gold)';
+    const peakFest=(+a.peak.date.slice(8,10)>=10 && +a.peak.date.slice(8,10)<=18)?' <b>(618 성수기)</b>':'';
+    const weTxt=a.weAvg&&a.wdAvg?(a.weAvg>a.wdAvg*1.05?`주말이 주중보다 <b>${pc((a.weAvg/a.wdAvg-1)*100,0)}</b> 높음`:a.weAvg<a.wdAvg*0.95?`주중이 주말보다 <b>${pc((a.wdAvg/a.weAvg-1)*100,0)}</b> 높음`:'주중·주말 유사'):'';
+    items.push({h:b+' 추세',c:dirC,t:`전반 일평균 ${smartW(a.fa)} → 후반 ${smartW(a.sa)} <b style="color:${dirC}">${dir}(${a.trend>=0?'+':''}${a.trend.toFixed(0)}%)</b>. 피크 <b>${mdOf(a.peak.date)}</b> ${smartW(a.peak.salesKRW)}${peakFest} · 최저 ${mdOf(a.trough.date)} ${smartW(a.trough.salesKRW)}.${weTxt?' '+weTxt+'.':''}`});
+  });
+  // 브랜드 비교
+  const wm=A['웨이크메이크'], cg=A['컬러그램'];
+  if(wm&&cg){
+    const bigger=wm.sum>=cg.sum?'웨이크메이크':'컬러그램', ratio=(Math.max(wm.sum,cg.sum)/Math.min(wm.sum,cg.sum));
+    items.push({h:'브랜드 비교',c:'var(--navy)',t:`${D.month} 도우인 역직구 합계 <b>웨메 ${smartW(wm.sum)}</b> vs <b>컬그 ${smartW(cg.sum)}</b> (${bigger} ${ratio.toFixed(1)}배). 객단가는 웨메 ${won(wm.aov)} · 컬그 ${won(cg.aov)} — 컬그는 <b>주문수 우위</b>(${intc(cg.orders)} vs ${intc(wm.orders)}건), 저단가·다빈도 구조.`});
+  }
+  document.getElementById('d-insight').innerHTML=`<h3><span class="tag">자동 진단</span> ${D.month} 일자별 매출 — 추세·특이일·브랜드 구조 (자동 생성)</h3><div class="ins-grid">`+items.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div>`;
+}
+function renderDailyTable(){
+  const D=DATA.daily, idxOf={};
+  D.brands.forEach(b=>D.series[b].forEach(x=>{(idxOf[x.date]=idxOf[x.date]||{})[b]=x;}));
+  const rows=D.dates.map(d=>{
+    const wm=(idxOf[d]||{})['웨이크메이크']||{salesKRW:0,orders:0}, cg=(idxOf[d]||{})['컬러그램']||{salesKRW:0,orders:0};
+    const tot=wm.salesKRW+cg.salesKRW, we=isWeekend(d);
+    return `<tr${we?' style="background:var(--coral-soft)"':''}><td class="l num">${mdOf(d)}</td><td class="l" style="${we?'color:var(--coral);font-weight:700':''}">${DOW[dow(d)]}</td><td class="num">${won(wm.salesKRW)}</td><td class="num">${intc(wm.orders)}</td><td class="num">${won(cg.salesKRW)}</td><td class="num">${intc(cg.orders)}</td><td class="num emph">${won(tot)}</td></tr>`;
+  }).join('');
+  document.querySelector('#d-table tbody').innerHTML=rows;
+}
+
+/* =====================================================================
+   VIEW ② 플랫폼 통합
+   ===================================================================== */
+let curBrand=DATA.platforms.brands[0], curPlat='통합';
+function PB(){return DATA.platforms.byBrand[curBrand];}
+function renderBrandSelector(){
+  document.getElementById('p-brand').innerHTML='<span class="selbl">브랜드</span>'+DATA.platforms.brands.map(b=>`<button class="pbtn${b===curBrand?' active':''}" data-brand="${b}">${b}</button>`).join('');
+}
+function renderPlatSelector(){
+  const plats=['통합',...PB().order];
+  document.getElementById('p-sel').innerHTML='<span class="selbl">플랫폼</span>'+plats.map(p=>`<button class="pbtn${p===curPlat?' active':''}" data-plat="${p}">${p==='통합'?'🔗 통합(합산)':p}</button>`).join('');
+}
+function kpiCard(l,v,foot,ac,mm){return `<div class="kpi"><div class="k-accent" style="background:${ac}"></div><div class="k-top"><span class="k-label">${l}</span>${mm||''}</div><div class="k-val num">${v}</div><div class="k-foot num">${foot||''}</div></div>`;}
+function renderPlatforms(){ renderBrandSelector(); renderPlatSelector(); const body=document.getElementById('p-body');
+  body.innerHTML = curPlat==='통합' ? htmlCombined() : htmlSingle(curPlat);
+  document.getElementById('foot-meta').textContent=`${curBrand} · 플랫폼 통합 | ${PB().month} · ${curPlat}`;
+}
+/* ---- 통합(합산) ---- */
+function htmlCombined(){
+  const PF=PB(), c=PF.combined, k=c.kpi, bp=PF.byPlatform;
+  const rich=bp['티몰'].hasData, anyCost=k.costKRW>0, roasTxt=anyCost?k.roas.toFixed(2)+'x':'—';
+  const active=PF.order.filter(p=>bp[p].hasData);
+  const tot=c.bySales.reduce((s,x)=>s+x.salesKRW,0)||1, colors={'티몰':'var(--green-2)','도우인':'var(--coral-2)','샤오홍슈':'var(--blue)'};
+  const kpis=[
+    kpiCard(`${PF.month} 통합 매출`,smartW(k.salesKRW),active.join('+')+' 합산','var(--green-2)'),
+    kpiCard('통합 마케팅비',anyCost?smartW(k.costKRW):'—',anyCost?'채널 귀속 합산':'브랜드 비용 데이터 미확보','var(--coral-2)'),
+    kpiCard('통합 ROAS',roasTxt,rich?`티몰단독 ${bp['티몰'].kpi.roas.toFixed(1)}x → 통합 ${roasTxt}`:'매출/귀속 마케팅비','var(--navy)'),
+    kpiCard('도우인 주문',intc(k.orders||0)+'건',`역직구 海外旗舰店`,'var(--blue)'),
+  ].join('');
+  const seg=c.bySales.filter(x=>x.salesKRW>0).map(x=>`<div class="seg" style="width:${(x.salesKRW/tot*100).toFixed(1)}%;background:${colors[x.platform]}" data-tip="${esc(x.platform+' '+won(x.salesKRW)+' ('+pc(x.salesKRW/tot*100)+')')}">${x.salesKRW/tot>0.08?x.platform:''}</div>`).join('');
+  const ptable=PF.order.map(p=>{const kk=bp[p].kpi,has=bp[p].hasData,roas=(kk.roas==null||!kk.costKRW)?'—':kk.roas.toFixed(2)+'x';
+    return `<tr${has?'':' style="opacity:.5"'}><td class="l emph">${p}${has?'':' <span class="chip off">데이터 대기</span>'}</td><td class="num">${has?won(kk.salesKRW):'—'}</td><td class="num">${kk.salesKRW?pc(kk.salesKRW/tot*100):'—'}</td><td class="num">${kk.costKRW?won(kk.costKRW):'—'}</td><td class="num">${roas}</td></tr>`;}).join('');
+  // combined products (mapping)
+  const prods=c.products.filter(p=>p['티몰']+p['도우인']>0).slice(0,12), maxP=prods.length?prods[0]['티몰']+prods[0]['도우인']:1;
+  const pbars=prods.map(p=>{const val=p['티몰']+p['도우인'], xhsTag=p['샤오홍슈_ad']>0?`<span class="chip ok" data-tip="${esc('샤오홍슈 聚光 '+won(p['샤오홍슈_ad'])+' 매칭')}">RED광고 ${smart(p['샤오홍슈_ad'])}</span>`:'';
+    return `<div class="pbar" data-tip="${esc(p.ko+'\nSKU '+p.sku+'\n티몰 '+won(p['티몰'])+(p['도우인']?'\n도우인 '+won(p['도우인']):'')+(p['샤오홍슈_ad']?'\n샤오홍슈 聚光 '+won(p['샤오홍슈_ad']):''))}"><div class="pb-top"><div class="pb-name"><span class="nm">${p.ko}</span>${xhsTag}</div><div class="pb-val num">${smartW(val)}</div></div><div class="pb-track"><div class="pb-fill" style="width:${(val/maxP*100).toFixed(1)}%"></div></div></div>`;}).join('');
+  const prodSection=prods.length?`<div class="pbars">${pbars}</div>`
+    :`<div class="note">상품별 매출 데이터가 아직 없습니다(도우인은 스토어 단위 집계). 구글시트 <code>도우인_상품별</code>·<code>플랫폼_티몰</code> 입력 시 SKU 통합 합산이 표시됩니다.</div>`;
+  // unmatched review
+  const um=PF.unmatched, umTot=um.reduce((s,x)=>s+x.valueKRW,0);
+  const umHtml=um.length?`<div class="callout unmatch"><h3><span class="tag">⚠ 검토 필요</span> 자동 합산 제외 — 상품 매칭이 애매한 항목 (${um.length}건 · 계 ${smartW(umTot)})</h3>
+    <div style="margin-top:8px">`+um.map(u=>`<div class="urow"><span class="ucn">${u.cnName}</span><span class="ureason">${u.reason}${u.candidates&&u.candidates.length?` <span class="ucand">· 후보: ${u.candidates.join(' / ')}</span>`:''}</span><span class="uval num">${smartW(u.valueKRW)}</span></div>`).join('')+`</div>
+    <div class="note" style="margin-top:10px">이 항목들은 동일 SKU로 <b>자동 합산하지 않고</b> 별도 표기했습니다. 구글시트 <code>상품매핑</code> 탭의 <code>샤오홍슈_별칭</code>에 확정 SKU를 넣으면 다음 빌드부터 합산됩니다.</div></div>`:'';
+  // insight (rich=WM vs sparse=CG)
+  const insight=rich?`<div class="callout"><h3><span class="tag">EC 인사이트</span> ${PF.month} ${curBrand} 3플랫폼 통합 진단</h3><div class="ins-grid">
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--good)"></span>채널 매출 구성</div>티몰 <b>${pc(bp['티몰'].kpi.salesKRW/tot*100)}</b> · 도우인 <b>${pc(bp['도우인'].kpi.salesKRW/tot*100)}</b> · 샤오홍슈 <b>${pc(bp['샤오홍슈'].kpi.salesKRW/tot*100)}</b>. 도우인이 제2 매출 축(${smartW(bp['도우인'].kpi.salesKRW)}).</div>
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--gold)"></span>효율 재해석</div>티몰만 보면 ROAS ${bp['티몰'].kpi.roas.toFixed(1)}x지만, 마케팅비 상당수는 도우인·샤오홍슈 매출에 기여. <b>통합 ROAS ${roasTxt}</b>가 실제 채널 효율.</div>
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--bad)"></span>샤오홍슈 적자</div>샤오홍슈 비용 ${smartW(bp['샤오홍슈'].kpi.costKRW)} vs 기여GMV ${smartW(bp['샤오홍슈'].kpi.salesKRW)} → ROAS <b>${bp['샤오홍슈'].kpi.roas.toFixed(2)}x</b>. 聚光 예산 효율 점검 시급.</div>
+  </div></div>`:`<div class="callout"><h3><span class="tag">데이터 상태</span> ${curBrand} — 현재 확보 채널 (${PF.month})</h3><div class="ins-grid">
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--coral-2)"></span>도우인 역직구</div>결제 <b>${smartW(bp['도우인'].kpi.salesKRW)}</b> · 주문 ${intc(bp['도우인'].kpi.orders)}건 · 객단가 ${won(bp['도우인'].kpi.aov)}. 저단가·다빈도 구조.</div>
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--ink-3)"></span>티몰·샤오홍슈</div>${curBrand} 티몰·샤오홍슈 로우데이터는 <b>미확보</b>. 구글시트 <code>플랫폼_티몰</code>·<code>플랫폼_샤오홍슈</code> 입력 시 통합 지표로 자동 확장.</div>
+    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--gold)"></span>브랜드 비교</div>일자별 추이·웨이크메이크 대비는 <b>① 일자별 매출</b> 탭에서 확인.</div>
+  </div></div>`;
+  return `<div class="kpis">${kpis}</div>${insight}
+  <section class="blk"><div class="s-head"><div><div class="s-eye">Platform Mix</div><h2>① 플랫폼별 매출·효율</h2></div><div class="s-src">매출=결제/기여GMV · 비용=귀속 마케팅비</div></div>
+    <div class="card"><div class="card-h"><div><div class="c-t">플랫폼별 매출 비중</div><div class="c-s">합계 ${won(tot)}</div></div></div>
+      <div class="splitbar">${seg}</div>
+      <div class="tbl-wrap" style="margin-top:14px;border:none"><table><thead><tr><th class="l">플랫폼</th><th>매출(₩)</th><th>비중</th><th>마케팅비(₩)</th><th>ROAS</th></tr></thead><tbody>${ptable}</tbody></table></div>
+      <div class="note">${c.note}</div>
+    </div></section>
+  <section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out · Consolidated</div><h2>② 통합 상품 Sell-out (매핑 합산)</h2></div><div class="s-src">SKU 기준 합산<br>상품 매출은 로우 기준</div></div>
+    <div class="card"><div class="card-h"><div><div class="c-t">SKU별 매출 (티몰+도우인) · 샤오홍슈 聚光 매칭 표기</div><div class="c-s">막대=매출 · 태그=매칭된 RED 광고비</div></div></div>
+      ${prodSection}</div></section>
+  ${umHtml}
+  ${htmlCostSection('통합')}
+  <section class="blk"><div class="s-head"><div><div class="s-eye">Expert Action</div><h2>③ 전문가 액션 제안 (${curBrand})</h2></div></div>
+    <div class="card"><div class="recs">${combinedRecs()}</div></div></section>`;
+}
+function combinedRecs(){
+  const PF=PB(), bp=PF.byPlatform;
+  let recs;
+  if(bp['티몰'].hasData){
+    recs=[
+      `<b>샤오홍슈 聚光 예산 재설계.</b> 통합 관점에서도 샤오홍슈 ROAS ${bp['샤오홍슈'].kpi.roas.toFixed(2)}x로 유일한 적자 채널. 아이섀도우 콘텐츠성 집행(种草·妆教·测评)을 축소하고 전환 실측이 되는 쿠션 카테고리(粉糖气垫) 중심으로 재배분.`,
+      `<b>도우인을 제2 성장축으로.</b> 6월 도우인 역직구 ${smartW(bp['도우인'].kpi.salesKRW)}(주문 ${intc(bp['도우인'].kpi.orders)}건)를 광고비 거의 없이 달성. 라이브·상품카드 광고를 소액 테스트해 ROAS 확인 후 증액 여지.`,
+      `<b>상품 매핑 확정.</b> '十六色眼影' 등 ${PF.unmatched.length}건이 SKU 미확정으로 합산에서 빠짐(계 ${smartW(PF.unmatched.reduce((s,x)=>s+x.valueKRW,0))}). 실제 프로모션 SKU를 확정해 채널 간 상품 성과를 정합성 있게 비교.`,
+    ];
+  } else {
+    recs=[
+      `<b>${curBrand} 도우인 채널 관리.</b> 6월 도우인 역직구 ${smartW(bp['도우인'].kpi.salesKRW)}(주문 ${intc(bp['도우인'].kpi.orders)}건 · 객단가 ${won(bp['도우인'].kpi.aov)}). 저단가·다빈도 구조 → 세트·번들로 객단가 상향과 재구매 리텐션이 핵심 레버.`,
+      `<b>티몰·샤오홍슈 데이터 연동.</b> ${curBrand}은 현재 도우인만 확보. 구글시트 <code>플랫폼_티몰</code>·<code>플랫폼_샤오홍슈</code>·<code>마케팅비</code>에 입력하면 통합 ROAS·채널 구성·미매칭 검토가 자동 산출됩니다.`,
+      `<b>상품 매핑 사전 준비.</b> 컬러그램 SKU를 <code>상품매핑</code> 탭에 중문 별칭과 함께 등록해 두면, 플랫폼 데이터 유입 시 상품 단위 통합이 즉시 동작합니다.`,
+    ];
+  }
+  return recs.map((t,i)=>`<div class="rec"><span class="rn">${i+1}</span><div>${t}</div></div>`).join('');
+}
+/* ---- 단일 플랫폼 ---- */
+function platPlaceholder(p){
+  const b=PB().byPlatform[p];
+  return `<div class="note" style="margin-top:18px;padding:20px;text-align:center;font-size:13px">🔒 <b>${b.label}</b> — ${curBrand}<br><br>${b.note}</div>`;
+}
+function htmlSingle(p){
+  if(!PB().byPlatform[p].hasData) return platPlaceholder(p);
+  if(p==='티몰') return htmlTmallSnapshot();
+  if(p==='도우인') return htmlDouyin();
+  if(p==='샤오홍슈') return htmlXhs();
+  return '';
+}
+function htmlTmallSnapshot(){
+  const PF=PB(), t=PF.byPlatform['티몰'], k=t.kpi, sold=t.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
+  const kpis=[
+    kpiCard(`${PF.month} 티몰 매출`,smartW(k.salesKRW),`증정 제외 결제금액`,'var(--green-2)'),
+    kpiCard('방문자(UV)',intc(k.uv)+'명','상품 UV 합','var(--blue)'),
+    kpiCard('티몰 내부광고비',smartW(k.costKRW),'귀속 마케팅비','var(--coral-2)'),
+    kpiCard('티몰 ROAS',k.roas.toFixed(1)+'x','매출/내부광고비','var(--navy)'),
+  ].join('');
+  const maxP=sold.length?sold[0].payKRW:1;
+  const bars=sold.slice(0,10).map(p=>`<div class="pbar" data-tip="${esc(p.name+'\nUV '+intc(p.uv)+' · 전환 '+pc(p.conv,2)+'\n매출 '+won(p.payKRW)+' · 점유율 '+pc(p.share))}"><div class="pb-top"><div class="pb-name">${p.new?'<span class="chip new">신</span>':''}<span class="nm">${p.name}</span></div><div class="pb-val num">${smartW(p.payKRW)}<small>${pc(p.share)}</small></div></div><div class="pb-track"><div class="pb-fill" style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></div></div></div>`).join('');
+  return `<div class="kpis">${kpis}</div>
+    <div class="note">티몰은 상품별 sell-out·유입경로 로우데이터가 완비돼 있습니다. 6개월 추이·유입경로 상세는 <b>③ 티몰 월별</b> 탭에서 확인하세요.</div>
+    <section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>${PF.month} 티몰 상품별 매출 Top</h2></div><div class="s-src">증정 제외 · 총 ${won(t.productTotalKRW)}</div></div>
+      <div class="card"><div class="pbars">${bars}</div></div></section>
+    ${htmlCostSection('티몰')}
+    ${htmlTrafficSection(t.traffic)}`;
+}
+function htmlDouyin(){
+  const PF=PB(), d=PF.byPlatform['도우인'], k=d.kpi;
+  const kpis=[
+    kpiCard(`${PF.month} 도우인 매출`,smartW(k.salesKRW),`결제금액 · 海外旗舰店`,'var(--coral-2)'),
+    kpiCard('주문 / 구매자',intc(k.orders)+' / '+intc(k.buyers),`객단가 ${won(k.aov)}`,'var(--green-2)'),
+    kpiCard('GMV(성사금액)',smartW(k.gmvKRW),`결제전 총거래액`,'var(--blue)'),
+    kpiCard('귀속 광고비',k.costKRW?smartW(k.costKRW):'₩0',k.costKRW?'라이브 등':'6월 유료집행 없음','var(--navy)'),
+  ].join('');
+  // mini daily bars
+  const arr=d.daily, W=720,H=210,mL=44,mR=12,mT=12,mB=26,iw=W-mL-mR,ih=H-mT-mB;
+  const max=Math.max(...arr.map(x=>x.salesKRW))*1.14||1, n=arr.length, band=iw/n, bw=Math.min(20,band*0.6);
+  const x=i=>mL+band*i+band/2, y=v=>mT+ih*(1-v/max); let g='';
+  for(let kk=0;kk<=3;kk++){const v=max*kk/3,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
+  arr.forEach((p,i)=>{g+=`<rect class="hit" x="${(x(i)-bw/2).toFixed(1)}" y="${y(p.salesKRW).toFixed(1)}" width="${bw.toFixed(1)}" height="${(mT+ih-y(p.salesKRW)).toFixed(1)}" rx="3" fill="var(--coral-2)" data-tip="${esc(mdOf(p.date)+'('+DOW[dow(p.date)]+')\n결제 '+won(p.salesKRW)+' · 주문 '+intc(p.orders))}"/>`;
+    if(n<=16||i%2===0)g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-9}" text-anchor="middle">${+p.date.slice(8,10)}</text>`;});
+  const chart=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  // funnel
+  const f=d.funnel, fmax=Math.max(f.expUV,f.clickUV,f.buyers)||1;
+  const fn=[['상품 노출(인원)',f.expUV],['상품 클릭(인원)',f.clickUV],['구매자',f.buyers]].map(r=>`<div class="fn"><span class="fl">${r[0]}</span><div class="ft"><i style="width:${(r[1]/fmax*100).toFixed(1)}%"></i></div><span class="fv num">${intc(r[1])}</span></div>`).join('');
+  return `<div class="kpis">${kpis}</div>
+    <section class="blk"><div class="s-head"><div><div class="s-eye">Daily</div><h2>${PF.month} 도우인 일자별 결제금액</h2></div><div class="s-src">${DATA.daily.coverage}</div></div>
+      <div class="card">${chart}</div></section>
+    ${productBars(d.products,`${PF.month} 도우인 상품별 Sell-out`)}
+    <section class="blk"><div class="grid2">
+      <div class="card"><div class="card-h"><div><div class="c-t">노출 → 클릭 → 구매 퍼널</div><div class="c-s">6월 누적(인원)</div></div></div>${fn}
+        <div class="note">클릭→구매 전환 ${pc(f.buyers/(f.clickUV||1)*100,2)} · 노출→구매 ${pc(f.buyers/(f.expUV||1)*100,3)}</div></div>
+      <div class="card xhs warnb"><div class="card-h"><div><div class="c-t">도우인 스냅샷</div></div></div>
+        <div class="kv"><span class="kk">결제금액</span><span class="vv num">${won(k.salesKRW)}</span></div>
+        <div class="kv"><span class="kk">GMV(성사금액)</span><span class="vv num">${won(k.gmvKRW)}</span></div>
+        <div class="kv"><span class="kk">주문수 · 구매자수</span><span class="vv num">${intc(k.orders)} · ${intc(k.buyers)}</span></div>
+        <div class="kv"><span class="kk">객단가</span><span class="vv num">${won(k.aov)}</span></div>
+        <div class="note">${d.note}</div></div>
+    </div></section>`;
+}
+function htmlXhs(){
+  const PF=PB(), xr=PF.byPlatform['샤오홍슈'], k=xr.kpi, cats=xr.categories;
+  const bad=k.roas<1.5;
+  const kpis=[
+    kpiCard(`${PF.month} 기여 GMV`,smartW(k.salesKRW),`매장 기여 매출`,'var(--blue)'),
+    kpiCard('聚光 집행(로우)',smartW(k.adKRW),`효과광고 消费`,'var(--coral-2)'),
+    kpiCard('샤오홍슈 총비용',smartW(k.costKRW),`聚光+KOL/KOC/SNS`,'var(--coral)'),
+    kpiCard('ROAS',k.roas.toFixed(2)+'x',bad?'적자 구간':'양호','var(--navy)'),
+  ].join('');
+  const maxc=Math.max(...cats.map(c=>c.adKRW))||1;
+  const catbars=cats.map(c=>{const badge=c.matched?`<span class="chip ok" data-tip="${esc('매칭: '+c.ko)}">확정 ${c.ko}</span>`:`<span class="chip rev">검토</span>`;
+    return `<div class="pbar" data-tip="${esc(c.cn+'\n聚光 집행 '+won(c.adKRW)+'\n曝光 '+intc(c.exp)+' · 点击 '+intc(c.clk)+(c.matched?'\n→ '+c.ko:'\n→ SKU 미확정'))}"><div class="pb-top"><div class="pb-name"><span class="nm">${c.cn}</span>${badge}</div><div class="pb-val num">${smartW(c.adKRW)}</div></div><div class="pb-track"><div class="pb-fill ${c.matched?'':'blu'}" style="width:${(c.adKRW/maxc*100).toFixed(1)}%;${c.matched?'':'opacity:.55'}"></div></div></div>`;}).join('');
+  const f=[['曝光(노출)',k.exp],['点击(클릭)',k.clk],['매장 방문 UV',k.uv]], fmax=Math.max(...f.map(r=>r[1]))||1;
+  const fn=f.map(r=>`<div class="fn"><span class="fl">${r[0]}</span><div class="ft"><i style="width:${(r[1]/fmax*100).toFixed(1)}%"></i></div><span class="fv num">${intc(r[1])}</span></div>`).join('');
+  const um=PF.unmatched, umTot=um.reduce((s,x)=>s+x.valueKRW,0);
+  const umHtml=um.length?`<div class="callout unmatch" style="margin-top:14px"><h3><span class="tag">⚠ 검토 필요</span> SKU 매칭 애매 — 자동 합산 제외 (${um.length}건 · ${smartW(umTot)})</h3><div style="margin-top:8px">`+um.map(u=>`<div class="urow"><span class="ucn">${u.cnName}</span><span class="ureason">${u.reason}${u.candidates&&u.candidates.length?` <span class="ucand">· 후보: ${u.candidates.join(' / ')}</span>`:''}</span><span class="uval num">${smartW(u.valueKRW)}</span></div>`).join('')+`</div></div>`:'';
+  return `<div class="kpis">${kpis}</div>
+    ${productBars(xr.products,`${PF.month} 샤오홍슈 상품별 Sell-out`)}
+    <section class="blk"><div class="s-head"><div><div class="s-eye">聚光 집행 상세</div><h2>${PF.month} 샤오홍슈 商品品类별 집행</h2></div><div class="s-src">효과광고 소비액 기준<br>확정=SKU 매칭 · 검토=애매</div></div>
+      <div class="card"><div class="card-h"><div><div class="c-t">商品品类별 聚光 집행 · SKU 매칭</div><div class="c-s">막대=집행액 · 뱃지=매칭 상태</div></div></div>
+        <div class="pbars">${catbars}</div></div>
+      ${umHtml}</section>
+    <section class="blk"><div class="grid2">
+      <div class="card"><div class="card-h"><div><div class="c-t">曝光 → 클릭 → 매장방문 퍼널</div></div></div>${fn}
+        <div class="note">${xr.note}</div></div>
+      <div class="card xhs"><div class="card-h"><div><div class="c-t">샤오홍슈 성과 요약</div></div><span class="badge ${bad?'bad':'good'}">ROAS ${k.roas.toFixed(2)}x ${bad?'· 적자':'· 양호'}</span></div>
+        <div class="kv"><span class="kk">기여 GMV</span><span class="vv num">${won(k.salesKRW)}</span></div>
+        <div class="kv"><span class="kk">聚光 집행(로우)</span><span class="vv num">${won(k.adKRW)}</span></div>
+        <div class="kv"><span class="kk">총 비용(聚光+바이럴)</span><span class="vv num">${won(k.costKRW)}</span></div>
+        <div class="kv"><span class="kk">曝光 · 点击</span><span class="vv num">${intc(k.exp)} · ${intc(k.clk)}</span></div>
+        <div class="kv"><span class="kk">CTR</span><span class="vv num">${pc(k.clk/(k.exp||1)*100,2)}</span></div>
+      </div>
+    </div></section>`;
+}
+/* ---- 공용: 상품별 sell-out(도우인/샤오홍슈 시트 입력 시) ---- */
+function productBars(products,title){
+  const sold=(products||[]).filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
+  if(!sold.length) return '';
+  const max=sold[0].payKRW, tot=sold.reduce((s,p)=>s+p.payKRW,0)||1;
+  const bars=sold.map(p=>{const badge=p.matched?`<span class="chip ok">${p.ko}</span>`:`<span class="chip rev">미매칭</span>`;
+    return `<div class="pbar" data-tip="${esc((p.matched?p.ko:p.name)+(p.sku?'\nSKU '+p.sku:'')+'\n매출 '+won(p.payKRW)+(p.orders?'\n주문 '+intc(p.orders):''))}"><div class="pb-top"><div class="pb-name"><span class="nm">${p.name}</span>${p.matched&&p.ko!==p.name?badge:(p.matched?'':badge)}</div><div class="pb-val num">${smartW(p.payKRW)}<small>${pc(p.payKRW/tot*100)}</small></div></div><div class="pb-track"><div class="pb-fill" style="width:${(p.payKRW/max*100).toFixed(1)}%"></div></div></div>`;}).join('');
+  return `<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>${title}</h2></div><div class="s-src">시트 상품별 입력 기준</div></div>
+    <div class="card"><div class="pbars">${bars}</div></div></section>`;
+}
+/* ---- 공용: 마케팅비/유입 섹션 ---- */
+function htmlCostSection(scope){
+  // scope: 통합 | 티몰 — byMonth 원본 비용항목을 플랫폼 귀속으로 표시 (마케팅비 데이터는 웨이크메이크 기준)
+  const PF=PB();
+  if(!PF.byPlatform['티몰'].hasData){
+    return `<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>${scope==='통합'?'③':''} 마케팅비 (플랫폼 귀속)</h2></div></div>
+      <div class="card"><div class="note">${curBrand} 마케팅비 데이터 미확보 — 구글시트 <code>마케팅비</code> 탭에 플랫폼·주체·항목·금액 입력 시 표시됩니다.</div></div></section>`;
+  }
+  const bm=DATA.byMonth[PF.month]||{costItems:[]};
+  const PLATMAP={'티몰 유료광고(내부광고 소모액)':'티몰','도우인 라이브방송(Still 부담 수수료)':'도우인','라이브방송 올리브영 지원분':'도우인','샤오홍씽 CID 효과광고(聚光)':'샤오홍슈','KOL/KOC/SNS 바이럴 마케팅':'샤오홍슈'};
+  let items=bm.costItems.slice();
+  if(scope==='티몰') items=items.filter(c=>PLATMAP[c.item]==='티몰');
+  const tot=items.reduce((s,c)=>s+c.cur,0);
+  const rows=items.map(c=>{const plat=PLATMAP[c.item]||'기타',gone=c.cur===0,diffTxt=c.diff===0?'–':(c.diff>0?'+':'')+smartW(c.diff),dc=c.diff>0?'down':(c.diff<0?'up':'flat');
+    return `<tr style="${gone?'opacity:.55':''}"><td class="l"><span class="chip ${plat==='티몰'?'on':plat==='샤오홍슈'?'new':'off'}">${plat}</span></td><td class="l">${c.owner} · ${c.item}${gone?' <span class="chip off">중단</span>':''}</td><td class="num emph">${gone?'—':won(c.cur)}</td><td class="num" style="color:var(--ink-3)">${c.prev?won(c.prev):'—'}</td><td class="num mom ${dc}">${diffTxt}</td></tr>`;}).join('');
+  return `<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>${scope==='통합'?'③':''} 마케팅비 (플랫폼 귀속)</h2></div><div class="s-src">${PF.month} 총 ${won(tot)}</div></div>
+    <div class="card"><div class="tbl-wrap" style="border:none"><table><thead><tr><th class="l">플랫폼</th><th class="l">주체·항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr></thead><tbody>${rows}</tbody></table></div></div></section>`;
+}
+function htmlTrafficSection(traf){
+  const PF=PB(), g=(traf&&traf.groups)||[], subs=((traf&&traf.subs)||[]).slice(0,8), tot=g.reduce((s,x)=>s+x.visitors,0)||1, colors=['var(--green-2)','var(--coral-2)','var(--blue)'];
+  const tg=g.map((x,i)=>`<div class="tgc" data-tip="${esc(x.name+'\n방문자 '+intc(x.visitors)+' ('+pc(x.visitors/tot*100)+')\n구매 '+intc(x.buyers)+' · 전환 '+pc(x.conv,2))}"><div class="tg-l">${x.name}</div><div class="tg-v num">${intc(x.visitors)}<span style="font-size:12px;color:var(--ink-3);font-weight:600">명</span></div><div class="tg-s num">구매 ${intc(x.buyers)} · 전환 ${pc(x.conv,2)} · 비중 ${pc(x.visitors/tot*100)}</div><div class="tg-bar"><i style="width:${(x.visitors/tot*100).toFixed(1)}%;background:${colors[i%3]}"></i></div></div>`).join('');
+  const maxV=Math.max(1,...subs.map(s=>s.visitors)), maxCv=Math.max(1,...subs.map(s=>s.conv));
+  const bars=subs.map(s=>{const hot=s.conv>=maxCv*0.55;return `<div class="pbar" data-tip="${esc(s.name+'\n방문 '+intc(s.visitors)+' · 구매 '+intc(s.buyers)+'\n전환 '+pc(s.conv,2))}"><div class="pb-top"><div class="pb-name"><span class="nm">${s.name}</span></div><div class="pb-val num" style="color:${hot?'var(--green)':'var(--ink)'}">전환 ${pc(s.conv,2)}<small>방문 ${intc(s.visitors)}</small></div></div><div class="pb-track"><div class="pb-fill${hot?'':' blu'}" style="width:${(s.visitors/maxV*100).toFixed(1)}%"></div></div></div>`;}).join('');
+  return `<section class="blk"><div class="s-head"><div><div class="s-eye">Traffic Source</div><h2>${PF.month} 티몰 유입경로</h2></div><div class="s-src">자연·유료·재방문</div></div>
+    <div class="card"><div class="tg">${tg}</div><div class="card-h"><div><div class="c-t">세부 채널 방문자 Top</div><div class="c-s">막대=방문자 · 우측=전환율</div></div></div><div class="pbars">${bars}</div></div></section>`;
+}
+
+/* =====================================================================
+   VIEW ③ 티몰 월별 (기존 로직)
+   ===================================================================== */
+let cur = MONTHS[MONTHS.length-1];
+function ctx(){ const i=iOf(cur); return {i, J:S[i], PREV:i>0?S[i-1]:null, M:DATA.byMonth[cur]}; }
 function renderKPIs(){ const {J,PREV}=ctx(); const pv=k=>PREV?PREV[k]:null;
   const cards=[
     {l:cur+' 티몰 매출',v:smartW(J.salesKRW),foot:`목표 ${smartW(J.targetKRW)} · 달성 ${pc(J.achv)}`,mom:mom(J.salesKRW,pv('salesKRW')),ac:'var(--green-2)'},
     {l:'총 방문자 (UV)',v:intc(J.uv)+'명',foot:J.pv?`노출량(PV) ${intc(J.pv)}`:'증정품 제외 상품 UV 합',mom:mom(J.uv,pv('uv')),ac:'var(--blue)'},
     {l:cur+' 마케팅비',v:smartW(J.costKRW),foot:`OY ${smart(J.oyKRW)} · 스틸 ${smart(J.stKRW)}`,mom:mom(J.costKRW,pv('costKRW'),true),ac:'var(--coral-2)'},
-    {l:'통합 ROAS',v:J.roas.toFixed(2)+'x',foot:'티몰 매출 / 총 마케팅비',mom:mom(J.roas,pv('roas')),ac:'var(--navy)'},
+    {l:'통합 ROAS(티몰기준)',v:J.roas.toFixed(2)+'x',foot:'티몰 매출 / 총 마케팅비',mom:mom(J.roas,pv('roas')),ac:'var(--navy)'},
   ];
   document.getElementById('kpis').innerHTML=cards.map(c=>`<div class="kpi"><div class="k-accent" style="background:${c.ac}"></div><div class="k-top"><span class="k-label">${c.l}</span>${c.mom}</div><div class="k-val num">${c.v}</div><div class="k-foot num">${c.foot}</div></div>`).join('');
 }
-
-/* ===== insight (dynamic) ===== */
 function renderInsight(){ const {J,M}=ctx(); const first=S[0];
   const sold=M.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
   const top1=sold[0]||{name:'-',share:0}, top5=sold.slice(0,5).reduce((s,p)=>s+p.share,0);
@@ -388,19 +818,15 @@ function renderInsight(){ const {J,M}=ctx(); const first=S[0];
   ];
   document.getElementById('insight').innerHTML=`<h3><span class="tag">EC 인사이트</span> ${cur} 핵심 진단 — 효율·집중도·채널 구조 점검</h3><div class="ins-grid">`+items.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div>`;
 }
-
-/* ===== sell-out ===== */
 function renderSellout(){ const {M}=ctx();
   const sold=M.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
   const top5=sold.slice(0,5).reduce((s,p)=>s+p.share,0);
   const newShare=M.products.filter(p=>p.new).reduce((s,p)=>s+p.payKRW,0)/(M.productTotalKRW||1)*100;
   document.getElementById('sell-src').innerHTML=`증정품 제외 · 결제금액 기준<br>총 ${won(M.productTotalKRW)}`;
-  // bars
   const top=sold.slice(0,8), maxP=top.length?top[0].payKRW:1;
   document.getElementById('prodbars').innerHTML=top.map(p=>{
     const chips=(p.new?'<span class="chip new">신제품</span>':'')+(p.status!=='온라인'?'<span class="chip off">내림</span>':'');
     return `<div class="pbar" data-tip="${esc(p.name+'\nUV '+intc(p.uv)+' · 전환 '+pc(p.conv,2)+'\n매출 '+won(p.payKRW)+' · 점유율 '+pc(p.share))}"><div class="pb-top"><div class="pb-name">${chips}<span class="nm">${p.name}</span></div><div class="pb-val num">${smartW(p.payKRW)}<small>${pc(p.share)}</small></div></div><div class="pb-track"><div class="pb-fill" style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></div></div></div>`;}).join('');
-  // stats
   const stats=[
     {l:'판매 SKU',v:sold.length+'개',s:`전체 ${M.products.length}개 중`},
     {l:'1위 점유율',v:sold.length?pc(sold[0].share):'-',s:sold.length?sold[0].name.slice(0,10):''},
@@ -408,10 +834,8 @@ function renderSellout(){ const {M}=ctx();
     {l:'신제품 기여',v:pc(newShare),s:'신제품 합산'},
   ];
   document.getElementById('sellstats').innerHTML=stats.map(x=>`<div class="stat"><div class="st-l">${x.l}</div><div class="st-v num">${x.v}</div><div class="st-s">${x.s}</div></div>`).join('');
-  // conv stars
   const stars=sold.filter(p=>p.uv>=500).sort((a,b)=>b.conv-a.conv).slice(0,5), maxC=Math.max(1,...stars.map(p=>p.conv));
   document.getElementById('convstars').innerHTML=stars.map(p=>`<div class="pbar" data-tip="${esc(p.name+'\n전환 '+pc(p.conv,2)+' · UV '+intc(p.uv)+'\n매출 '+won(p.payKRW))}"><div class="pb-top"><div class="pb-name"><span class="nm">${p.name}</span></div><div class="pb-val num">${pc(p.conv,2)}<small>UV ${intc(p.uv)}</small></div></div><div class="pb-track"><div class="pb-fill alt" style="width:${(p.conv/maxC*100).toFixed(1)}%"></div></div></div>`).join('');
-  // table
   document.getElementById('tbl-note').textContent=`판매 발생 ${sold.length}개 SKU · 그 외 ${M.products.length-sold.length}개는 ${cur} 판매 없음(내림/품절)`;
   const maxT=sold.length?sold[0].payKRW:1;
   document.querySelector('#prodtable tbody').innerHTML=sold.map((p,i)=>{
@@ -419,28 +843,22 @@ function renderSellout(){ const {M}=ctx();
     const st=p.status==='온라인'?'<span class="chip on">온라인</span>':'<span class="chip off">내림</span>';
     return `<tr><td class="rank">${i+1}</td><td class="l">${chips}${p.name}</td><td class="l">${st}</td><td class="num">${intc(p.uv)}</td><td class="l barcell"><i style="width:${(p.payKRW/maxT*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td><td class="num">${pc(p.conv,2)}</td></tr>`;}).join('');
 }
-
-/* ===== marketing ===== */
 function renderMarketing(){ const {J,PREV,M}=ctx();
   document.getElementById('cost-total').innerHTML=`${cur} 총 ${won(J.costKRW)} · 전월 대비 ${mom(J.costKRW,PREV?PREV.costKRW:null,true)}`;
   const owC=o=>o==='OY'?'var(--green)':'var(--coral)';
   document.querySelector('#costtable tbody').innerHTML=M.costItems.map(c=>{
     const gone=c.cur===0, diffTxt=c.diff===0?'–':(c.diff>0?'+':'')+smartW(c.diff), dc=c.diff>0?'down':(c.diff<0?'up':'flat');
     return `<tr style="${gone?'opacity:.55':''}"><td class="l" style="font-weight:800;color:${owC(c.owner)}">${c.owner}</td><td class="l">${c.item}${gone?' <span class="chip off">중단</span>':''}</td><td class="num emph">${gone?'—':won(c.cur)}</td><td class="num" style="color:var(--ink-3)">${c.prev?won(c.prev):'—'}</td><td class="num mom ${dc}">${diffTxt}</td></tr>`;}).join('');
-  // donut
   const oy=J.oyKRW, st=J.stKRW, tot=oy+st||1, R=46,SW=18,C0=2*Math.PI*R, seg=oy/tot*C0;
   document.getElementById('donutSub').textContent=`${cur} 총 마케팅비`;
   document.getElementById('donut').innerHTML=`<svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="주체별 비중"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--coral-2)" stroke-width="${SW}"/><circle class="hit" cx="60" cy="60" r="${R}" fill="none" stroke="var(--green-2)" stroke-width="${SW}" stroke-dasharray="${seg.toFixed(1)} ${C0.toFixed(1)}" data-tip="${esc('OY '+won(oy)+' ('+pc(oy/tot*100)+')')}"/></g><text x="60" y="55" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-weight="700">${cur} 총</text><text x="60" y="72" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="800" class="num">${smart(tot)}</text></svg>`;
   document.getElementById('donut-legend').innerHTML=[{n:'OY (올리브영)',v:oy,c:'var(--green-2)'},{n:'스틸 (Still)',v:st,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('');
-  // xhs
   const xr=J.xhsRoas, bad=xr<1.5, badge=document.getElementById('xhs-badge');
   badge.className='badge '+(bad?'bad':'good'); badge.textContent=`ROAS ${xr.toFixed(1)}x ${bad?'· 적자':'· 양호'}`;
   document.getElementById('xhscard').className='card xhs '+(bad?'':'warnb');
   const rows=[['광고비 (CID 聚光)',won(J.xhsAdKRW)],['기여 GMV',won(J.xhsGmvKRW)],['ROAS',xr.toFixed(1)+'x'],['유입 UV',intc(J.xhsUV)+'명'],['전체 UV 중 비중',pc(J.xhsShare)],['전월 대비 광고비',mom(J.xhsAdKRW,PREV?PREV.xhsAdKRW:null,true)]];
   document.getElementById('xhs-kv').innerHTML=rows.map(r=>`<div class="kv"><span class="kk">${r[0]}</span><span class="vv num" ${r[0]==='ROAS'&&bad?'style="color:var(--bad)"':''}>${r[1]}</span></div>`).join('');
 }
-
-/* ===== recommendations (dynamic) ===== */
 function renderRecs(){ const {J,M}=ctx();
   const sold=M.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
   const top1=sold[0]||{name:'-',share:0};
@@ -459,17 +877,13 @@ function renderRecs(){ const {J,M}=ctx();
   ];
   document.getElementById('recs').innerHTML=recs.map((t,i)=>`<div class="rec"><span class="rn">${i+1}</span><div>${t}</div></div>`).join('');
 }
-
-/* ===== traffic ===== */
 function renderTraffic(){ const {M}=ctx(); const g=M.traffic.groups||[], subs=(M.traffic.subs||[]).slice(0,8);
   const tot=g.reduce((s,x)=>s+x.visitors,0)||1, colors=['var(--green-2)','var(--coral-2)','var(--blue)'];
   document.getElementById('tgroups').innerHTML=g.map((x,i)=>`<div class="tgc" data-tip="${esc(x.name+'\n방문자 '+intc(x.visitors)+' ('+pc(x.visitors/tot*100)+')\n구매자 '+intc(x.buyers)+' · 전환 '+pc(x.conv,2))}"><div class="tg-l">${x.name}</div><div class="tg-v num">${intc(x.visitors)}<span style="font-size:12px;color:var(--ink-3);font-weight:600">명</span></div><div class="tg-s num">구매 ${intc(x.buyers)}명 · 전환 ${pc(x.conv,2)} · 비중 ${pc(x.visitors/tot*100)}</div><div class="tg-bar"><i style="width:${(x.visitors/tot*100).toFixed(1)}%;background:${colors[i%3]}"></i></div></div>`).join('');
   const maxV=Math.max(1,...subs.map(s=>s.visitors)), maxCv=Math.max(1,...subs.map(s=>s.conv));
   document.getElementById('trafbars').innerHTML=subs.map(s=>{const hot=s.conv>=maxCv*0.55;
-    return `<div class="pbar" data-tip="${esc(s.name+'\n방문자 '+intc(s.visitors)+'\n구매자 '+intc(s.buyers)+' · 전환 '+pc(s.conv,2))}"><div class="pb-top"><div class="pb-name"><span class="nm">${s.name}</span></div><div class="pb-val num" style="color:${hot?'var(--green)':'var(--ink)'}">전환 ${pc(s.conv,2)}<small>방문 ${intc(s.visitors)}</small></div></div><div class="pb-track"><div class="pb-fill" style="width:${(s.visitors/maxV*100).toFixed(1)}%;${hot?'':'background:linear-gradient(90deg,var(--blue),var(--blue))'}"></div></div></div>`;}).join('');
+    return `<div class="pbar" data-tip="${esc(s.name+'\n방문자 '+intc(s.visitors)+'\n구매자 '+intc(s.buyers)+' · 전환 '+pc(s.conv,2))}"><div class="pb-top"><div class="pb-name"><span class="nm">${s.name}</span></div><div class="pb-val num" style="color:${hot?'var(--green)':'var(--ink)'}">전환 ${pc(s.conv,2)}<small>방문 ${intc(s.visitors)}</small></div></div><div class="pb-track"><div class="pb-fill${hot?'':' blu'}" style="width:${(s.visitors/maxV*100).toFixed(1)}%"></div></div></div>`;}).join('');
 }
-
-/* ===== trend charts (highlight selected month) ===== */
 function renderSales(){
   const W=560,H=290,mL=48,mR=12,mT=16,mB=30,iw=W-mL-mR,ih=H-mT-mB;
   const max=Math.max(...S.map(s=>Math.max(s.salesKRW,s.targetKRW)))*1.12, n=S.length, band=iw/n, bw=Math.min(38,band*0.46);
@@ -496,22 +910,33 @@ function renderCost(){
   S.forEach((s,i)=>{const sel=s.month===cur;g+=`<circle class="hit" cx="${x(i).toFixed(1)}" cy="${yR(s.roas).toFixed(1)}" r="${sel?5:3.4}" fill="${sel?'var(--navy)':'var(--surface)'}" stroke="var(--navy)" stroke-width="2" data-tip="${esc(s.month+' 통합 ROAS '+s.roas.toFixed(2)+'x')}"/>`;});
   document.getElementById('ch-cost').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="마케팅비와 ROAS">${g}</svg>`;
 }
-
-/* ===== titles + orchestration ===== */
-function setTitles(){
+function setTmallTitles(){
   document.getElementById('mpill').innerHTML=`${cur} 기준 <small>SELL-OUT</small>`;
   document.getElementById('h2Sell').textContent=`② ${cur} 상품별 Sell-out`;
   document.getElementById('h2Mkt').textContent=`③ ${cur} 마케팅 비용 상세`;
   document.getElementById('h2Traf').textContent=`④ ${cur} 점포 유입경로`;
-  document.getElementById('foot-meta').textContent=`웨이크메이크 · 티몰글로벌 | 기준월 ${cur}`;
 }
-function renderMonth(){ setTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost(); }
+function renderTmall(){ setTmallTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost(); }
 
 /* month selector */
 const sel=document.getElementById('monthSel');
 sel.innerHTML=MONTHS.map(m=>`<option value="${m}">${m}</option>`).join('');
 sel.value=cur;
-sel.addEventListener('change',e=>{cur=e.target.value; renderMonth();});
+sel.addEventListener('change',e=>{cur=e.target.value; renderTmall();});
+
+/* ===== view orchestration ===== */
+const rendered={daily:false,platforms:false,tmall:false};
+function showView(v){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  if(!rendered[v]){ if(v==='daily')renderDaily(); else if(v==='platforms')renderPlatforms(); else renderTmall(); rendered[v]=true; }
+  location.hash=v;
+}
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)showView(b.dataset.view);});
+addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['daily','platforms','tmall'].includes(v))showView(v);});
+document.getElementById('p-sel').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curPlat=b.dataset.plat;renderPlatforms();});
+document.getElementById('p-brand').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curBrand=b.dataset.brand;curPlat='통합';renderPlatforms();});
 
 /* theme toggle */
 document.getElementById('themeBtn').addEventListener('click',()=>{
@@ -520,7 +945,9 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
   document.documentElement.setAttribute('data-theme',dark?'light':'dark');
 });
 
-renderMonth();
+/* init */
+const startView=(location.hash||'#daily').slice(1);
+showView(['daily','platforms','tmall'].includes(startView)?startView:'daily');
 wireTips(document.body);
 </script>
 </body>

@@ -1,0 +1,11 @@
+{
+  "_안내": "이 파일을 'sheet.config.json' 으로 복사한 뒤 각 탭의 '웹에 게시(CSV)' URL 을 채우세요. sheet.config.json 은 .gitignore 로 커밋되지 않습니다(원본 시트 URL 보호).",
+  "_게시방법": "구글시트 → 파일 → 공유 → 웹에 게시 → (탭 선택) → 쉼표로 구분된 값(.csv) → 게시 → 생성된 URL 복사. 탭마다 반복.",
+  "tabs": {
+    "일자별매출":   "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",
+    "플랫폼_도우인": "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",
+    "플랫폼_샤오홍슈": "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",
+    "마케팅비":     "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",
+    "상품매핑":     "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv"
+  }
+}

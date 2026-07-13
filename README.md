@@ -1,67 +1,88 @@
-# 웨이크메이크 중국 역직구 대시보드 (티몰글로벌)
+# 웨이크메이크·컬러그램 중국 역직구 통합 대시보드
 
-웨이크메이크(WAKEMAKE) 티몰글로벌 자영점의 **중국 역직구 통합 성과 · 마케팅 비용 대시보드**입니다.
-외부 의존성 없는 **단일 정적 HTML**(`index.html`) — 인라인 CSS/JS + 직접 렌더링한 SVG 차트, 데이터 내장.
-**월 선택형**: 상단 드롭다운으로 월을 바꾸면 KPI·인사이트·상품·비용·유입경로가 해당 월로 재계산됩니다.
+티몰글로벌(天猫国际) · 도우인(抖音) · 샤오홍슈(小红书) **3개 플랫폼 통합** 성과·마케팅 대시보드.
+외부 의존성 없는 **단일 정적 HTML**(`index.html`) — 인라인 CSS/JS + 직접 렌더링 SVG 차트, 데이터 내장.
+환율 1元 = 220원 · 매출은 증정품 제외 결제금액 기준 · 라이트/다크 · 모바일 반응형.
 
-## 구성
-- **① 상반기 매출 · ROAS 추이** (선택월 강조)
-- **② 월별 상품 Sell-out** (상품 랭킹 · 점유율 · 상세 테이블 · 고전환 SKU)
-- **③ 월별 마케팅 비용 상세** (주체별/항목별 · 전월 대비 · 샤오홍슈 CID 성과)
-- **④ 월별 점포 유입경로**
-
-라이트/다크 테마 · 모바일 반응형 · 환율 1元 = 220원 기준(증정품 제외 결제금액).
+## 3개 탭(뷰)
+- **① 일자별 매출** — 6월 일자별 매출을 **웨이크메이크/컬러그램 브랜드별로 분리**. 추세·피크/급락일·주중주말·브랜드 비교 코멘트 **자동 생성**. (현재 소스: 도우인 역직구 로우데이터)
+- **② 플랫폼 통합** — 티몰/도우인/샤오홍슈를 한 페이지에. **플랫폼 셀렉터**로 개별/합산 전환. SKU **매핑 합산**과 **미매칭 검토** 목록, 플랫폼 귀속 마케팅비, 전문가 제안 포함.
+- **③ 티몰 월별** — 기존 티몰글로벌 6개월 추이·상품 sell-out·유입경로·마케팅비 대시보드(월 선택형).
 
 ---
 
-## 📅 매월 갱신 방법 (자동화)
+## 📊 데이터 소스 = Google Sheets (빌드 타임 연동)
 
-원본 티몰 엑셀 한 개만 있으면 됩니다. 3단계로 끝납니다.
+데이터는 코드에 하드코딩하지 않고 **구글시트에서 값을 가져와** `data.json`으로 계산 후 `index.html`에 구워넣습니다.
+배포 사이트에는 시트 링크·인증정보가 **전혀 노출되지 않습니다**(정적 파일에 결과만 포함).
 
+### 시트 탭 스키마
+| 탭 | 컬럼(핵심) | 용도 |
+|---|---|---|
+| `일자별매출` | 일자 · 브랜드 · 플랫폼 · 결제금액(元) · 주문수 · 구매자수 | 페이지① |
+| `플랫폼_도우인` | 일자 · 스토어 · 브랜드 · GMV(元) · 결제금액(元) · 주문수 · 구매자수 · 노출UV · 클릭UV | ①·② 도우인 |
+| `플랫폼_샤오홍슈` | 월 · 商品品类 · 消费(元) · 曝光 · 点击 · 매핑상태 | ② 샤오홍슈(聚光) |
+| `마케팅비` | 플랫폼 · 주체(OY/스틸) · 항목 · 금액(元) · 월 | ②·③ 비용 |
+| `유입경로` | 플랫폼 · 경로 · 방문자 · 구매자 | ② 유입 |
+| `상품매핑` | SKU코드 · 한글상품명 · 브랜드 · 티몰_상품ID(;) · 도우인_별칭(;) · 샤오홍슈_별칭(;) · 상태(확정/검토) · 비고 | 매핑 |
+
+> **스타터 CSV 제공**: `python build.py --seed-csv` 를 실행하면 위 스키마에 **실데이터가 채워진** CSV가 `sheets_seed/`에 생성됩니다.
+> 각 파일을 구글시트의 동일 탭에 **붙여넣기**하면 시트가 바로 채워집니다. (이 폴더는 대외비라 커밋되지 않습니다.)
+
+### 연동 절차 (최초 1회)
+1. `python build.py --seed-csv` → `sheets_seed/*.csv` 를 구글시트 각 탭에 붙여넣기.
+2. 각 탭을 **파일 → 공유 → 웹에 게시 → CSV** 로 게시하고 URL 복사.
+3. `sheet.config.example.json` 을 `sheet.config.json` 으로 복사 후 탭별 URL 을 채움. (이 파일은 커밋 안 됨)
+4. `python build.py --sheet` → 시트에서 값을 받아 `data.json` + `index.html` 재생성.
+
+### 매월 갱신
 ```bash
-# 0) (최초 1회) 엑셀 파서 라이브러리 설치
-python -m pip install openpyxl
-
-# 1) 티몰 원본 엑셀로 데이터·대시보드 재생성
-python build.py 원본엑셀.xlsx
-#   → data.json 과 index.html 이 새로 만들어지고, 최신 월이 기본 선택됩니다.
-
-# 2) 배포 (GitHub 푸시 → Cloudflare 자동 재배포)
-git add -A
-git commit -m "7월 데이터"
-git push
+# 구글시트에서 이번 달 데이터만 수정한 뒤:
+python build.py --sheet         # 시트 → data.json → index.html
+git add -A && git commit -m "7월 데이터" && git push   # Cloudflare 자동 재배포
 ```
-푸시 후 약 1분이면 라이브 URL에 반영됩니다.
 
-### build.py 사용법
+> **더 강한 보안이 필요하면(비공개 시트):** 공개 CSV 대신 **서비스 계정**(GCP 서비스계정 JSON 키를 로컬 `*.sa.json`(gitignore)로 보관, 시트를 서비스계정 이메일에만 공유)으로 전환할 수 있습니다. `build.py` 의 `fetch_csv`(어댑터)만 Sheets API 호출로 교체하면 됩니다.
+
+---
+
+## 🧩 상품명 매핑 (중국어 원문 ↔ 한글 ↔ SKU)
+
+플랫폼마다 상품명이 중국어로, 표기가 다르게(약어·띄어쓰기·신구버전) 나옵니다. 동일 상품을 정확히 합산하려고 매핑 테이블을 둡니다.
+- **소스**: `mapping.py` 의 `MAPPING`(초기값) 또는 구글시트 `상품매핑` 탭.
+- **정규화**: 공백·전각/반각·괄호·마커(新品/AD/구형/[임박]…) 제거 후 별칭 매칭. 티몰은 상품ID가 앵커.
+- **애매하면 자동 합산 금지**: 어느 SKU에도 확신 매칭이 안 되는 항목(예: `十六色眼影` — 16색 데일리 vs 소프트블러링 판별 필요)은 **합산에서 제외**하고 페이지② **"⚠ 검토 필요"** 목록에 원문·후보·금액을 표시합니다. 시트에서 확정 별칭을 넣으면 다음 빌드부터 합산됩니다.
+
+---
+
+## 🛠 build.py 사용법
 | 명령 | 설명 |
 |---|---|
-| `python build.py 파일.xlsx` | 티몰 원본 엑셀 → `data.json` + `index.html` 재생성 (매월 사용) |
-| `python build.py --from-raw index_2.html` | 기존 대시보드 RAW에서 데이터 복원(검증용) |
-| `python build.py --render-only` | `data.json`을 직접 수정한 뒤 `index.html`만 다시 렌더 |
+| `python build.py --sheet [sheet.config.json]` | **구글시트(공개 CSV) → data.json + index.html** (매월 사용) |
+| `python build.py --seed-csv` | 현재 `data.json` → 시트 붙여넣기용 스타터 CSV(`sheets_seed/`) |
+| `python build.py --render-only` | `data.json` 만 수정한 뒤 `index.html` 재생성 |
+| `python build.py --seed [로우.xlsx]` | 원본 엑셀에서 실데이터로 최초 시드(도우인/샤오홍슈) |
+| `python build.py --from-raw <index_2.html>` | 기존 티몰 RAW 에서 티몰 파트 복원(+도우인/샤오홍슈 흡수) |
+| `python build.py <티몰원본.xlsx>` | 티몰 6시트 엑셀 → 티몰 파트 재계산 |
 
-### 원본 엑셀이 읽는 시트 (원본 대시보드와 동일)
-`티몰글로벌`(목표) · `웨이크메이크_상품별판매데이터` · `웨이크메이크_티몰 점포 유입 현황`
-· `웨이크메이크_티몰 내부 광고 현황` · `라이브방송 광고 내역` · `샤오홍씽-광고`
-> 시트명·컬럼명이 바뀌면 `build.py`의 파서를 함께 수정해야 합니다.
-
----
+파서 라이브러리: `python -m pip install openpyxl` (엑셀 파싱 시).
 
 ## 파일 구조
 | 파일 | 역할 |
 |---|---|
-| `index.html` | **배포 대상** — build.py가 생성 (template + data.json). Cloudflare가 이 파일을 서빙 |
-| `template.html` | 대시보드 골격(HTML/CSS/JS). `__DATA__` 자리에 데이터가 주입됨 |
-| `data.json` | build.py가 계산한 월별 데이터 (사람이 읽고 수정 가능) |
-| `build.py` | 엑셀 → data.json → index.html 빌드 스크립트 |
+| `index.html` | **배포 대상** — build.py 생성물(template + data.json). Cloudflare가 서빙 |
+| `template.html` | 대시보드 골격(HTML/CSS/JS). `__DATA__` 자리에 데이터 주입 |
+| `data.json` | build.py 계산 결과(티몰 series/byMonth · daily · platforms · mapping) |
+| `build.py` | 시트/엑셀 → data.json → index.html 빌드 · 어댑터 구조 |
+| `mapping.py` | 상품명 매핑 테이블(중문↔한글↔SKU) · 정규화 · 애매 별칭 |
+| `sheet.config.example.json` | 시트 CSV URL 설정 예시(→ `sheet.config.json` 로 복사) |
 
-## 배포 설정 (Cloudflare)
-GitHub 저장소 → **Cloudflare (정적 자산 Worker/Pages)** 자동 배포.
-- Build command: **없음** · Build output directory: **`/`** · Production branch: **`main`**
-- `main`에 push하면 자동 재배포.
+## 배포 (Cloudflare)
+GitHub 저장소 → **Cloudflare 정적 자산 Worker** 자동 배포. Build command 없음 · output `/` · branch `main`.
+`main` push 시 약 1분 후 라이브 반영: **https://wakemake-cbec-dashboard.hyunjin-im.workers.dev/**
 
-## ⚠️ 보안
-실제 매출·마케팅비 등 **대외비 데이터**가 포함됩니다.
-- 원본 엑셀(`*.xlsx`)은 `.gitignore`로 커밋 제외 (계산된 `data.json`만 저장소에 올라감)
-- 접근 제한이 필요하면 **Cloudflare Access**로 특정 이메일만 허용 권장
-- 검색엔진 비노출(`<meta name="robots" content="noindex,nofollow">`) 적용됨
+## ⚠️ 보안 (중요)
+실제 매출·마케팅비 등 **대외비 데이터가 배포 페이지(HTML)에 그대로 포함**되며, 현재 URL·GitHub 저장소는 **공개** 상태입니다.
+- 원본 엑셀(`*.xlsx/*.csv`)·시트 URL(`sheet.config.json`)·서비스계정 키(`*.sa.json`)·`sheets_seed/` 는 `.gitignore` 로 커밋 제외.
+- 검색엔진 비노출(`<meta name="robots" content="noindex,nofollow">`) 적용됨.
+- **강력 권고: [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) 로 사이트를 이메일 허용목록 뒤로 두세요.** 페이지에 박힌 수치를 보호하는 실질적 방법입니다. (미적용 시 URL 을 아는 누구나 열람 가능)
