@@ -47,11 +47,11 @@ NAME_MAP = {
  "1025567503245":"[기획] 디파이닝 커버 컨실러","956917552339":"헬시 글로우 밤 스틱",
  "979918030260":"소프트 블러링 밤 스틱","944132243773":"워터 블러링 레이어 틴트",
  "1056920657682":"볼드 립 블러 틴트","1055872138792":"스테이 픽서 세팅 미스트",
- "930390492188":"16색 아이섀도우 팔레트(데일리)",
+ "930390492188":"소프트 블러링 아이팔레트",
  "955175851181":"디파이닝 커버 파운데이션(브러시증정)","1010846509316":"워터 글로우 코팅 쿠션(브러시증정)",
- "970326378569":"워터풀 글로우 틴트(신규)","994394931225":"눈썹연필·아이브로우",
- "915599957043":"6색 멀티 팔레트","955630790429":"매트 그레이 쿠션",
- "923655776577":"[특가] 러비 미광 립 틴트","802226967628":"윤곽 형광 조색 팔레트",
+ "970326378569":"워터풀 글로우 틴트(신규)","994394931225":"WAKEMAKE唯可魅眉笔染眉膏 野生眉",
+ "915599957043":"6색 멀티 팔레트","955630790429":"심리스 웨어 쿠션",
+ "923655776577":"【特价】WAKEMAKE唯可魅露水美光唇釉","802226967628":"윤곽 형광 조색 팔레트",
  "802231575085":"정형 컨실러 조색 팔레트","802234879735":"퓨어 소이 파우더 팩트",
 }
 # 유입경로 세부 채널 한글명 (l4 코드 → 한글)
@@ -259,6 +259,40 @@ def gsheet_reader(url_or_id):
         return rows
     return sheet
 
+def fetch_tmall_ad_products(sid, gid):
+    """티몰 내부광고 탭(상품별 소모액·ROI) → {월: [{id,name,brand,adKRW,directGmvKRW,roi,imp,clk}]}."""
+    rows = _fetch_gid_rows(sid, gid)
+    if not rows: return {}
+    h = [str(c).strip() for c in rows[0]]
+    def ci(*names):
+        for n in names:
+            if n in h: return h.index(n)
+        return -1
+    iM, iId, iNm = ci("통계 일자"), ci("상품 ID"), ci("상품명")
+    iAd = ci("광고 소모액(마케팅 비용)", "광고 소모액")
+    iGmv, iRoi, iImp, iClk = ci("직접 유입 거래 금액"), ci("광고 직접 ROI"), ci("노출량"), ci("클릭수")
+    idx = build_map_index()
+    out = {}
+    for r in rows[1:]:
+        m = re.sub(r"\s", "", str(r[iM]) if 0 <= iM < len(r) else "").replace("月", "월")
+        if not m or m in ("None", "null"): continue
+        pid = re.sub(r"\.0$", "", str(r[iId]).strip()) if 0 <= iId < len(r) else ""
+        if not pid: continue
+        ad = _numc(r[iAd]) if 0 <= iAd < len(r) else 0
+        if ad <= 0: continue
+        sku = idx["tmall"].get(pid)
+        brand = idx["sku"][sku].get("brand", "웨이크메이크") if sku else "웨이크메이크"
+        out.setdefault(m, []).append({
+            "id": pid, "name": kname(pid, r[iNm] if 0 <= iNm < len(r) else ""), "brand": brand,
+            "adKRW": round(ad * FX),
+            "directGmvKRW": round((_numc(r[iGmv]) if 0 <= iGmv < len(r) else 0) * FX),
+            "roi": round(_numc(r[iRoi]) if 0 <= iRoi < len(r) else 0, 2),
+            "imp": int(_numc(r[iImp]) if 0 <= iImp < len(r) else 0),
+            "clk": int(_numc(r[iClk]) if 0 <= iClk < len(r) else 0),
+        })
+    for m in out: out[m].sort(key=lambda x: -x["adKRW"])
+    return out
+
 def parse_tmall_daily(sheet, sheet_name="웨이크메이크_티몰 일자별매출"):
     """티몰 일자별 매출 탭 → 브랜드별 일자 series (현재 시트엔 WAKEMAKE海外旗舰店 = 웨이크메이크만)."""
     rows = sheet(sheet_name)
@@ -321,15 +355,21 @@ def compute_tmall(u):
         costK = sum(c["cny"] for c in cs) * FX
         oy = sum(c["cny"] for c in cs if c["owner"] == "OY") * FX
         st = sum(c["cny"] for c in cs if c["owner"] == "스틸") * FX
+        tmAd = sum(c["cny"] for c in cs if c["item"] == "티몰 유료광고(내부광고 소모액)") * FX  # 스틸 티몰 유료광고
         xh = u["xhs"].get(m, {})
         mo = monthly_by.get(m, {})
+        xhsAd = round(xh.get("adKRW", 0))          # 샤오홍슈 聚光 CID
+        tmAd = round(tmAd)
+        paid = tmAd + xhsAd                          # 티몰 유료광고 + 聚光 CID
         series.append({
             "month": m, "salesKRW": round(sales), "targetKRW": round(mo.get("targetKRW", 0)),
             "achv": round(sales / mo["targetKRW"] * 1000) / 10 if mo.get("targetKRW") else 0,
             "uv": uv, "pv": mo.get("pv", 0) or 0,
             "costKRW": round(costK), "oyKRW": round(oy), "stKRW": round(st),
+            "tmallAdKRW": tmAd, "paidAdKRW": paid,
             "roas": round(sales / costK * 100) / 100 if costK else 0,
-            "xhsAdKRW": round(xh.get("adKRW", 0)), "xhsGmvKRW": round(xh.get("gmvKRW", 0)),
+            "paidRoas": round(sales / paid * 100) / 100 if paid else 0,   # 매출 / (티몰유료+聚光)
+            "xhsAdKRW": xhsAd, "xhsGmvKRW": round(xh.get("gmvKRW", 0)),
             "xhsRoas": xh.get("roas", 0), "xhsShare": xh.get("shareOfTotalUV", 0), "xhsUV": xh.get("storeVisitUV", 0),
         })
 
@@ -1035,6 +1075,12 @@ def main():
         data = assemble_from_parts(tmall, douyin, xhs)
         if tmDaily: data["dailyTmall"] = daily_struct(tmDaily, "티몰글로벌(天猫国际) · 海外旗舰店",
                                                      "티몰 일 결제금액 · 증정 제외 · 환율 220원")
+        adGid = cfg.get("tmallAdGid")   # 상품별 티몰 내부광고(스틸 집행) → byMonth.adProducts
+        if src and adGid:
+            adp = fetch_tmall_ad_products(src, adGid)
+            for mth, lst in adp.items():
+                if mth in data.get("byMonth", {}): data["byMonth"][mth]["adProducts"] = lst
+            if adp: print("[상품별 광고] %d개월 · 예: %s %d품목" % (len(adp), max(adp), len(adp.get(max(adp), []))))
         ds, mp = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
         if ds:
             data["dailyStatus"] = ds

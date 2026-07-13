@@ -383,8 +383,8 @@
           <div id="ch-sales"></div>
         </div>
         <div class="card">
-          <div class="card-h"><div><div class="c-t">마케팅비 &amp; 통합 ROAS</div><div class="c-s">막대: OY·스틸 · 선: ROAS(우축) · 선택월 강조</div></div>
-            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span><span class="lg line"><i style="background:var(--navy)"></i>ROAS</span></div></div>
+          <div class="card-h"><div><div class="c-t">유료광고비 &amp; ROAS</div><div class="c-s">막대: 티몰 유료광고 + 쥐광(聚光) CID · 선: ROAS(우축)</div></div>
+            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>티몰 유료광고</span><span class="lg"><i style="background:var(--coral-2)"></i>쥐광(聚光) CID</span><span class="lg line"><i style="background:var(--navy)"></i>ROAS</span></div></div>
           <div id="ch-cost"></div>
         </div>
       </div>
@@ -421,12 +421,12 @@
     <section class="blk">
       <div class="s-head">
         <div><div class="s-eye">Marketing Cost</div><h2 id="h2Mkt"></h2></div>
-        <div class="s-src">주체별(OY·스틸) · 항목별 · 전월 대비<br>샤오홍슈 CID 성과 포함</div>
+        <div class="s-src">스틸 집행 티몰 유료광고 · 상품별 효율<br>+ 쥐광(聚光) CID 성과 · 비용은 스틸 지불</div>
       </div>
       <div class="grid-3-2">
         <div class="card">
-          <div class="card-h"><div><div class="c-t">항목별 집행 &amp; 전월 대비</div><div class="c-s" id="cost-total"></div></div>
-            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>OY</span><span class="lg"><i style="background:var(--coral-2)"></i>스틸</span></div></div>
+          <div class="card-h"><div><div class="c-t">상품별 광고 집행 &amp; 효율 (스틸 티몰 내부광고)</div><div class="c-s" id="cost-total"></div></div>
+            <div class="legend"><span class="lg"><i style="background:var(--green-2)"></i>웨메</span><span class="lg"><i style="background:var(--coral-2)"></i>컬그</span></div></div>
           <div class="tbl-wrap" style="border:none">
             <table id="costtable">
               <thead><tr><th class="l">주체</th><th class="l">항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr></thead>
@@ -911,8 +911,8 @@ function renderKPIs(){ const {J,PREV}=ctx(); const pv=k=>PREV?PREV[k]:null;
   const cards=[
     {l:cur+' 티몰 매출',v:smartW(J.salesKRW),foot:`목표 ${smartW(J.targetKRW)} · 달성 ${pc(J.achv)}`,mom:mom(J.salesKRW,pv('salesKRW')),ac:'var(--green-2)'},
     {l:'총 방문자 (UV)',v:intc(J.uv)+'명',foot:J.pv?`노출량(PV) ${intc(J.pv)}`:'증정품 제외 상품 UV 합',mom:mom(J.uv,pv('uv')),ac:'var(--blue)'},
-    {l:cur+' 마케팅비',v:smartW(J.costKRW),foot:`OY ${smart(J.oyKRW)} · 스틸 ${smart(J.stKRW)}`,mom:mom(J.costKRW,pv('costKRW'),true),ac:'var(--coral-2)'},
-    {l:'통합 ROAS(티몰기준)',v:J.roas.toFixed(2)+'x',foot:'티몰 매출 / 총 마케팅비',mom:mom(J.roas,pv('roas')),ac:'var(--navy)'},
+    {l:cur+' 티몰 유료마케팅비',v:smartW(J.tmallAdKRW||0),foot:`티몰 내부 유료광고 소모액<br>※ 비용은 스틸에서 지불`,mom:mom(J.tmallAdKRW,pv('tmallAdKRW'),true),ac:'var(--coral-2)'},
+    {l:'유료광고 ROAS',v:(J.paidRoas||0).toFixed(2)+'x',foot:'매출 / (티몰유료광고 + 聚光 CID)',mom:mom(J.paidRoas,pv('paidRoas')),ac:'var(--navy)'},
   ];
   document.getElementById('kpis').innerHTML=cards.map(c=>`<div class="kpi"><div class="k-accent" style="background:${c.ac}"></div><div class="k-top"><span class="k-label">${c.l}</span>${c.mom}</div><div class="k-val num">${c.v}</div><div class="k-foot num">${c.foot}</div></div>`).join('');
 }
@@ -957,15 +957,27 @@ function renderSellout(){ const {M}=ctx();
     return `<tr><td class="rank">${i+1}</td><td class="l">${chips}${p.name}</td><td class="l">${st}</td><td class="num">${intc(p.uv)}</td><td class="l barcell"><i style="width:${(p.payKRW/maxT*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td><td class="num">${pc(p.conv,2)}</td></tr>`;}).join('');
 }
 function renderMarketing(){ const {J,PREV,M}=ctx();
-  document.getElementById('cost-total').innerHTML=`${cur} 총 ${won(J.costKRW)} · 전월 대비 ${mom(J.costKRW,PREV?PREV.costKRW:null,true)}`;
-  const owC=o=>o==='OY'?'var(--green)':'var(--coral)';
-  document.querySelector('#costtable tbody').innerHTML=M.costItems.map(c=>{
-    const gone=c.cur===0, diffTxt=c.diff===0?'–':(c.diff>0?'+':'')+smartW(c.diff), dc=c.diff>0?'down':(c.diff<0?'up':'flat');
-    return `<tr style="${gone?'opacity:.55':''}"><td class="l" style="font-weight:800;color:${owC(c.owner)}">${c.owner}</td><td class="l">${c.item}${gone?' <span class="chip off">중단</span>':''}</td><td class="num emph">${gone?'—':won(c.cur)}</td><td class="num" style="color:var(--ink-3)">${c.prev?won(c.prev):'—'}</td><td class="num mom ${dc}">${diffTxt}</td></tr>`;}).join('');
-  const oy=J.oyKRW, st=J.stKRW, tot=oy+st||1, R=46,SW=18,C0=2*Math.PI*R, seg=oy/tot*C0;
-  document.getElementById('donutSub').textContent=`${cur} 총 마케팅비`;
-  document.getElementById('donut').innerHTML=`<svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="주체별 비중"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--coral-2)" stroke-width="${SW}"/><circle class="hit" cx="60" cy="60" r="${R}" fill="none" stroke="var(--green-2)" stroke-width="${SW}" stroke-dasharray="${seg.toFixed(1)} ${C0.toFixed(1)}" data-tip="${esc('OY '+won(oy)+' ('+pc(oy/tot*100)+')')}"/></g><text x="60" y="55" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-weight="700">${cur} 총</text><text x="60" y="72" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="800" class="num">${smart(tot)}</text></svg>`;
-  document.getElementById('donut-legend').innerHTML=[{n:'OY (올리브영)',v:oy,c:'var(--green-2)'},{n:'스틸 (Still)',v:st,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('');
+  const tmAd=J.tmallAdKRW||0, xhAd=J.xhsAdKRW||0, paid=tmAd+xhAd;
+  document.getElementById('cost-total').innerHTML=`${cur} 유료광고 ${won(paid)} · 티몰 ${smart(tmAd)}(스틸) + 聚光 ${smart(xhAd)}(OY)`;
+  // 상품별 광고 효율 (스틸이 집행한 티몰 내부 유료광고)
+  const ap=(M.adProducts||[]).slice(), thd=document.querySelector('#costtable thead'), tbd=document.querySelector('#costtable tbody');
+  if(ap.length){
+    thd.innerHTML=`<tr><th class="l">#</th><th class="l">상품</th><th class="l">브랜드</th><th>광고비(₩)</th><th>직접ROI</th><th>노출</th><th>클릭</th></tr>`;
+    const maxAd=ap[0].adKRW||1;
+    tbd.innerHTML=ap.map((p,i)=>{const cg=p.brand==='컬러그램';
+      return `<tr data-tip="${esc(p.name+'\n광고비 '+won(p.adKRW)+'\n직접ROI '+p.roi+' · 직접GMV '+won(p.directGmvKRW||0)+'\n노출 '+intc(p.imp)+' · 클릭 '+intc(p.clk))}"><td class="rank">${i+1}</td><td class="l">${p.name}</td><td class="l"><span class="chip ${cg?'new':'on'}">${cg?'컬그':'웨메'}</span></td><td class="l barcell"><i style="width:${(p.adKRW/maxAd*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.adKRW)}</span></td><td class="num" style="color:${p.roi>=3?'var(--good)':p.roi<1?'var(--bad)':'var(--ink)'};font-weight:800">${(p.roi||0).toFixed(2)}</td><td class="num">${intc(p.imp)}</td><td class="num">${intc(p.clk)}</td></tr>`;}).join('');
+  } else {
+    thd.innerHTML=`<tr><th class="l">주체</th><th class="l">항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr>`;
+    const owC=o=>o==='OY'?'var(--green)':'var(--coral)';
+    tbd.innerHTML=M.costItems.map(c=>{const gone=c.cur===0,diffTxt=c.diff===0?'–':(c.diff>0?'+':'')+smartW(c.diff),dc=c.diff>0?'down':(c.diff<0?'up':'flat');
+      return `<tr style="${gone?'opacity:.55':''}"><td class="l" style="font-weight:800;color:${owC(c.owner)}">${c.owner}</td><td class="l">${c.item}${gone?' <span class="chip off">중단</span>':''}</td><td class="num emph">${gone?'—':won(c.cur)}</td><td class="num" style="color:var(--ink-3)">${c.prev?won(c.prev):'—'}</td><td class="num mom ${dc}">${diffTxt}</td></tr>`;}).join('')
+      +`<tr><td colspan="5" class="l" style="color:var(--ink-3);font-size:11px">※ 상품별 광고 효율은 <code>python build.py --gsheet</code> 동기화 시 표시(내부광고 탭)</td></tr>`;
+  }
+  // 도넛: 유료광고 구성 (티몰 유료광고 vs 聚光 CID)
+  const tot=paid||1, R=46,SW=18,C0=2*Math.PI*R, seg=tmAd/tot*C0;
+  document.getElementById('donutSub').textContent=`${cur} 유료광고 구성`;
+  document.getElementById('donut').innerHTML=`<svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="유료광고 구성"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--coral-2)" stroke-width="${SW}"/><circle class="hit" cx="60" cy="60" r="${R}" fill="none" stroke="var(--green-2)" stroke-width="${SW}" stroke-dasharray="${seg.toFixed(1)} ${C0.toFixed(1)}" data-tip="${esc('티몰 유료광고 '+won(tmAd)+' ('+pc(tmAd/tot*100)+')')}"/></g><text x="60" y="55" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-weight="700">유료 계</text><text x="60" y="72" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="800" class="num">${smart(tot)}</text></svg>`;
+  document.getElementById('donut-legend').innerHTML=[{n:'티몰 유료광고 (스틸)',v:tmAd,c:'var(--green-2)'},{n:'쥐광(聚光) CID (OY)',v:xhAd,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('');
   const xr=J.xhsRoas, bad=xr<1.5, badge=document.getElementById('xhs-badge');
   badge.className='badge '+(bad?'bad':'good'); badge.textContent=`ROAS ${xr.toFixed(1)}x ${bad?'· 적자':'· 양호'}`;
   document.getElementById('xhscard').className='card xhs '+(bad?'':'warnb');
@@ -1011,17 +1023,17 @@ function renderSales(){
 }
 function renderCost(){
   const W=560,H=290,mL=44,mR=40,mT=16,mB=30,iw=W-mL-mR,ih=H-mT-mB;
-  const maxC=Math.max(...S.map(s=>s.costKRW))*1.15, maxR=Math.max(12,...S.map(s=>s.roas))*1.05, n=S.length, band=iw/n, bw=Math.min(38,band*0.46);
+  const maxC=Math.max(...S.map(s=>(s.paidAdKRW||0)),1)*1.15, maxR=Math.max(12,...S.map(s=>(s.paidRoas||0)))*1.05, n=S.length, band=iw/n, bw=Math.min(38,band*0.46);
   const yL=v=>mT+ih*(1-v/maxC), yR=v=>mT+ih*(1-v/maxR), x=i=>mL+band*i+band/2; let g='';
-  for(let k=0;k<=4;k++){const v=maxC*k/4,yy=yL(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${(v/1e8).toFixed(1)}억</text>`;}
+  for(let k=0;k<=4;k++){const v=maxC*k/4,yy=yL(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${(v/1e8).toFixed(2)}억</text>`;}
   for(let k=0;k<=3;k++){const rv=maxR*k/3;g+=`<text class="axis" x="${W-mR+7}" y="${(yR(rv)+3.5).toFixed(1)}" text-anchor="start">${rv.toFixed(0)}x</text>`;}
-  S.forEach((s,i)=>{const bx=x(i)-bw/2,yOy=yL(s.oyKRW),yTop=yL(s.costKRW),sel=s.month===cur,op=sel?1:0.42;
-    g+=`<rect class="hit" x="${bx.toFixed(1)}" y="${yOy.toFixed(1)}" width="${bw}" height="${(mT+ih-yOy).toFixed(1)}" fill="var(--green-2)" fill-opacity="${op}" ${sel?'stroke="var(--green)" stroke-width="1.2"':''} data-tip="${esc(s.month+' 마케팅비 '+won(s.costKRW)+'\nOY '+won(s.oyKRW)+' · 스틸 '+won(s.stKRW)+'\n통합 ROAS '+s.roas.toFixed(2)+'x')}"/>`;
-    g+=`<rect x="${bx.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw}" height="${(yOy-yTop).toFixed(1)}" rx="3" fill="var(--coral-2)" fill-opacity="${op}" pointer-events="none"/>`;
+  S.forEach((s,i)=>{const bx=x(i)-bw/2,tm=s.tmallAdKRW||0,xh=s.xhsAdKRW||0,paid=tm+xh,yTm=yL(tm),yTop=yL(paid),sel=s.month===cur,op=sel?1:0.42;
+    g+=`<rect class="hit" x="${bx.toFixed(1)}" y="${yTm.toFixed(1)}" width="${bw}" height="${(mT+ih-yTm).toFixed(1)}" fill="var(--green-2)" fill-opacity="${op}" ${sel?'stroke="var(--green)" stroke-width="1.2"':''} data-tip="${esc(s.month+' 유료광고비 '+won(paid)+'\n티몰 유료광고 '+won(tm)+'\n쥐광(聚光) CID '+won(xh)+'\n유료 ROAS '+(s.paidRoas||0).toFixed(2)+'x')}"/>`;
+    g+=`<rect x="${bx.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw}" height="${(yTm-yTop).toFixed(1)}" rx="3" fill="var(--coral-2)" fill-opacity="${op}" pointer-events="none"/>`;
     g+=`<text class="glab" x="${x(i)}" y="${H-10}" text-anchor="middle" ${sel?'style="font-weight:800;fill:var(--ink)"':''}>${s.month}</text>`;});
-  g+=`<polyline points="${S.map((s,i)=>x(i).toFixed(1)+','+yR(s.roas).toFixed(1)).join(' ')}" fill="none" stroke="var(--navy)" stroke-width="2.5" stroke-linejoin="round"/>`;
-  S.forEach((s,i)=>{const sel=s.month===cur;g+=`<circle class="hit" cx="${x(i).toFixed(1)}" cy="${yR(s.roas).toFixed(1)}" r="${sel?5:3.4}" fill="${sel?'var(--navy)':'var(--surface)'}" stroke="var(--navy)" stroke-width="2" data-tip="${esc(s.month+' 통합 ROAS '+s.roas.toFixed(2)+'x')}"/>`;});
-  document.getElementById('ch-cost').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="마케팅비와 ROAS">${g}</svg>`;
+  g+=`<polyline points="${S.map((s,i)=>x(i).toFixed(1)+','+yR(s.paidRoas||0).toFixed(1)).join(' ')}" fill="none" stroke="var(--navy)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  S.forEach((s,i)=>{const sel=s.month===cur;g+=`<circle class="hit" cx="${x(i).toFixed(1)}" cy="${yR(s.paidRoas||0).toFixed(1)}" r="${sel?5:3.4}" fill="${sel?'var(--navy)':'var(--surface)'}" stroke="var(--navy)" stroke-width="2" data-tip="${esc(s.month+' 유료 ROAS '+(s.paidRoas||0).toFixed(2)+'x')}"/>`;});
+  document.getElementById('ch-cost').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="유료광고비와 ROAS">${g}</svg>`;
 }
 function setTmallTitles(){
   document.getElementById('mpill').innerHTML=`${cur} 기준 <small>SELL-OUT</small>`;
