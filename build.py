@@ -496,7 +496,12 @@ def daily_struct(series_by_brand, label, metricNote, month=None):
         series = {b: [x for x in series[b] if x["date"].startswith(pre)] for b in brands}
     for b in brands: series[b].sort(key=lambda x: x["date"])
     dates = sorted({x["date"] for b in brands for x in series[b]})
-    return {"month": month or "1–6월", "brands": brands, "platformLabel": label,
+    if month:
+        mlabel = month
+    else:
+        mos = sorted({int(d[5:7]) for d in dates})
+        mlabel = "%d–%d월" % (mos[0], mos[-1]) if len(mos) > 1 else ("%d월" % mos[0] if mos else "전체")
+    return {"month": mlabel, "brands": brands, "platformLabel": label,
             "metricNote": metricNote, "coverage": (dates[0] + " ~ " + dates[-1]) if dates else "",
             "dates": dates, "series": series, "prev": {b: None for b in brands}}
 

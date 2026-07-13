@@ -479,10 +479,15 @@ const BRANDCOL={'웨이크메이크':{v:'var(--green-2)',s:'var(--green)',soft:'
                 '컬러그램':{v:'var(--coral-2)',s:'var(--coral)',soft:'var(--coral-soft)'}};
 let curDailySrc='douyin';
 function dailyData(){return (curDailySrc==='tmall' && DATA.dailyTmall) ? DATA.dailyTmall : DATA.daily;}
+function monthSpan(D){
+  if(!D||!D.dates||!D.dates.length) return '';
+  const mo=[...new Set(D.dates.map(d=>+d.slice(5,7)))].sort((a,b)=>a-b);
+  return mo.length>1?`${mo[0]}–${mo[mo.length-1]}월`:`${mo[0]}월`;
+}
 function renderDailySrcSel(){
   const el=document.getElementById('d-src-sel');
   if(!DATA.dailyTmall){ el.style.display='none'; return; }
-  const opts=[['douyin','도우인 · 6월'],['tmall','티몰 · 1–6월(시트)']];
+  const opts=[['douyin','도우인 · '+monthSpan(DATA.daily)],['tmall','티몰 · '+monthSpan(DATA.dailyTmall)+'(시트)']];
   el.innerHTML='<span class="selbl">일자별 소스</span>'+opts.map(o=>`<button class="pbtn${curDailySrc===o[0]?' active':''}" data-dsrc="${o[0]}">${o[1]}</button>`).join('');
 }
 function analyzeBrand(brand){
