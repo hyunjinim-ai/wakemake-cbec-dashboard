@@ -361,7 +361,8 @@
 
   <!-- =========================== VIEW ③ 티몰 월별 (기존) =========================== -->
   <section id="view-tmall" class="view">
-    <div class="psel" id="t-brand" style="margin-top:18px" role="tablist" aria-label="브랜드 선택"></div>
+    <div id="t-combined" style="margin-top:18px"></div>
+    <div class="psel" id="t-brand" style="margin-top:14px" role="tablist" aria-label="브랜드 선택"></div>
     <div id="tmall-wm">
     <div class="s-head" style="margin-top:6px">
       <div><div class="s-eye">Tmall Global · Monthly</div><h2>티몰글로벌 월별 성과</h2></div>
@@ -435,6 +436,7 @@
               <tbody></tbody>
             </table>
           </div>
+          <div class="note"><b>직접ROI</b> = 광고 직접 유입 거래금액 ÷ 광고비(티몰 내부광고 자체 성과). 상단 KPI의 <b>유료광고 ROAS</b> = 브랜드 티몰 매출 ÷ (티몰 유료광고+聚光 CID) — <b>계산식이 다릅니다.</b></div>
         </div>
         <div>
           <div class="card" style="margin-bottom:14px">
@@ -469,7 +471,7 @@
   </section>
 
   <footer>
-    <span>데이터: 티몰글로벌·도우인·샤오홍슈 로우데이터 · 증정품 제외 결제금액 · 환율 1元=220원</span>
+    <span id="foot-info">데이터: 티몰글로벌·도우인·샤오홍슈 · 증정 제외 결제금액 · 환율 1元=220원(고정)</span>
     <span id="foot-meta"></span>
   </footer>
 </div>
@@ -528,6 +530,7 @@ function renderDailyStatus(){
       <div class="sc-val num">${smartW(actual)} <small>/ 월 목표 ${smartW(target)}</small></div>
       <div class="gauge"><i style="width:${(Math.min(1,prog)*100).toFixed(1)}%"></i><div class="pace" style="left:${(pace*100).toFixed(0)}%" data-tip="${esc('기간경과 '+pc(pace*100,0))}"></div></div>
       <div class="sc-meta"><b>달성률 ${pc(prog*100,0)}</b> · 기간경과 ${pc(pace*100,0)}(${DS.dayOfMonth}/${DS.daysInMonth}일) · ${paceTxt}</div>
+      <div class="sc-meta" data-tip="${esc('월말 예상 = MTD 실적 ÷ 기간경과율(현재 페이스 유지 가정)')}">📈 월말 예상 <b class="num">${smartW(pace>0?actual/pace:0)}</b>${target?` · 목표比 <b class="${(pace>0?actual/pace:0)>=target?'up':'down'}">${pc((pace>0?actual/pace:0)/target*100,0)}</b> ${(pace>0?actual/pace:0)>=target?'(달성 전망)':'(미달 전망)'}`:''}</div>
       <div class="sc-plats">${plats}</div></div>`;
   }).join('');
   const badge=DS.sample?`<span class="smpl">샘플 · 새 시트 연결 대기</span>`:'';
@@ -733,7 +736,7 @@ function htmlCombined(){
   const insight=rich?`<div class="callout"><h3><span class="tag">EC 인사이트</span> ${PF.month} ${curBrand} 3플랫폼 통합 진단</h3><div class="ins-grid">
     <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--good)"></span>채널 매출 구성</div>티몰 <b>${pc(bp['티몰'].kpi.salesKRW/tot*100)}</b> · 도우인 <b>${pc(bp['도우인'].kpi.salesKRW/tot*100)}</b> · 샤오홍슈 <b>${pc(bp['샤오홍슈'].kpi.salesKRW/tot*100)}</b>. 도우인이 제2 매출 축(${smartW(bp['도우인'].kpi.salesKRW)}).</div>
     <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--gold)"></span>효율 재해석</div>티몰만 보면 ROAS ${bp['티몰'].kpi.roas.toFixed(1)}x지만, 마케팅비 상당수는 도우인·샤오홍슈 매출에 기여. <b>통합 ROAS ${roasTxt}</b>가 실제 채널 효율.</div>
-    <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--bad)"></span>샤오홍슈 적자</div>샤오홍슈 비용 ${smartW(bp['샤오홍슈'].kpi.costKRW)} vs 기여GMV ${smartW(bp['샤오홍슈'].kpi.salesKRW)} → ROAS <b>${bp['샤오홍슈'].kpi.roas.toFixed(2)}x</b>. 聚光 예산 효율 점검 시급.</div>
+    ${bp['샤오홍슈'].hasData?`<div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--bad)"></span>샤오홍슈 효율</div>샤오홍슈 비용 ${smartW(bp['샤오홍슈'].kpi.costKRW)} vs 기여GMV ${smartW(bp['샤오홍슈'].kpi.salesKRW)} → ROAS <b>${bp['샤오홍슈'].kpi.roas.toFixed(2)}x</b>. 聚光 예산 효율 점검.</div>`:`<div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--ink-3)"></span>샤오홍슈</div>${curBrand} 샤오홍슈 <b>월별 데이터 미보유</b> — 7월 현황은 <b>① 일자별 현황</b>에서 확인.</div>`}
   </div></div>`:`<div class="callout"><h3><span class="tag">데이터 상태</span> ${curBrand} — 현재 확보 채널 (${PF.month})</h3><div class="ins-grid">
     <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--coral-2)"></span>도우인 역직구</div>결제 <b>${smartW(bp['도우인'].kpi.salesKRW)}</b> · 주문 ${intc(bp['도우인'].kpi.orders)}건 · 객단가 ${won(bp['도우인'].kpi.aov)}. 저단가·다빈도 구조.</div>
     <div class="ins-item"><div class="it-h"><span class="dot" style="background:var(--ink-3)"></span>티몰·샤오홍슈</div>${curBrand} 티몰·샤오홍슈 로우데이터는 <b>미확보</b>. 구글시트 <code>플랫폼_티몰</code>·<code>플랫폼_샤오홍슈</code> 입력 시 통합 지표로 자동 확장.</div>
@@ -1063,7 +1066,25 @@ function setTmallTitles(){
 function renderTmallBrandSel(){
   document.getElementById('t-brand').innerHTML='<span class="selbl">브랜드</span>'+['웨이크메이크','컬러그램'].map(b=>`<button class="pbtn${b===curTmallBrand?' active':''}" data-tbrand="${b}">${b}</button>`).join('');
 }
+function renderTmallCombined(){
+  const el=document.getElementById('t-combined'), TBs=DATA.tmallBrands;
+  if(!TBs){ el.innerHTML=''; return; }
+  const brands=Object.keys(TBs), sOf=b=>TBs[b].series;
+  const mi=sOf(brands[0]).findIndex(s=>s.month===cur);
+  const at=idx=>{let sales=0,target=0;brands.forEach(b=>{const s=sOf(b)[idx];if(s){sales+=s.salesKRW;target+=s.targetKRW||0;}});return {sales,target};};
+  const C=at(mi), P=mi>0?at(mi-1):null;
+  const each=brands.map(b=>{const s=sOf(b)[mi]||{};return {b,sales:s.salesKRW||0,target:s.targetKRW||0};});
+  const tot=C.sales||1, achv=C.target?C.sales/C.target*100:0;
+  const split=each.filter(x=>x.sales>0).map(x=>`<div class="seg" style="width:${(x.sales/tot*100).toFixed(1)}%;background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}" data-tip="${esc(x.b+' '+won(x.sales)+' ('+pc(x.sales/tot*100)+')')}">${x.sales/tot>0.12?x.b:''}</div>`).join('');
+  const legs=each.map(x=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}"></i>${x.b}</span></span><span class="vv num">${won(x.sales)} · ${pc(x.sales/tot*100)}${x.target?' · 달성 '+pc(x.sales/x.target*100,0):''}</span></div>`).join('');
+  el.innerHTML=`<div class="card"><div class="card-h"><div><div class="c-t">${cur} 티몰 통합 매출 (웨메+컬그)</div><div class="c-s">${C.target?('통합 목표 '+won(C.target)+' · 달성 '+pc(achv,0)):'월 목표 미설정'}</div></div>
+    <div style="text-align:right"><div class="num" style="font-size:25px;font-weight:800;letter-spacing:-.02em">${smartW(C.sales)}</div><div style="font-size:11.5px;color:var(--ink-3)">전월 대비 ${P?mom(C.sales,P.sales):'–'}</div></div></div>
+    <div class="splitbar" style="margin-top:4px">${split}</div>
+    <div style="margin-top:10px">${legs}</div>
+    <div class="note" style="margin-top:10px">티몰 결제금액(증정 제외) · 아래 브랜드 탭에서 각 브랜드 상세(sell-out·상품별 광고·유입)를 확인하세요.</div></div>`;
+}
 function renderTmall(){
+  renderTmallCombined();
   renderTmallBrandSel();
   document.getElementById('tmall-cg').style.display='none';
   document.getElementById('tmall-wm').style.display='';
@@ -1125,6 +1146,7 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
 });
 
 /* init */
+(function(){const fi=document.getElementById('foot-info');if(fi){const a=DATA.dailyStatus&&DATA.dailyStatus.asOf?' · 일자별 기준 '+DATA.dailyStatus.asOf:'';const b=DATA.builtAt?' · 갱신 '+DATA.builtAt:'';fi.textContent='데이터: 티몰글로벌·도우인·샤오홍슈 · 증정 제외 결제금액 · 환율 1元=220원(고정, 변동 미반영)'+a+b;}})();
 const startView=(location.hash||'#daily').slice(1);
 showView(['daily','platforms','tmall'].includes(startView)?startView:'daily');
 wireTips(document.body);

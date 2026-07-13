@@ -17,7 +17,7 @@
 
 환율 1元 = 220원 · 매출은 증정품 제외 결제금액 기준.
 """
-import sys, os, json, re, csv, io
+import sys, os, json, re, csv, io, datetime
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")  # Windows 콘솔(cp949) 한글/기호 출력 보장
@@ -850,19 +850,22 @@ def _platforms_for_brand(tmall, douyin, xhs, month, brand, store_type="cross",
                          douyin_products=None, xhs_products=None):
     idx = build_map_index()
     prefix = "2026-%02d" % monthNum(month)
-    S = {s["month"]: s for s in tmall["series"]}
-    BM = tmall["byMonth"]
     is_wm = (brand == WM_BRAND)
-    s6 = S.get(month, {}) if is_wm else {}
-    bm6 = BM.get(month, {}) if is_wm else {}
+    tbb = (tmall.get("tmallBrands") or {}).get(brand)   # 브랜드별 티몰(웨메/컬그 모두 확보)
+    src_series = tbb["series"] if tbb else tmall["series"]
+    src_bm = tbb["byMonth"] if tbb else tmall["byMonth"]
+    S = {s["month"]: s for s in src_series}
+    BM = src_bm
+    s6 = S.get(month, {}); bm6 = BM.get(month, {})
+    has_tmall = bool(bm6.get("products"))
 
-    tmall_cost_items = bm6.get("costItems", [])
+    tmall_cost_items = bm6.get("costItems", [])   # WM만 owner/item 구조; CG는 []
     def plat_cost(plat):
         return sum(c["cur"] for c in tmall_cost_items if COST_PLATFORM.get(c["item"]) == plat)
-    tm_cost = plat_cost("티몰")
+    tm_cost = plat_cost("티몰") or round(s6.get("tmallAdKRW", 0))   # CG는 series의 티몰 유료광고
 
-    # ---- 티몰 ---- (웨이크메이크만 로우데이터 확보)
-    if is_wm and bm6:
+    # ---- 티몰 ---- (웨메·컬그 모두 브랜드별 로우데이터)
+    if has_tmall:
         tmall_p = {
             "label": "티몰글로벌(天猫国际)", "hasData": True, "hasProductDetail": True,
             "kpi": {"salesKRW": s6.get("salesKRW", 0), "uv": s6.get("uv", 0), "costKRW": tm_cost,
@@ -871,14 +874,15 @@ def _platforms_for_brand(tmall, douyin, xhs, month, brand, store_type="cross",
             "products": bm6.get("products", []), "productTotalKRW": bm6.get("productTotalKRW", 0),
             "costItems": [c for c in tmall_cost_items if COST_PLATFORM.get(c["item"]) == "티몰"],
             "traffic": bm6.get("traffic", {"groups": [], "subs": []}),
-            "note": "상품별 sell-out·유입경로 전체 확보(로우데이터)",
+            "note": ("상품별 sell-out·유입경로 전체 확보(로우데이터)" if is_wm
+                     else "상품별 sell-out·광고 확보 · 유입경로는 시트 미보유"),
         }
     else:
         tmall_p = {
             "label": "티몰글로벌(天猫国际)", "hasData": False, "hasProductDetail": False,
             "kpi": {"salesKRW": 0, "uv": 0, "costKRW": 0, "roas": 0, "orders": None, "buyers": None},
             "products": [], "productTotalKRW": 0, "costItems": [], "traffic": {"groups": [], "subs": []},
-            "note": "티몰 " + brand + " 데이터 미확보 — 시트 `플랫폼_티몰` 입력 대기",
+            "note": "티몰 " + brand + " 데이터 미확보",
         }
 
     # ---- 도우인 ---- (두 브랜드 모두 일자별 확보)
@@ -963,7 +967,7 @@ def _platforms_for_brand(tmall, douyin, xhs, month, brand, store_type="cross",
                 "roas": round(comb_sales / comb_cost, 2) if comb_cost else 0,
                 "orders": douyin_p["kpi"]["orders"]},
         "bySales": by_sales, "products": comb_products,
-        "note": "매출=티몰 결제+도우인 결제+샤오홍슈 기여GMV · 비용=채널 귀속 마케팅비 합",
+        "note": "매출 = 티몰 결제(확정) + 도우인 결제(확정) + 샤오홍슈 기여GMV(광고 기여 추정치) · 비용 = 채널 귀속 마케팅비 합. 확정매출과 추정치가 혼합되므로 통합 ROAS는 참고 지표입니다.",
     }
 
     return {"brand": brand, "month": month, "storeType": store_type,
@@ -1138,6 +1142,7 @@ def _write_data(data):
         if k not in data and old.get(k): data[k] = old[k]
     if "dailyStatus" not in data:
         data["dailyStatus"] = daily_status_sample()
+    data["builtAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 def _gsheet_id_from_cfg():
