@@ -487,6 +487,125 @@ def compute_daily(douyin, month="6월", store_type="cross"):
         "prev": {b: None for b in brands},   # 5월 일자별 미확보 → 시트 입력 시 채움
     }
 
+def _fetch_gid_rows(sid, gid):
+    import urllib.request
+    if not gid: return []
+    url = "https://docs.google.com/spreadsheets/d/%s/export?format=csv&gid=%s" % (sid, gid)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        raw = urllib.request.urlopen(req, timeout=30).read().decode("utf-8-sig", "replace")
+        return list(csv.reader(io.StringIO(raw)))
+    except Exception:
+        return []
+
+def _numc(v):
+    s = str(v).replace(",", "").replace("元", "").replace("₩", "").replace("%", "").strip()
+    if s in ("", "-", "#REF!", "#VALUE!", "None"): return 0.0
+    try: return float(s)
+    except ValueError: return 0.0
+
+_PLAT_KO = {"TMALL": "티몰", "DOUYIN": "도우인", "XHS": "샤오홍슈", "抖音": "도우인", "小红书": "샤오홍슈"}
+
+def parse_daily_status(cfg):
+    """실시간 일자별 시트('26년 하반기 …') → 실데이터 dailyStatus + 월별 플랫폼 추이.
+    반환 (dailyStatus, monthlyPlatform) · 실패 시 (None, None)."""
+    sid = cfg.get("dailySheetId"); gids = cfg.get("dailyGids", {})
+    if not sid or not gids: return None, None
+    S = _fetch_gid_rows(sid, gids.get("summary"))
+    if not S: return None, None
+
+    # --- 요약: 브랜드×플랫폼 목표/실적(백만원→원) + 월별 플랫폼 ---
+    tgt = {"웨이크메이크": {}, "컬러그램": {}}; act = {"웨이크메이크": {}, "컬러그램": {}}
+    cur_b = None
+    for r in S:
+        def c(i): return str(r[i]).strip() if i < len(r) else ""
+        lab = c(3)
+        if lab in ("웨이크메이크", "컬러그램"): cur_b = lab; continue
+        if cur_b and lab in ("TMALL", "DOUYIN", "XHS"):
+            p = _PLAT_KO[lab]
+            tgt[cur_b][p] = round(_numc(c(4)) * 1e6)
+            act[cur_b][p] = round(_numc(c(5)) * 1e6)
+    monthly = {"티몰": {}, "도우인": {}}   # 월별 섹션: 브랜드 idx3, 플랫폼 idx4, 값 idx5+
+    for i, r in enumerate(S):
+        if (str(r[3]).strip() if len(r) > 3 else "") in ("COLORGRAM", "WAKEMAKE"):
+            hdr = S[i]
+            cols = [(j, int(re.sub(r"[^0-9]", "", str(hdr[j]))))
+                    for j in range(5, len(hdr)) if "월" in str(hdr[j]) and re.sub(r"[^0-9]", "", str(hdr[j]))]
+            for r2 in S[i + 1:i + 6]:
+                p = str(r2[4]).strip() if len(r2) > 4 else ""
+                if p in ("TMALL", "抖音"):
+                    ko = "티몰" if p == "TMALL" else "도우인"
+                    for cj, mi in cols:
+                        v = _numc(r2[cj]) if cj < len(r2) else 0
+                        if v > 0: monthly[ko][mi] = monthly[ko].get(mi, 0) + round(v)
+
+    # --- 브랜드 일자별(매출 by 플랫폼·UV·주문) ---
+    def parse_brand_daily(gid):
+        rows = _fetch_gid_rows(sid, gid)
+        hrow = next((i for i, r in enumerate(rows) if any(str(x).strip() == "일자" for x in r)), None)
+        if hrow is None: return []
+        h = [str(x).strip() for x in rows[hrow]]
+        def idx(name, occ=0):
+            cnt = 0
+            for i, x in enumerate(h):
+                if x == name:
+                    if cnt == occ: return i
+                    cnt += 1
+            return -1
+        iDate, iTm, iDy, iXh = idx("일자"), idx("티몰글로벌 실적"), idx("도우인 실적"), idx("샤홍슈 실적")
+        iUV = [idx("访客数 (UV)", 0), idx("访客数 (UV)", 1)]
+        iBuy = [idx("支付人数", 0), idx("支付人数", 1)]
+        out = []
+        for r in rows[hrow + 1:]:
+            if iDate < 0 or iDate >= len(r): continue
+            d = str(r[iDate]).strip()[:10]
+            if not re.match(r"\d{4}-\d{2}-\d{2}", d): continue
+            tm = _numc(r[iTm]) if 0 <= iTm < len(r) else 0
+            dy = _numc(r[iDy]) if 0 <= iDy < len(r) else 0
+            xh = _numc(r[iXh]) if 0 <= iXh < len(r) else 0
+            if tm + dy + xh <= 0: continue
+            uv = sum(_numc(r[i]) for i in iUV if 0 <= i < len(r))
+            od = sum(_numc(r[i]) for i in iBuy if 0 <= i < len(r))
+            out.append({"date": d, "티몰": round(tm), "도우인": round(dy), "샤오홍슈": round(xh),
+                        "total": round(tm + dy + xh), "uv": int(uv), "orders": int(od)})
+        out.sort(key=lambda x: x["date"])
+        return out
+    dmap = {"웨이크메이크": parse_brand_daily(gids.get("wakemake")),
+            "컬러그램": parse_brand_daily(gids.get("colorgram"))}
+    asof_all = [d["date"] for b in dmap for d in dmap[b]]
+    if not asof_all: return None, None
+    asOf = max(asof_all); maxDay = int(asOf[8:10]); mon = int(asOf[5:7])
+
+    # --- UV 전월비(역직구 海外旗舰店 스토어, 당월 MTD vs 전월 동기간) ---
+    traf = _fetch_gid_rows(sid, gids.get("traffic"))
+    def uv_mom(brand):
+        if not traf: return {"cur": 0, "prev": 0}
+        h = [str(x).strip() for x in traf[0]]
+        iV = h.index("访客数") if "访客数" in h else 2
+        key = "WAKEMAKE" if brand == "웨이크메이크" else "COLORGRAM"
+        cur = prev = 0
+        for r in traf[1:]:
+            store = str(r[1]) if len(r) > 1 else ""
+            if key not in store.upper().replace(" ", "") or "海外" not in store: continue
+            d = str(r[0])[:10]
+            if not re.match(r"\d{4}-\d{2}-\d{2}", d): continue
+            day = int(d[8:10])
+            if day > maxDay: continue
+            if int(d[5:7]) == mon: cur += _numc(r[iV])
+            elif int(d[5:7]) == mon - 1: prev += _numc(r[iV])
+        return {"cur": int(cur), "prev": int(prev)}
+
+    brands = ["웨이크메이크", "컬러그램"]
+    data = {b: {"target": tgt[b], "actual": act[b], "uv": uv_mom(b), "daily": dmap[b]} for b in brands}
+    ds = {"sample": False, "asOf": asOf, "month": "%d월" % mon, "prevMonth": "%d월" % (mon - 1),
+          "dayOfMonth": maxDay, "daysInMonth": 31, "brands": brands,
+          "platforms": ["티몰", "도우인", "샤오홍슈"], "data": data}
+    mos = sorted(set(list(monthly["티몰"].keys()) + list(monthly["도우인"].keys())))
+    mp = {"months": ["%d월" % m for m in mos],
+          "티몰": [monthly["티몰"].get(m) for m in mos],
+          "도우인": [monthly["도우인"].get(m) for m in mos]}
+    return ds, mp
+
 def daily_status_sample():
     """페이지① 상단 '7월 현황' 샘플 — 새 실시간 시트(1B_7…) 연결 전 레이아웃용.
     브랜드×플랫폼 목표·MTD실적·UV(전월 동기 대비). 실데이터 연결 시 이 함수를 파서로 교체."""
@@ -791,7 +910,6 @@ def assemble_from_parts(tmall, douyin, xhs, month=None, douyin_products=None, xh
     if month is None:
         month = tmall["months"][-1] if tmall["months"] else "6월"
     data = {"fx": FX}; data.update(tmall)
-    data["dailyStatus"] = daily_status_sample()   # 페이지① 상단 7월 현황(샘플 · 새 시트 연결 시 교체)
     data["daily"] = compute_daily(douyin, month=month)
     data["platforms"] = compute_platforms(tmall, douyin, xhs, month=month,
                                           douyin_products=douyin_products, xhs_products=xhs_products)
@@ -843,12 +961,16 @@ def write_seed_csv(data):
 #  I. CLI
 # =========================================================================
 def _write_data(data):
-    """data.json 저장 — dailyTmall(구글시트 전용)은 다른 모드에서 기존값 보존."""
-    if "dailyTmall" not in data and os.path.exists(DATA_JSON):
-        try:
-            old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
-            if old.get("dailyTmall"): data["dailyTmall"] = old["dailyTmall"]
-        except Exception: pass
+    """data.json 저장 — 시트 전용 필드(dailyTmall/dailyStatus/monthlyPlatform)는
+    다른 모드에서 기존값 보존. dailyStatus 없으면 샘플로 대체."""
+    old = {}
+    if os.path.exists(DATA_JSON):
+        try: old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
+        except Exception: old = {}
+    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform"):
+        if k not in data and old.get(k): data[k] = old[k]
+    if "dailyStatus" not in data:
+        data["dailyStatus"] = daily_status_sample()
     json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 def _gsheet_id_from_cfg():
@@ -893,18 +1015,34 @@ def main():
         write_seed_csv(data); return
 
     if cmd == "--gsheet":
-        # 구글시트('중국역직구 플랫폼 판매데이터') → 티몰 월별 + 티몰 일자별 동기화
-        src = args[1] if len(args) > 1 else _gsheet_id_from_cfg()
-        if not src: raise SystemExit("사용법: python build.py --gsheet <시트URL 또는 ID>  (또는 sheet.config.json 의 gsheetId)")
-        sh = gsheet_reader(src)
-        tmall = compute_tmall(_parse_tmall_sheets(sh))
-        if not tmall["months"]:
-            raise SystemExit("시트에서 티몰 데이터를 읽지 못했습니다 — 공유(링크 보기)·탭명 확인.")
-        douyin, xhs = _local_douyin_xhs()   # 도우인·샤오홍슈는 아직 시트에 없음 → 로컬 원본 유지
+        # 월별 시트(리뷰·내역) + 실시간 일자별 시트 → 동기화
+        cfg = {}
+        if os.path.exists(SHEET_CFG):
+            try: cfg = json.load(open(SHEET_CFG, "r", encoding="utf-8"))
+            except Exception: cfg = {}
+        src = args[1] if len(args) > 1 else cfg.get("gsheetId")
+        tmall, tmDaily = None, None
+        if src:
+            try:
+                sh = gsheet_reader(src)
+                t = compute_tmall(_parse_tmall_sheets(sh))
+                if t["months"]: tmall = t; tmDaily = parse_tmall_daily(sh)
+            except Exception: tmall = None
+        if tmall is None:
+            print("[알림] 월별 시트 읽기 실패/미설정 → 기존 티몰 데이터 유지")
+            tmall = tmall_from_datajson()
+        douyin, xhs = _local_douyin_xhs()   # 도우인 raw(월별 페이지②용)는 로컬 유지
         data = assemble_from_parts(tmall, douyin, xhs)
-        data["dailyTmall"] = daily_struct(parse_tmall_daily(sh),
-                                          "티몰글로벌(天猫国际) · 海外旗舰店",
-                                          "티몰 일 결제금액 · 증정 제외 · 환율 220원")
+        if tmDaily: data["dailyTmall"] = daily_struct(tmDaily, "티몰글로벌(天猫国际) · 海外旗舰店",
+                                                     "티몰 일 결제금액 · 증정 제외 · 환율 220원")
+        ds, mp = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
+        if ds:
+            data["dailyStatus"] = ds
+            if mp and mp["months"]: data["monthlyPlatform"] = mp
+            print("[일자별 현황] 실데이터 연결 · 기준 %s · %s" %
+                  (ds["asOf"], " / ".join("%s 실적 ₩%s" % (b, format(sum(ds["data"][b]["actual"].values()), ",")) for b in ds["brands"])))
+        else:
+            print("[일자별 현황] 새 시트 미설정/읽기 실패 → 기존(또는 샘플) 유지")
         _write_data(data); render(data); _summary(data); return
 
     if cmd == "--sheet":

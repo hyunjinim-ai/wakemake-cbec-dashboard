@@ -587,10 +587,15 @@ function renderDaily(){
 }
 /* 월별 추이 (플랫폼 분리: 티몰/도우인 · 라인 차트) */
 function renderMonthlyTrend(){
-  const months=MONTHS, n=months.length;
-  const tmV=months.map(m=>{const s=S.find(x=>x.month===m);return s?s.salesKRW:null;});
-  const dyBy={}; DATA.daily.brands.forEach(b=>DATA.daily.series[b].forEach(x=>{const mm=(+x.date.slice(5,7))+'월';dyBy[mm]=(dyBy[mm]||0)+x.salesKRW;}));
-  const dyV=months.map(m=>(m in dyBy)?dyBy[m]:null);
+  const MP=DATA.monthlyPlatform; let months,tmV,dyV;
+  if(MP&&MP.months&&MP.months.length){ months=MP.months; tmV=MP['티몰']; dyV=MP['도우인']; }
+  else{
+    months=MONTHS;
+    tmV=months.map(m=>{const s=S.find(x=>x.month===m);return s?s.salesKRW:null;});
+    const dyBy={}; DATA.daily.brands.forEach(b=>DATA.daily.series[b].forEach(x=>{const mm=(+x.date.slice(5,7))+'월';dyBy[mm]=(dyBy[mm]||0)+x.salesKRW;}));
+    dyV=months.map(m=>(m in dyBy)?dyBy[m]:null);
+  }
+  const n=months.length;
   const W=720,H=290,mL=54,mR=14,mT=16,mB=30,iw=W-mL-mR,ih=H-mT-mB;
   const vals=tmV.concat(dyV).filter(v=>v!=null); const max=Math.max(...vals,1)*1.14;
   const x=i=>mL+(n>1?iw*i/(n-1):iw/2), y=v=>mT+ih*(1-v/max); let g='';
