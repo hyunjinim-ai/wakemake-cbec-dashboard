@@ -77,13 +77,18 @@ def monthNum(m):
 _LINEMAP = {}   # 티몰글로벌 시트 라인명(id→국문명, 브랜드접두 제거)
 def set_linemap(d):
     global _LINEMAP; _LINEMAP = d or {}
+_NAME_FIX = {   # 시트 라인명 오기 교정(시트 수정 시 시트 값이 우선하므로 자동 무해화)
+    "탕후루 탱글 꿀로스": "탕후루 딥글레이즈 틴트",
+}
 def kname(pid, cn):
     pid = str(pid)
     nm = _LINEMAP.get(pid)
-    if nm and re.search(r"[가-힣]", nm): return nm        # 시트 국문명 우선(정본)
-    if NAME_MAP.get(pid): return NAME_MAP[pid]
-    cn = str(cn or "").strip()
-    return cn[:26] if cn else ("코드 " + pid[-6:])       # 국문 매칭 없으면 중문명
+    if nm and re.search(r"[가-힣]", nm): name = nm          # 시트 국문명 우선(정본)
+    elif NAME_MAP.get(pid): name = NAME_MAP[pid]
+    else:
+        cn = str(cn or "").strip()
+        name = cn[:26] if cn else ("코드 " + pid[-6:])      # 국문 매칭 없으면 중문명
+    return _NAME_FIX.get(name, name)
 def _is_loopy(name):
     n = str(name).lower()
     return "loopy" in n or "루피" in n
