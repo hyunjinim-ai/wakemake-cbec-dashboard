@@ -503,6 +503,7 @@ def daily_status_sample():
                   "mtd": {"티몰": 16400000, "도우인": 17600000, "샤오홍슈": 2600000},
                   "uv": {"cur": 38900, "prev": 35200}},
     }
+    aov = {"웨이크메이크": 24000, "컬러그램": 10500}   # 브랜드 객단가(주문건수 산출용)
     data = {}
     for b, v in seed.items():
         per = {p: series(v["mtd"][p]) for p in plats}
@@ -511,6 +512,7 @@ def daily_status_sample():
             day = {"date": "2026-07-%02d" % (i + 1)}
             for p in plats: day[p] = per[p][i]
             day["total"] = sum(day[p] for p in plats)
+            day["orders"] = round(day["total"] / aov[b])
             daily.append(day)
         data[b] = {"target": v["target"], "actual": v["mtd"], "uv": v["uv"], "daily": daily}
     return {"sample": True, "asOf": "2026-07-%02d" % asof, "month": "7월", "prevMonth": "6월",
