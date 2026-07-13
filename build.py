@@ -487,6 +487,35 @@ def compute_daily(douyin, month="6월", store_type="cross"):
         "prev": {b: None for b in brands},   # 5월 일자별 미확보 → 시트 입력 시 채움
     }
 
+def daily_status_sample():
+    """페이지① 상단 '7월 현황' 샘플 — 새 실시간 시트(1B_7…) 연결 전 레이아웃용.
+    브랜드×플랫폼 목표·MTD실적·UV(전월 동기 대비). 실데이터 연결 시 이 함수를 파서로 교체."""
+    asof, dim = 15, 31
+    plats = ["티몰", "도우인", "샤오홍슈"]
+    WV = [0.9, 1.0, 1.1, 0.8, 0.72, 1.2, 1.35, 1.05, 0.95, 1.05, 1.18, 0.85, 0.78, 1.12, 1.25]  # 15일 가중(주말 등락)
+    def series(mtd):
+        s = sum(WV); return [round(mtd * w / s) for w in WV]
+    seed = {
+        "웨이크메이크": {"target": {"티몰": 155000000, "도우인": 52000000, "샤오홍슈": 21000000},
+                    "mtd": {"티몰": 71800000, "도우인": 27300000, "샤오홍슈": 8400000},
+                    "uv": {"cur": 63200, "prev": 61050}},
+        "컬러그램": {"target": {"티몰": 42000000, "도우인": 34000000, "샤오홍슈": 9000000},
+                  "mtd": {"티몰": 16400000, "도우인": 17600000, "샤오홍슈": 2600000},
+                  "uv": {"cur": 38900, "prev": 35200}},
+    }
+    data = {}
+    for b, v in seed.items():
+        per = {p: series(v["mtd"][p]) for p in plats}
+        daily = []
+        for i in range(asof):
+            day = {"date": "2026-07-%02d" % (i + 1)}
+            for p in plats: day[p] = per[p][i]
+            day["total"] = sum(day[p] for p in plats)
+            daily.append(day)
+        data[b] = {"target": v["target"], "actual": v["mtd"], "uv": v["uv"], "daily": daily}
+    return {"sample": True, "asOf": "2026-07-%02d" % asof, "month": "7월", "prevMonth": "6월",
+            "dayOfMonth": asof, "daysInMonth": dim, "brands": list(seed.keys()), "platforms": plats, "data": data}
+
 def daily_struct(series_by_brand, label, metricNote, month=None):
     """임의 브랜드별 일자 series → 페이지① 데이터 구조(월 필터 옵션)."""
     brands = ["웨이크메이크", "컬러그램"]
@@ -760,6 +789,7 @@ def assemble_from_parts(tmall, douyin, xhs, month=None, douyin_products=None, xh
     if month is None:
         month = tmall["months"][-1] if tmall["months"] else "6월"
     data = {"fx": FX}; data.update(tmall)
+    data["dailyStatus"] = daily_status_sample()   # 페이지① 상단 7월 현황(샘플 · 새 시트 연결 시 교체)
     data["daily"] = compute_daily(douyin, month=month)
     data["platforms"] = compute_platforms(tmall, douyin, xhs, month=month,
                                           douyin_products=douyin_products, xhs_products=xhs_products)

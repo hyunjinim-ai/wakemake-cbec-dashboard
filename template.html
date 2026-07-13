@@ -200,6 +200,33 @@
   .stat .st-v{font-size:18px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
   .stat .st-s{font-size:10.5px;color:var(--ink-3);margin-top:2px}
 
+  /* daily status (7월 현황) */
+  .statushead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .statushead h2{margin:2px 0 0;font-size:19px;font-weight:800;display:flex;align-items:center;gap:9px}
+  .statushead .asof{font-size:11px;color:var(--ink-3);text-align:right}
+  .smpl{font-size:10px;font-weight:800;color:var(--warn);background:var(--warn-soft);padding:2px 8px;border-radius:6px;letter-spacing:.02em}
+  .scards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:760px){.scards{grid-template-columns:1fr}}
+  .scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .scard .sc-accent{position:absolute;left:0;top:0;bottom:0;width:5px}
+  .sc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .sc-name{font-size:14px;font-weight:800;display:flex;align-items:center;gap:7px}
+  .sc-uv{font-size:11.5px;color:var(--ink-2);text-align:right;line-height:1.35}
+  .sc-val{font-size:23px;font-weight:800;margin-top:10px;letter-spacing:-.02em}
+  .sc-val small{font-size:12.5px;color:var(--ink-3);font-weight:600}
+  .gauge{height:12px;background:var(--bg-2);border-radius:7px;margin-top:10px;position:relative}
+  .gauge>i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--green),var(--green-2))}
+  .gauge .pace{position:absolute;top:-3px;height:18px;width:2px;background:var(--navy);border-radius:2px}
+  .sc-meta{font-size:11.5px;color:var(--ink-2);margin-top:11px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  .sc-meta b{color:var(--ink)}
+  .sc-plats{margin-top:13px;display:flex;flex-direction:column;gap:8px}
+  .spl{display:grid;grid-template-columns:58px 1fr auto;gap:9px;align-items:center;font-size:12px}
+  .spl .pl-n{font-weight:700;color:var(--ink-2)}
+  .spl .pl-bar{height:7px;background:var(--bg-2);border-radius:5px;overflow:hidden}
+  .spl .pl-bar i{display:block;height:100%;border-radius:5px}
+  .spl .pl-v{font-weight:800;white-space:nowrap;font-size:11.5px}
+  .spl .pl-v small{color:var(--ink-3);font-weight:600}
+
   /* brand cards (daily) */
   .brandcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
   @media(max-width:640px){.brandcards{grid-template-columns:1fr}}
@@ -283,14 +310,18 @@
   </header>
 
   <nav class="tabs" id="tabs" role="tablist">
-    <button class="tab" data-view="daily" role="tab">① 일자별 매출</button>
-    <button class="tab" data-view="platforms" role="tab">② 플랫폼 통합</button>
+    <button class="tab" data-view="daily" role="tab">① 일자별 현황</button>
+    <button class="tab" data-view="platforms" role="tab">② 월별 플랫폼 리뷰</button>
     <button class="tab" data-view="tmall" role="tab">③ 티몰 월별</button>
   </nav>
 
-  <!-- =========================== VIEW ① 일자별 =========================== -->
+  <!-- =========================== VIEW ① 일자별 현황 =========================== -->
   <section id="view-daily" class="view">
-    <div class="psel" id="d-src-sel" style="margin-top:18px" role="tablist" aria-label="일자별 소스"></div>
+    <div id="d-status"></div>
+    <div class="s-head" style="margin-top:30px">
+      <div><div class="s-eye">Daily Trend</div><h2>일자별 추이</h2></div>
+    </div>
+    <div class="psel" id="d-src-sel" style="margin-top:6px" role="tablist" aria-label="일자별 소스"></div>
     <div class="s-head" style="margin-top:6px">
       <div><div class="s-eye">Daily Sell-out · by Brand</div><h2 id="d-title">일자별 매출 — 브랜드별</h2></div>
       <div class="s-src" id="d-src"></div>
@@ -477,6 +508,44 @@ function wireTips(root){
    ===================================================================== */
 const BRANDCOL={'웨이크메이크':{v:'var(--green-2)',s:'var(--green)',soft:'var(--green-soft)'},
                 '컬러그램':{v:'var(--coral-2)',s:'var(--coral)',soft:'var(--coral-soft)'}};
+const PLATCOL={'티몰':'var(--green-2)','도우인':'var(--coral-2)','샤오홍슈':'var(--blue)'};
+/* ---- 7월 현황 (목표·진척도·UV 전월비) ---- */
+function renderDailyStatus(){
+  const el=document.getElementById('d-status'), DS=DATA.dailyStatus;
+  if(!DS){ el.innerHTML=''; return; }
+  const pace=DS.dayOfMonth/DS.daysInMonth, P=DS.platforms;
+  const cards=DS.brands.map(b=>{
+    const d=DS.data[b], c=BRANDCOL[b]||BRANDCOL['웨이크메이크'];
+    const actual=P.reduce((s,p)=>s+d.actual[p],0), target=P.reduce((s,p)=>s+d.target[p],0);
+    const prog=target?actual/target:0, uvG=d.uv.prev?(d.uv.cur-d.uv.prev)/d.uv.prev*100:0;
+    const paceTxt=prog>=pace?`<span class="up">▲ 페이스 상회</span>`:`<span class="down">▼ 페이스 미달</span>`;
+    const plats=P.map(p=>{const pa=d.actual[p],pt=d.target[p],pp=pt?pa/pt:0;
+      return `<div class="spl" data-tip="${esc(p+' · 실적 '+won(pa)+' / 목표 '+won(pt)+' · 달성 '+pc(pp*100,0))}"><span class="pl-n">${p}</span><div class="pl-bar"><i style="width:${(Math.min(1,pp)*100).toFixed(0)}%;background:${PLATCOL[p]}"></i></div><span class="pl-v num">${smartW(pa)} <small>/ ${smart(pt)}·${pc(pp*100,0)}</small></span></div>`;}).join('');
+    return `<div class="scard"><div class="sc-accent" style="background:${c.v}"></div>
+      <div class="sc-top"><div class="sc-name"><span class="dot" style="background:${c.v}"></span>${b}</div>
+        <div class="sc-uv">UV ${intc(d.uv.cur)} <span class="${uvG>=0?'up':'down'}">${uvG>=0?'▲':'▼'}${Math.abs(uvG).toFixed(1)}%</span><br><small style="color:var(--ink-3)">전월 동기 ${intc(d.uv.prev)}</small></div></div>
+      <div class="sc-val num">${smartW(actual)} <small>/ 월 목표 ${smartW(target)}</small></div>
+      <div class="gauge"><i style="width:${(Math.min(1,prog)*100).toFixed(1)}%"></i><div class="pace" style="left:${(pace*100).toFixed(0)}%" data-tip="${esc('기간경과 '+pc(pace*100,0))}"></div></div>
+      <div class="sc-meta"><b>달성률 ${pc(prog*100,0)}</b> · 기간경과 ${pc(pace*100,0)}(${DS.dayOfMonth}/${DS.daysInMonth}일) · ${paceTxt}</div>
+      <div class="sc-plats">${plats}</div></div>`;
+  }).join('');
+  const badge=DS.sample?`<span class="smpl">샘플 · 새 시트 연결 대기</span>`:'';
+  el.innerHTML=`<div class="statushead"><div><div class="s-eye" style="color:var(--green)">Daily Status</div><h2>${DS.month} 일자별 현황 ${badge}</h2></div><div class="asof">기준 ${DS.asOf} · 브랜드×플랫폼 목표 대비 진척 · UV 전월 동기비</div></div>
+    <div class="scards">${cards}</div>${renderStatusChart()}`;
+}
+function renderStatusChart(){
+  const DS=DATA.dailyStatus, P=DS.platforms, base=DS.data[DS.brands[0]].daily;
+  const rows=base.map((_,i)=>{const o={date:base[i].date,total:0};P.forEach(p=>{o[p]=DS.brands.reduce((s,b)=>s+DS.data[b].daily[i][p],0);o.total+=o[p];});return o;});
+  const W=720,H=230,mL=46,mR=12,mT=12,mB=26,iw=W-mL-mR,ih=H-mT-mB;
+  const max=Math.max(...rows.map(r=>r.total))*1.14||1, n=rows.length, band=iw/n, bw=Math.min(26,band*0.62);
+  const y=v=>mT+ih*(1-v/max), x=i=>mL+band*i+band/2; let g='';
+  for(let k=0;k<=3;k++){const v=max*k/3,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
+  rows.forEach((r,i)=>{let acc=0; const bx=x(i)-bw/2;
+    P.forEach(p=>{const h0=ih*r[p]/max, yTop=mT+ih-acc-h0;
+      g+=`<rect class="hit" x="${bx.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw.toFixed(1)}" height="${h0.toFixed(1)}" fill="${PLATCOL[p]}" data-tip="${esc(mdOf(r.date)+' · '+p+' '+won(r[p])+'\n합계 '+won(r.total))}"/>`; acc+=h0;});
+    if(n<=16||i%2===0)g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-9}" text-anchor="middle">${+r.date.slice(8,10)}</text>`;});
+  return `<div class="card" style="margin-top:14px"><div class="card-h"><div><div class="c-t">${DS.month} 일자별 매출 (브랜드 합산 · 플랫폼 스택)</div><div class="c-s">기준 ${DS.asOf}까지</div></div><div class="legend">${P.map(p=>`<span class="lg"><i style="background:${PLATCOL[p]}"></i>${p}</span>`).join('')}</div></div><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="7월 일자별 플랫폼 스택">${g}</svg></div>`;
+}
 let curDailySrc='douyin';
 function dailyData(){return (curDailySrc==='tmall' && DATA.dailyTmall) ? DATA.dailyTmall : DATA.daily;}
 function monthSpan(D){
@@ -512,6 +581,7 @@ function analyzeBrand(brand){
   return {n,sum,avg,fa,sa,trend,slope,peak,trough,sd,spikes,dips,wdAvg,weAvg,orders,buyers,aov};
 }
 function renderDaily(){
+  renderDailyStatus();
   renderDailySrcSel();
   const D=dailyData();
   document.getElementById('d-title').textContent=`일자별 매출 — 브랜드별 (${D.month})`;
