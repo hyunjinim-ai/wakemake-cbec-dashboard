@@ -910,17 +910,19 @@ function htmlTrafficSection(traf){
    VIEW ③ 티몰 월별 (기존 로직)
    ===================================================================== */
 let cur = MONTHS[MONTHS.length-1];
-function ctx(){ const i=iOf(cur); return {i, J:S[i], PREV:i>0?S[i-1]:null, M:DATA.byMonth[cur]}; }
+let curTmallBrand='웨이크메이크';
+function TB(){ return (DATA.tmallBrands&&DATA.tmallBrands[curTmallBrand]) || {series:S, byMonth:DATA.byMonth}; }
+function ctx(){ const SB=TB().series, BM=TB().byMonth; let i=SB.findIndex(x=>x.month===cur); if(i<0)i=SB.length-1; return {i, J:SB[i], PREV:i>0?SB[i-1]:null, M:BM[cur]||BM[SB[i].month]}; }
 function renderKPIs(){ const {J,PREV}=ctx(); const pv=k=>PREV?PREV[k]:null;
   const cards=[
-    {l:cur+' 티몰 매출',v:smartW(J.salesKRW),foot:`목표 ${smartW(J.targetKRW)} · 달성 ${pc(J.achv)}`,mom:mom(J.salesKRW,pv('salesKRW')),ac:'var(--green-2)'},
+    {l:cur+' 티몰 매출',v:smartW(J.salesKRW),foot:J.targetKRW?`목표 ${smartW(J.targetKRW)} · 달성 ${pc(J.achv)}`:'월 목표 미설정(시트)',mom:mom(J.salesKRW,pv('salesKRW')),ac:'var(--green-2)'},
     {l:'총 방문자 (UV)',v:intc(J.uv)+'명',foot:J.pv?`노출량(PV) ${intc(J.pv)}`:'증정품 제외 상품 UV 합',mom:mom(J.uv,pv('uv')),ac:'var(--blue)'},
     {l:cur+' 티몰 유료마케팅비',v:smartW(J.tmallAdKRW||0),foot:`티몰 내부 유료광고 소모액<br>※ 비용은 스틸에서 지불`,mom:mom(J.tmallAdKRW,pv('tmallAdKRW'),true),ac:'var(--coral-2)'},
     {l:'유료광고 ROAS',v:(J.paidRoas||0).toFixed(2)+'x',foot:'매출 / (티몰유료광고 + 聚光 CID)',mom:mom(J.paidRoas,pv('paidRoas')),ac:'var(--navy)'},
   ];
   document.getElementById('kpis').innerHTML=cards.map(c=>`<div class="kpi"><div class="k-accent" style="background:${c.ac}"></div><div class="k-top"><span class="k-label">${c.l}</span>${c.mom}</div><div class="k-val num">${c.v}</div><div class="k-foot num">${c.foot}</div></div>`).join('');
 }
-function renderInsight(){ const {J,M}=ctx(); const first=S[0];
+function renderInsight(){ const {J,M}=ctx(); const first=TB().series[0]||J;
   const sold=M.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
   const top1=sold[0]||{name:'-',share:0}, top5=sold.slice(0,5).reduce((s,p)=>s+p.share,0);
   const newShare=M.products.filter(p=>p.new).reduce((s,p)=>s+p.payKRW,0)/(M.productTotalKRW||1)*100;
@@ -982,11 +984,18 @@ function renderMarketing(){ const {J,PREV,M}=ctx();
   document.getElementById('donutSub').textContent=`${cur} 유료광고 구성`;
   document.getElementById('donut').innerHTML=`<svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="유료광고 구성"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--coral-2)" stroke-width="${SW}"/><circle class="hit" cx="60" cy="60" r="${R}" fill="none" stroke="var(--green-2)" stroke-width="${SW}" stroke-dasharray="${seg.toFixed(1)} ${C0.toFixed(1)}" data-tip="${esc('티몰 유료광고 '+won(tmAd)+' ('+pc(tmAd/tot*100)+')')}"/></g><text x="60" y="55" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-weight="700">유료 계</text><text x="60" y="72" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="800" class="num">${smart(tot)}</text></svg>`;
   document.getElementById('donut-legend').innerHTML=[{n:'티몰 유료광고 (스틸)',v:tmAd,c:'var(--green-2)'},{n:'쥐광(聚光) CID (OY)',v:xhAd,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('');
-  const xr=J.xhsRoas, bad=xr<1.5, badge=document.getElementById('xhs-badge');
-  badge.className='badge '+(bad?'bad':'good'); badge.textContent=`ROAS ${xr.toFixed(1)}x ${bad?'· 적자':'· 양호'}`;
-  document.getElementById('xhscard').className='card xhs '+(bad?'':'warnb');
-  const rows=[['광고비 (CID 聚光)',won(J.xhsAdKRW)],['기여 GMV',won(J.xhsGmvKRW)],['ROAS',xr.toFixed(1)+'x'],['유입 UV',intc(J.xhsUV)+'명'],['전체 UV 중 비중',pc(J.xhsShare)],['전월 대비 광고비',mom(J.xhsAdKRW,PREV?PREV.xhsAdKRW:null,true)]];
-  document.getElementById('xhs-kv').innerHTML=rows.map(r=>`<div class="kv"><span class="kk">${r[0]}</span><span class="vv num" ${r[0]==='ROAS'&&bad?'style="color:var(--bad)"':''}>${r[1]}</span></div>`).join('');
+  const badge=document.getElementById('xhs-badge');
+  if(!J.xhsAdKRW && !J.xhsGmvKRW){
+    badge.className='badge'; badge.textContent='—';
+    document.getElementById('xhscard').className='card xhs warnb';
+    document.getElementById('xhs-kv').innerHTML=`<div class="note" style="border:none;background:none;padding:6px 0">${curTmallBrand}의 샤오홍슈(聚光) 월별 데이터는 시트에 없습니다. 7월 현황은 <b>① 일자별 현황</b>에서 확인하세요.</div>`;
+  } else {
+    const xr=J.xhsRoas, bad=xr<1.5;
+    badge.className='badge '+(bad?'bad':'good'); badge.textContent=`ROAS ${xr.toFixed(1)}x ${bad?'· 적자':'· 양호'}`;
+    document.getElementById('xhscard').className='card xhs '+(bad?'':'warnb');
+    const rows=[['광고비 (CID 聚光)',won(J.xhsAdKRW)],['기여 GMV',won(J.xhsGmvKRW)],['ROAS',xr.toFixed(1)+'x'],['유입 UV',intc(J.xhsUV)+'명'],['전체 UV 중 비중',pc(J.xhsShare)],['전월 대비 광고비',mom(J.xhsAdKRW,PREV?PREV.xhsAdKRW:null,true)]];
+    document.getElementById('xhs-kv').innerHTML=rows.map(r=>`<div class="kv"><span class="kk">${r[0]}</span><span class="vv num" ${r[0]==='ROAS'&&bad?'style="color:var(--bad)"':''}>${r[1]}</span></div>`).join('');
+  }
 }
 function renderRecs(){ const {J,M}=ctx();
   const sold=M.products.filter(p=>p.payKRW>0).sort((a,b)=>b.payKRW-a.payKRW);
@@ -1007,6 +1016,7 @@ function renderRecs(){ const {J,M}=ctx();
   document.getElementById('recs').innerHTML=recs.map((t,i)=>`<div class="rec"><span class="rn">${i+1}</span><div>${t}</div></div>`).join('');
 }
 function renderTraffic(){ const {M}=ctx(); const g=M.traffic.groups||[], subs=(M.traffic.subs||[]).slice(0,8);
+  if(!g.length){ document.getElementById('tgroups').innerHTML=''; document.getElementById('trafbars').innerHTML=`<div class="note">${curTmallBrand} 티몰 유입경로 상세는 시트에 없습니다(현재 웨이크메이크만 제공).</div>`; return; }
   const tot=g.reduce((s,x)=>s+x.visitors,0)||1, colors=['var(--green-2)','var(--coral-2)','var(--blue)'];
   document.getElementById('tgroups').innerHTML=g.map((x,i)=>`<div class="tgc" data-tip="${esc(x.name+'\n방문자 '+intc(x.visitors)+' ('+pc(x.visitors/tot*100)+')\n구매자 '+intc(x.buyers)+' · 전환 '+pc(x.conv,2))}"><div class="tg-l">${x.name}</div><div class="tg-v num">${intc(x.visitors)}<span style="font-size:12px;color:var(--ink-3);font-weight:600">명</span></div><div class="tg-s num">구매 ${intc(x.buyers)}명 · 전환 ${pc(x.conv,2)} · 비중 ${pc(x.visitors/tot*100)}</div><div class="tg-bar"><i style="width:${(x.visitors/tot*100).toFixed(1)}%;background:${colors[i%3]}"></i></div></div>`).join('');
   const maxV=Math.max(1,...subs.map(s=>s.visitors)), maxCv=Math.max(1,...subs.map(s=>s.conv));
@@ -1014,6 +1024,7 @@ function renderTraffic(){ const {M}=ctx(); const g=M.traffic.groups||[], subs=(M
     return `<div class="pbar" data-tip="${esc(s.name+'\n방문자 '+intc(s.visitors)+'\n구매자 '+intc(s.buyers)+' · 전환 '+pc(s.conv,2))}"><div class="pb-top"><div class="pb-name"><span class="nm">${s.name}</span></div><div class="pb-val num" style="color:${hot?'var(--green)':'var(--ink)'}">전환 ${pc(s.conv,2)}<small>방문 ${intc(s.visitors)}</small></div></div><div class="pb-track"><div class="pb-fill${hot?'':' blu'}" style="width:${(s.visitors/maxV*100).toFixed(1)}%"></div></div></div>`;}).join('');
 }
 function renderSales(){
+  const S=TB().series;
   const W=560,H=290,mL=48,mR=12,mT=16,mB=30,iw=W-mL-mR,ih=H-mT-mB;
   const max=Math.max(...S.map(s=>Math.max(s.salesKRW,s.targetKRW)))*1.12, n=S.length, band=iw/n, bw=Math.min(38,band*0.46);
   const y=v=>mT+ih*(1-v/max), x=i=>mL+band*i+band/2; let g='';
@@ -1026,6 +1037,7 @@ function renderSales(){
   document.getElementById('ch-sales').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="월별 매출 대 목표">${g}</svg>`;
 }
 function renderCost(){
+  const S=TB().series;
   const W=560,H=290,mL=44,mR=40,mT=16,mB=30,iw=W-mL-mR,ih=H-mT-mB;
   const maxC=Math.max(...S.map(s=>(s.paidAdKRW||0)),1)*1.15, maxR=Math.max(12,...S.map(s=>(s.paidRoas||0)))*1.05, n=S.length, band=iw/n, bw=Math.min(38,band*0.46);
   const yL=v=>mT+ih*(1-v/maxC), yR=v=>mT+ih*(1-v/maxR), x=i=>mL+band*i+band/2; let g='';
@@ -1045,17 +1057,14 @@ function setTmallTitles(){
   document.getElementById('h2Mkt').textContent=`③ ${cur} 마케팅 비용 상세`;
   document.getElementById('h2Traf').textContent=`④ ${cur} 점포 유입경로`;
 }
-let curTmallBrand='웨이크메이크';
 function renderTmallBrandSel(){
   document.getElementById('t-brand').innerHTML='<span class="selbl">브랜드</span>'+['웨이크메이크','컬러그램'].map(b=>`<button class="pbtn${b===curTmallBrand?' active':''}" data-tbrand="${b}">${b}</button>`).join('');
 }
 function renderTmall(){
   renderTmallBrandSel();
-  const wm=curTmallBrand==='웨이크메이크';
-  document.getElementById('tmall-wm').style.display=wm?'':'none';
-  document.getElementById('tmall-cg').style.display=wm?'none':'';
-  if(wm){ setTmallTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost(); }
-  else renderTmallCG();
+  document.getElementById('tmall-cg').style.display='none';
+  document.getElementById('tmall-wm').style.display='';
+  setTmallTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost();
 }
 function cgTrendChart(months,vals){
   const W=720,H=250,mL=54,mR=14,mT=16,mB=28,iw=W-mL-mR,ih=H-mT-mB,n=months.length;

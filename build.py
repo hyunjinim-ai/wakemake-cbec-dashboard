@@ -75,7 +75,9 @@ def monthNum(m):
     mm = re.sub(r"[^0-9]", "", str(m))
     return int(mm) if mm else 0
 def kname(pid, cn):
-    return NAME_MAP.get(pid) or ("코드 " + str(pid)[-6:])
+    if NAME_MAP.get(pid): return NAME_MAP[pid]
+    cn = str(cn or "").strip()
+    return cn[:26] if cn else ("코드 " + str(pid)[-6:])
 def is_gift(p):
     cn = str(p.get("cn") or "")
     if ("赠品" in cn) and (p.get("payCNY") or 0) == 0: return True
@@ -142,6 +144,7 @@ def _parse_tmall_sheets(sheet):
             pid = str(int(pid) if isinstance(pid, float) else pid)
             products.setdefault(m, []).append({
                 "id": pid, "cn": cell(r, h, "상품명"), "status": cell(r, h, "상품 상태"),
+                "brand": str(cell(r, h, "브랜드") or "").strip().upper(),
                 "uv": int(num(cell(r, h, "상품 방문자 수"))),
                 "cart": int(num(cell(r, h, "장바구니 담기 인원 수"))),
                 "payCNY": round(num(cell(r, h, "결제 완료 금액"))),
@@ -171,6 +174,7 @@ def _parse_tmall_sheets(sheet):
         h = ads[0]
         for r in ads[1:]:
             if not r: continue
+            if "COLORGRAM" in str(cell(r, h, "상품명") or "").upper().replace(" ", ""): continue  # 티몰 유료광고 집계는 WM만(② 호환)
             m = norm(cell(r, h, "통계 일자"))
             if m and m != "null":
                 tmall_ad[m] = tmall_ad.get(m, 0) + num(cell(r, h, "광고 소모액(마케팅 비용)"))
@@ -242,19 +246,23 @@ def _sid(url_or_id):
     m = re.search(r"/spreadsheets/d/([A-Za-z0-9_\-]+)", str(url_or_id))
     return m.group(1) if m else str(url_or_id).strip()
 
-def gsheet_reader(url_or_id):
-    """구글시트(공개) → sheet(name)->rows. gviz CSV(탭명 지정)로 탭을 읽어 캐시."""
+def gsheet_reader(url_or_id, gidmap=None):
+    """구글시트(공개) → sheet(name)->rows. gidmap 있으면 export(gid)로(레이트리밋 회피),
+    없으면 gviz(탭명)로 읽어 캐시."""
     import urllib.request, urllib.parse
-    sid = _sid(url_or_id); cache = {}
+    sid = _sid(url_or_id); cache = {}; gidmap = gidmap or {}
     def sheet(name):
         if name in cache: return cache[name]
-        url = "https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s" % (sid, urllib.parse.quote(name))
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            raw = urllib.request.urlopen(req, timeout=30).read().decode("utf-8-sig", "replace")
-            rows = list(csv.reader(io.StringIO(raw)))
-        except Exception:
-            rows = []
+        if name in gidmap:
+            rows = _fetch_gid_rows(sid, gidmap[name])
+        else:
+            url = "https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s" % (sid, urllib.parse.quote(name))
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+                raw = urllib.request.urlopen(req, timeout=30).read().decode("utf-8-sig", "replace")
+                rows = list(csv.reader(io.StringIO(raw)))
+            except Exception:
+                rows = []
         cache[name] = rows
         return rows
     return sheet
@@ -280,10 +288,11 @@ def fetch_tmall_ad_products(sid, gid):
         if not pid: continue
         ad = _numc(r[iAd]) if 0 <= iAd < len(r) else 0
         if ad <= 0: continue
-        sku = idx["tmall"].get(pid)
-        brand = idx["sku"][sku].get("brand", "웨이크메이크") if sku else "웨이크메이크"
+        nm = str(r[iNm]) if 0 <= iNm < len(r) else ""
+        brand = "컬러그램" if "COLORGRAM" in nm.upper().replace(" ", "") else "웨이크메이크"
+        name = NAME_MAP.get(pid) or (nm[:26] if nm.strip() else "코드 " + pid[-6:])
         out.setdefault(m, []).append({
-            "id": pid, "name": kname(pid, r[iNm] if 0 <= iNm < len(r) else ""), "brand": brand,
+            "id": pid, "name": name, "brand": brand,
             "adKRW": round(ad * FX),
             "directGmvKRW": round((_numc(r[iGmv]) if 0 <= iGmv < len(r) else 0) * FX),
             "roi": round(_numc(r[iRoi]) if 0 <= iRoi < len(r) else 0, 2),
@@ -343,77 +352,108 @@ def seed_from_raw(html_path):
 # =========================================================================
 #  C. 티몰 파트 계산 (series + byMonth)  — 기존 유지
 # =========================================================================
-def compute_tmall(u):
+_BRAND_RAW = {"웨이크메이크": "WAKEMAKE", "컬러그램": "COLORGRAM"}
+def _adbrand(name):
+    return "컬러그램" if "COLORGRAM" in str(name).upper().replace(" ", "") else "웨이크메이크"
+
+def compute_tmall(u, ad=None):
+    """브랜드별 티몰 series+byMonth. ad={월:[상품별광고…]}(fetch_tmall_ad_products) 옵션.
+    반환 {months, series(웨메·②호환), byMonth(웨메), tmallBrands:{브랜드:{series,byMonth}}}."""
     months = u["months"]
     monthly_by = {x["month"]: x for x in u["monthly"]}
-    series = []
-    for m in months:
-        rows = [p for p in u["products"].get(m, []) if not is_gift(p)]
-        sales = sum(p["payCNY"] for p in rows) * FX
-        uv = sum(p["uv"] for p in rows)
-        cs = u["cost"].get(m, [])
-        costK = sum(c["cny"] for c in cs) * FX
-        oy = sum(c["cny"] for c in cs if c["owner"] == "OY") * FX
-        st = sum(c["cny"] for c in cs if c["owner"] == "스틸") * FX
-        tmAd = sum(c["cny"] for c in cs if c["item"] == "티몰 유료광고(내부광고 소모액)") * FX  # 스틸 티몰 유료광고
-        xh = u["xhs"].get(m, {})
-        mo = monthly_by.get(m, {})
-        xhsAd = round(xh.get("adKRW", 0))          # 샤오홍슈 聚光 CID
-        tmAd = round(tmAd)
-        paid = tmAd + xhsAd                          # 티몰 유료광고 + 聚光 CID
-        series.append({
-            "month": m, "salesKRW": round(sales), "targetKRW": round(mo.get("targetKRW", 0)),
-            "achv": round(sales / mo["targetKRW"] * 1000) / 10 if mo.get("targetKRW") else 0,
-            "uv": uv, "pv": mo.get("pv", 0) or 0,
-            "costKRW": round(costK), "oyKRW": round(oy), "stKRW": round(st),
-            "tmallAdKRW": tmAd, "paidAdKRW": paid,
-            "roas": round(sales / costK * 100) / 100 if costK else 0,
-            "paidRoas": round(sales / paid * 100) / 100 if paid else 0,   # 매출 / (티몰유료+聚光)
-            "xhsAdKRW": xhsAd, "xhsGmvKRW": round(xh.get("gmvKRW", 0)),
-            "xhsRoas": xh.get("roas", 0), "xhsShare": xh.get("shareOfTotalUV", 0), "xhsUV": xh.get("storeVisitUV", 0),
-        })
+    adBM = {m: {"웨이크메이크": [], "컬러그램": []} for m in months}
+    for m, lst in (ad or {}).items():
+        for p in lst:
+            b = p.get("brand") or _adbrand(p.get("name"))
+            if b not in ("웨이크메이크", "컬러그램"): b = "웨이크메이크"
+            adBM.setdefault(m, {"웨이크메이크": [], "컬러그램": []}).setdefault(b, []).append(p)
 
-    by_month = {}
-    for i, m in enumerate(months):
-        rows = [p for p in u["products"].get(m, []) if not is_gift(p)]
-        rows.sort(key=lambda p: p.get("payCNY") or 0, reverse=True)
-        tot = sum(p["payCNY"] for p in rows)
-        products = [{
-            "name": kname(p["id"], p.get("cn")), "id": str(p.get("id") or ""),
-            "status": "온라인" if p.get("status") == "当前在线" else "품절/내림",
-            "new": is_new(p), "uv": p.get("uv") or 0,
-            "payKRW": round((p.get("payCNY") or 0) * FX), "payCNY": p.get("payCNY") or 0,
-            "conv": p.get("conv") or 0, "share": round((p["payCNY"] / tot * 1000)) / 10 if tot else 0,
-        } for p in rows]
+    def bprods(m, bkey):
+        return [p for p in u["products"].get(m, [])
+                if not is_gift(p) and str(p.get("brand") or "WAKEMAKE").upper() == bkey]
 
-        cur = u["cost"].get(m, []); prev = u["cost"].get(months[i - 1], []) if i > 0 else []
-        def find(rows_, o, it):
-            return next((c["cny"] * FX for c in rows_ if c["owner"] == o and c["item"] == it), 0)
-        keys = []
-        for c in cur + prev:
-            k = (c["owner"], c["item"])
-            if k not in keys: keys.append(k)
-        cost_items = [{"owner": o, "item": it, "cur": round(find(cur, o, it)),
-                       "prev": round(find(prev, o, it)), "diff": round(find(cur, o, it) - find(prev, o, it))}
-                      for o, it in keys]
-        cost_items.sort(key=lambda x: x["cur"], reverse=True)
+    def one_brand(bko, bkey):
+        isWM = (bko == "웨이크메이크")
+        series = []
+        for m in months:
+            rows = bprods(m, bkey)
+            sales = sum(p["payCNY"] for p in rows) * FX
+            uv = sum(p["uv"] for p in rows)
+            adlist = sorted(adBM.get(m, {}).get(bko, []), key=lambda a: -a["adKRW"])
+            cs = u["cost"].get(m, []) if isWM else []
+            if adlist:
+                tmAd = round(sum(a["adKRW"] for a in adlist))
+            elif isWM:
+                tmAd = round(sum(c["cny"] for c in cs if c["item"] == "티몰 유료광고(내부광고 소모액)") * FX)
+            else:
+                tmAd = 0
+            xh = u["xhs"].get(m, {}) if isWM else {}
+            xhsAd = round(xh.get("adKRW", 0))
+            paid = tmAd + xhsAd
+            mo = monthly_by.get(m, {}) if isWM else {}
+            target = round(mo.get("targetKRW", 0))
+            if isWM:
+                costK = round(sum(c["cny"] for c in cs) * FX)
+                oy = round(sum(c["cny"] for c in cs if c["owner"] == "OY") * FX)
+                st = round(sum(c["cny"] for c in cs if c["owner"] == "스틸") * FX)
+            else:
+                costK, oy, st = paid, xhsAd, tmAd
+            series.append({
+                "month": m, "salesKRW": round(sales), "targetKRW": target,
+                "achv": round(sales / target * 1000) / 10 if target else 0,
+                "uv": uv, "pv": mo.get("pv", 0) or 0,
+                "costKRW": costK, "oyKRW": oy, "stKRW": st,
+                "tmallAdKRW": tmAd, "paidAdKRW": paid,
+                "roas": round(sales / costK * 100) / 100 if costK else 0,
+                "paidRoas": round(sales / paid * 100) / 100 if paid else 0,
+                "xhsAdKRW": xhsAd, "xhsGmvKRW": round(xh.get("gmvKRW", 0)),
+                "xhsRoas": xh.get("roas", 0), "xhsShare": xh.get("shareOfTotalUV", 0), "xhsUV": xh.get("storeVisitUV", 0),
+            })
+        by_month = {}
+        for i, m in enumerate(months):
+            rows = sorted(bprods(m, bkey), key=lambda p: p.get("payCNY") or 0, reverse=True)
+            tot = sum(p["payCNY"] for p in rows)
+            products = [{
+                "name": kname(p["id"], p.get("cn")), "id": str(p.get("id") or ""),
+                "status": "온라인" if p.get("status") == "当前在线" else "품절/내림",
+                "new": is_new(p), "uv": p.get("uv") or 0,
+                "payKRW": round((p.get("payCNY") or 0) * FX), "payCNY": p.get("payCNY") or 0,
+                "conv": p.get("conv") or 0, "share": round((p["payCNY"] / tot * 1000)) / 10 if tot else 0,
+            } for p in rows]
+            adlist = sorted(adBM.get(m, {}).get(bko, []), key=lambda a: -a["adKRW"])
+            if isWM:
+                cur = u["cost"].get(m, []); prev = u["cost"].get(months[i - 1], []) if i > 0 else []
+                def find(rows_, o, it):
+                    return next((c["cny"] * FX for c in rows_ if c["owner"] == o and c["item"] == it), 0)
+                keys = []
+                for c in cur + prev:
+                    k = (c["owner"], c["item"])
+                    if k not in keys: keys.append(k)
+                cost_items = [{"owner": o, "item": it, "cur": round(find(cur, o, it)),
+                               "prev": round(find(prev, o, it)), "diff": round(find(cur, o, it) - find(prev, o, it))}
+                              for o, it in keys]
+                cost_items.sort(key=lambda x: x["cur"], reverse=True)
+                tr = u["traffic"].get(m, []); groups = []
+                for g in ["经营优势", "付费推广", "主动回访"]:
+                    row = next((r for r in tr if r["l1"] == g and r["l2"] == "汇总"), None)
+                    if row: groups.append({"name": GMAP[g], "visitors": row["visitors"], "buyers": row["buyers"], "conv": row["conv"]})
+                subs_raw = [r for r in tr if r["l4"] in TR and r["l4"] != "汇总"]
+                seen = {}
+                for r in subs_raw:
+                    nm = TR[r["l4"]]
+                    if nm not in seen or r["visitors"] > seen[nm]["visitors"]:
+                        seen[nm] = {"name": nm, "visitors": r["visitors"], "buyers": r["buyers"], "conv": r["conv"]}
+                subs = sorted(seen.values(), key=lambda x: x["visitors"], reverse=True)[:10]
+                traffic = {"groups": groups, "subs": subs}
+            else:
+                cost_items, traffic = [], {"groups": [], "subs": []}
+            by_month[m] = {"products": products, "productTotalKRW": round(tot * FX),
+                           "adProducts": adlist, "costItems": cost_items, "traffic": traffic}
+        return {"months": months, "series": series, "byMonth": by_month}
 
-        tr = u["traffic"].get(m, [])
-        groups = []
-        for g in ["经营优势", "付费推广", "主动回访"]:
-            row = next((r for r in tr if r["l1"] == g and r["l2"] == "汇总"), None)
-            if row: groups.append({"name": GMAP[g], "visitors": row["visitors"], "buyers": row["buyers"], "conv": row["conv"]})
-        subs_raw = [r for r in tr if r["l4"] in TR and r["l4"] != "汇总"]
-        seen = {}
-        for r in subs_raw:
-            nm = TR[r["l4"]]
-            if nm not in seen or r["visitors"] > seen[nm]["visitors"]:
-                seen[nm] = {"name": nm, "visitors": r["visitors"], "buyers": r["buyers"], "conv": r["conv"]}
-        subs = sorted(seen.values(), key=lambda x: x["visitors"], reverse=True)[:10]
-
-        by_month[m] = {"products": products, "productTotalKRW": round(tot * FX),
-                       "costItems": cost_items, "traffic": {"groups": groups, "subs": subs}}
-    return {"months": months, "series": series, "byMonth": by_month}
+    tmallBrands = {bko: one_brand(bko, bkey) for bko, bkey in _BRAND_RAW.items()}
+    wm = tmallBrands["웨이크메이크"]
+    return {"months": months, "series": wm["series"], "byMonth": wm["byMonth"], "tmallBrands": tmallBrands}
 
 # =========================================================================
 #  D. 도우인 · 샤오홍슈 원본 파서  (신규)
@@ -887,9 +927,11 @@ def render(data):
     open(OUT_HTML, "w", encoding="utf-8").write(html)
 
 def tmall_from_datajson():
-    """기존 data.json 에서 티몰 파트(months/series/byMonth) 로드 — 원본 엑셀 없이 재조립."""
+    """기존 data.json 에서 티몰 파트 로드 — 원본 엑셀 없이 재조립(브랜드별 포함)."""
     d = json.load(open(DATA_JSON, "r", encoding="utf-8"))
-    return {"months": d["months"], "series": d["series"], "byMonth": d["byMonth"]}
+    out = {"months": d["months"], "series": d["series"], "byMonth": d["byMonth"]}
+    if d.get("tmallBrands"): out["tmallBrands"] = d["tmallBrands"]
+    return out
 
 # ---- 구글시트 어댑터 (탭별 공개 CSV) ----
 def fetch_csv(url):
@@ -1018,7 +1060,7 @@ def _write_data(data):
     if os.path.exists(DATA_JSON):
         try: old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
         except Exception: old = {}
-    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand"):
+    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand", "tmallBrands"):
         if k not in data and old.get(k): data[k] = old[k]
     if "dailyStatus" not in data:
         data["dailyStatus"] = daily_status_sample()
@@ -1075,10 +1117,15 @@ def main():
         tmall, tmDaily = None, None
         if src:
             try:
-                sh = gsheet_reader(src)
-                t = compute_tmall(_parse_tmall_sheets(sh))
-                if t["months"]: tmall = t; tmDaily = parse_tmall_daily(sh)
-            except Exception: tmall = None
+                sh = gsheet_reader(src, cfg.get("monthlyGids"))
+                u = _parse_tmall_sheets(sh)
+                if u["months"]:
+                    adp = fetch_tmall_ad_products(src, cfg.get("tmallAdGid")) if cfg.get("tmallAdGid") else None
+                    tmall = compute_tmall(u, ad=adp)   # 브랜드별 series+byMonth(상품별 광고 포함)
+                    tmDaily = parse_tmall_daily(sh)
+                    if adp: print("[상품별 광고] %d개월 연결" % len(adp))
+            except Exception as e:
+                print("[알림] 월별 시트 파싱 오류: %s" % str(e)[:60]); tmall = None
         if tmall is None:
             print("[알림] 월별 시트 읽기 실패/미설정 → 기존 티몰 데이터 유지")
             tmall = tmall_from_datajson()
@@ -1086,12 +1133,6 @@ def main():
         data = assemble_from_parts(tmall, douyin, xhs)
         if tmDaily: data["dailyTmall"] = daily_struct(tmDaily, "티몰글로벌(天猫国际) · 海外旗舰店",
                                                      "티몰 일 결제금액 · 증정 제외 · 환율 220원")
-        adGid = cfg.get("tmallAdGid")   # 상품별 티몰 내부광고(스틸 집행) → byMonth.adProducts
-        if src and adGid:
-            adp = fetch_tmall_ad_products(src, adGid)
-            for mth, lst in adp.items():
-                if mth in data.get("byMonth", {}): data["byMonth"][mth]["adProducts"] = lst
-            if adp: print("[상품별 광고] %d개월 · 예: %s %d품목" % (len(adp), max(adp), len(adp.get(max(adp), []))))
         ds, mp, tbb = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
         if ds:
             data["dailyStatus"] = ds
