@@ -1,6 +1,8 @@
 {
-  "_안내": "이 파일을 'sheet.config.json' 으로 복사한 뒤 각 탭의 '웹에 게시(CSV)' URL 을 채우세요. sheet.config.json 은 .gitignore 로 커밋되지 않습니다(원본 시트 URL 보호).",
-  "_게시방법": "구글시트 → 파일 → 공유 → 웹에 게시 → (탭 선택) → 쉼표로 구분된 값(.csv) → 게시 → 생성된 URL 복사. 탭마다 반복.",
+  "_안내": "이 파일을 'sheet.config.json' 으로 복사해 사용하세요. .gitignore 로 커밋되지 않습니다(원본 시트 URL 보호).",
+  "_사용법1_gsheet": "gsheetId 만 채우고 `python build.py --gsheet` 실행 → '중국역직구 플랫폼 판매데이터' 시트에서 티몰 월별+일자별을 자동 동기화. (시트는 '링크가 있는 모든 사용자 보기' 공유 필요)",
+  "gsheetId": "구글시트_URL_의_/d/_다음_ID_문자열",
+  "_사용법2_tabs": "아래 tabs 는 내 커스텀 스키마(일자별매출/플랫폼_도우인 등)를 각 탭 '웹에 게시(CSV)' URL 로 연동할 때만 사용. (`--sheet` 모드)",
   "tabs": {
     "일자별매출":   "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",
     "플랫폼_도우인": "https://docs.google.com/spreadsheets/d/e/XXXX/pub?gid=0&single=true&output=csv",

@@ -7,8 +7,9 @@
 3개 뷰: ① 일자별 매출(브랜드별)  ② 플랫폼 통합(티몰·도우인·샤오홍슈)  ③ 티몰 월별(기존).
 
 사용법:
+  python build.py --gsheet [시트URL|ID]      # ★구글시트('중국역직구 플랫폼 판매데이터') → 티몰 월별+일자별 동기화(매월)
   python build.py --seed                    # 확보된 원본에서 실데이터로 data.json 시드(최초 1회)
-  python build.py --sheet [sheet.config.json]   # 구글시트(탭별 공개 CSV) → data.json 재생성(매월)
+  python build.py --sheet [sheet.config.json]   # 구글시트(내 스키마 탭별 공개 CSV) → data.json 재생성
   python build.py --render-only             # data.json 만 바꾼 뒤 index.html 재생성
   python build.py --seed-csv                # 현재 data.json → 구글시트 붙여넣기용 스타터 CSV 출력
   python build.py <티몰원본.xlsx>            # (기존) 티몰 6시트 엑셀 → 티몰 파트 재계산
@@ -95,11 +96,23 @@ def parse_workbook(path):
     def sheet(name):
         if name not in wb.sheetnames: return []
         return [list(r) for r in wb[name].iter_rows(values_only=True)]
+    return _parse_tmall_sheets(sheet)
+
+def _parse_tmall_sheets(sheet):
+    """티몰 시트들(엑셀 or 구글시트 CSV) → 티몰 파트 원자료. sheet(name) -> rows(list of list)."""
     def norm(m):
         return re.sub(r"\s", "", "" if m is None else str(m)).replace("月", "월")
     def num(v):
-        try: return float(v)
-        except (TypeError, ValueError): return 0.0
+        if v is None: return 0.0
+        if isinstance(v, (int, float)): return float(v)
+        s = str(v).replace(",", "").replace("%", "").replace("元", "").replace("₩", "").strip()
+        try: return float(s)
+        except ValueError: return 0.0
+    def pct(v):  # 전환율: 분수(0.05)·퍼센트("5%"/5) 혼용 흡수 → 퍼센트 숫자
+        s = str(v).strip()
+        if s.endswith("%"): return round(num(s), 2)
+        f = num(s)
+        return round(f * 100, 2) if 0 < f <= 1.5 else round(f, 2)
 
     tmall_actual = []
     for row in sheet("티몰글로벌"):
@@ -132,8 +145,8 @@ def parse_workbook(path):
                 "uv": int(num(cell(r, h, "상품 방문자 수"))),
                 "cart": int(num(cell(r, h, "장바구니 담기 인원 수"))),
                 "payCNY": round(num(cell(r, h, "결제 완료 금액"))),
-                "conv": round(num(cell(r, h, "상품 결제 전환율")) * 10000) / 100,
-                "sConv": round(num(cell(r, h, "검색 유입 결제 전환율")) * 10000) / 100,
+                "conv": pct(cell(r, h, "상품 결제 전환율")),
+                "sConv": pct(cell(r, h, "검색 유입 결제 전환율")),
                 "sUV": int(num(cell(r, h, "검색 유입 방문자 수"))),
             })
 
@@ -221,6 +234,63 @@ def parse_workbook(path):
                   "shareOfTotalUV": round(c["visit"] / total_uv * 1000) / 10 if total_uv else 0,
                   "roas": round(c["gmv"] / c["ad"] * 10) / 10 if c["ad"] else 0}
     return {"months": months, "monthly": monthly, "cost": cost, "products": products, "traffic": traffic, "xhs": xhs}
+
+# =========================================================================
+#  A-2. 구글시트 판독기 (탭명=엑셀 시트명) + 티몰 일자별  (신규)
+# =========================================================================
+def _sid(url_or_id):
+    m = re.search(r"/spreadsheets/d/([A-Za-z0-9_\-]+)", str(url_or_id))
+    return m.group(1) if m else str(url_or_id).strip()
+
+def gsheet_reader(url_or_id):
+    """구글시트(공개) → sheet(name)->rows. gviz CSV(탭명 지정)로 탭을 읽어 캐시."""
+    import urllib.request, urllib.parse
+    sid = _sid(url_or_id); cache = {}
+    def sheet(name):
+        if name in cache: return cache[name]
+        url = "https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s" % (sid, urllib.parse.quote(name))
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            raw = urllib.request.urlopen(req, timeout=30).read().decode("utf-8-sig", "replace")
+            rows = list(csv.reader(io.StringIO(raw)))
+        except Exception:
+            rows = []
+        cache[name] = rows
+        return rows
+    return sheet
+
+def parse_tmall_daily(sheet, sheet_name="웨이크메이크_티몰 일자별매출"):
+    """티몰 일자별 매출 탭 → 브랜드별 일자 series (현재 시트엔 WAKEMAKE海外旗舰店 = 웨이크메이크만)."""
+    rows = sheet(sheet_name)
+    if not rows: return {}
+    h = rows[0]
+    def ci(*names):
+        for n in names:
+            if n in h: return h.index(n)
+        return -1
+    iDate, iStore = ci("통계 일자", "일자"), ci("상점명", "상점", "스토어")
+    iPay, iBuy, iOrd = ci("결제 완료 금액"), ci("결제 완료 구매자 수"), ci("결제 완료 하위 주문 건수", "주문 수량")
+    iUV = ci("상품 방문자 수(UV)", "방문자 수")
+    def num(v):
+        s = str(v).replace(",", "").replace("元", "").strip()
+        try: return float(s)
+        except ValueError: return 0.0
+    out = {}
+    for r in rows[1:]:
+        if iDate < 0 or iDate >= len(r): continue
+        d = str(r[iDate]).strip()[:10]
+        if not re.match(r"\d{4}-\d{2}-\d{2}", d): continue
+        store = str(r[iStore]) if 0 <= iStore < len(r) else ""
+        brand = "컬러그램" if ("COLORGRAM" in store.upper() or "colorgram" in store) else "웨이크메이크"
+        pay = num(r[iPay]) if 0 <= iPay < len(r) else 0
+        out.setdefault(brand, []).append({
+            "date": d, "salesKRW": round(pay * FX),
+            "orders": int(num(r[iOrd])) if 0 <= iOrd < len(r) else 0,
+            "buyers": int(num(r[iBuy])) if 0 <= iBuy < len(r) else 0,
+            "uv": int(num(r[iUV])) if 0 <= iUV < len(r) else 0,
+        })
+    for b in out: out[b].sort(key=lambda x: x["date"])
+    return out
 
 # =========================================================================
 #  B. 기존 대시보드(RAW)에서 티몰 파트 시드 — 엑셀 없이 검증용  — 기존 유지
@@ -416,6 +486,19 @@ def compute_daily(douyin, month="6월", store_type="cross"):
         "dates": dates, "series": series,
         "prev": {b: None for b in brands},   # 5월 일자별 미확보 → 시트 입력 시 채움
     }
+
+def daily_struct(series_by_brand, label, metricNote, month=None):
+    """임의 브랜드별 일자 series → 페이지① 데이터 구조(월 필터 옵션)."""
+    brands = ["웨이크메이크", "컬러그램"]
+    series = {b: list(series_by_brand.get(b, [])) for b in brands}
+    if month:
+        pre = "2026-%02d" % monthNum(month)
+        series = {b: [x for x in series[b] if x["date"].startswith(pre)] for b in brands}
+    for b in brands: series[b].sort(key=lambda x: x["date"])
+    dates = sorted({x["date"] for b in brands for x in series[b]})
+    return {"month": month or "1–6월", "brands": brands, "platformLabel": label,
+            "metricNote": metricNote, "coverage": (dates[0] + " ~ " + dates[-1]) if dates else "",
+            "dates": dates, "series": series, "prev": {b: None for b in brands}}
 
 # =========================================================================
 #  G. 플랫폼 통합(페이지②) 계산  (신규 · 브랜드 차원)
@@ -664,7 +747,7 @@ def build_from_sheet(cfg_path):
         data["mapping"] = mapping_out()
     else:
         data = assemble_from_parts(tmall, douyin, xhs, douyin_products=dprods, xhs_products=xprods)
-    json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    _write_data(data)
     render(data)
     return data
 
@@ -722,12 +805,29 @@ def write_seed_csv(data):
 # =========================================================================
 #  I. CLI
 # =========================================================================
+def _write_data(data):
+    """data.json 저장 — dailyTmall(구글시트 전용)은 다른 모드에서 기존값 보존."""
+    if "dailyTmall" not in data and os.path.exists(DATA_JSON):
+        try:
+            old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
+            if old.get("dailyTmall"): data["dailyTmall"] = old["dailyTmall"]
+        except Exception: pass
+    json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+def _gsheet_id_from_cfg():
+    if os.path.exists(SHEET_CFG):
+        try: return json.load(open(SHEET_CFG, "r", encoding="utf-8")).get("gsheetId")
+        except Exception: return None
+    return None
+
 def _summary(data):
     ms = data["months"]
     print("[완료] 티몰 월: %s (최신 %s)" % (ms, ms[-1] if ms else "-"))
-    d = data["daily"]
-    print("       일자별(%s): %s · %s" % (d["platformLabel"], d["coverage"],
-          " / ".join("%s %d일" % (b, len(d["series"][b])) for b in d["brands"])))
+    for key, lab in (("daily", "일자별·도우인"), ("dailyTmall", "일자별·티몰")):
+        d = data.get(key)
+        if d:
+            print("       [%s] %s · %s · %s" % (lab, d["platformLabel"], d["coverage"],
+                  " / ".join("%s %d일" % (b, len(d["series"][b])) for b in d["brands"])))
     for brand in data["platforms"]["brands"]:
         pf = data["platforms"]["byBrand"][brand]; um = pf["unmatched"]
         line = "       <%s> " % brand + " · ".join(
@@ -735,6 +835,11 @@ def _summary(data):
         print(line)
         print("           통합 매출 ₩%s · ROAS %sx · 미매칭 %d건" % (
               format(pf["combined"]["kpi"]["salesKRW"], ","), pf["combined"]["kpi"]["roas"], len(um)))
+
+def _local_douyin_xhs():
+    douyin = parse_douyin(RAW_MULTI) if os.path.exists(RAW_MULTI) else []
+    xhs = parse_xhs_juguang(RAW_MULTI) if os.path.exists(RAW_MULTI) else {"byMonth": {}, "catByMonth": {}}
+    return douyin, xhs
 
 def main():
     args = sys.argv[1:]
@@ -750,39 +855,47 @@ def main():
         data = json.load(open(DATA_JSON, "r", encoding="utf-8"))
         write_seed_csv(data); return
 
+    if cmd == "--gsheet":
+        # 구글시트('중국역직구 플랫폼 판매데이터') → 티몰 월별 + 티몰 일자별 동기화
+        src = args[1] if len(args) > 1 else _gsheet_id_from_cfg()
+        if not src: raise SystemExit("사용법: python build.py --gsheet <시트URL 또는 ID>  (또는 sheet.config.json 의 gsheetId)")
+        sh = gsheet_reader(src)
+        tmall = compute_tmall(_parse_tmall_sheets(sh))
+        if not tmall["months"]:
+            raise SystemExit("시트에서 티몰 데이터를 읽지 못했습니다 — 공유(링크 보기)·탭명 확인.")
+        douyin, xhs = _local_douyin_xhs()   # 도우인·샤오홍슈는 아직 시트에 없음 → 로컬 원본 유지
+        data = assemble_from_parts(tmall, douyin, xhs)
+        data["dailyTmall"] = daily_struct(parse_tmall_daily(sh),
+                                          "티몰글로벌(天猫国际) · 海外旗舰店",
+                                          "티몰 일 결제금액 · 증정 제외 · 환율 220원")
+        _write_data(data); render(data); _summary(data); return
+
     if cmd == "--sheet":
         cfg = args[1] if len(args) > 1 else SHEET_CFG
         data = build_from_sheet(cfg); _summary(data); return
 
     if cmd == "--seed":
-        # 티몰: 기존 data.json / 도우인·샤오홍슈: 원본 엑셀
         src = args[1] if len(args) > 1 else RAW_MULTI
         if not os.path.exists(src): raise SystemExit("원본이 없습니다: %s" % src)
         tmall = tmall_from_datajson()
         douyin = parse_douyin(src); xhs = parse_xhs_juguang(src)
         data = assemble_from_parts(tmall, douyin, xhs)
-        json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        render(data); _summary(data); return
+        _write_data(data); render(data); _summary(data); return
 
     if cmd == "--from-raw":
         if len(args) < 2: raise SystemExit("사용법: python build.py --from-raw <index_2.html>")
         tmall = compute_tmall(seed_from_raw(args[1]))
-        # 도우인·샤오홍슈는 원본 있으면 흡수
-        douyin = parse_douyin(RAW_MULTI) if os.path.exists(RAW_MULTI) else []
-        xhs = parse_xhs_juguang(RAW_MULTI) if os.path.exists(RAW_MULTI) else {"byMonth": {}, "catByMonth": {}}
+        douyin, xhs = _local_douyin_xhs()
         data = assemble_from_parts(tmall, douyin, xhs)
-        json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        render(data); _summary(data); return
+        _write_data(data); render(data); _summary(data); return
 
     # 기본: 티몰 원본 엑셀
     path = cmd
     if not os.path.exists(path): raise SystemExit("엑셀 파일을 찾을 수 없습니다: %s" % path)
     tmall = compute_tmall(parse_workbook(path))
-    douyin = parse_douyin(RAW_MULTI) if os.path.exists(RAW_MULTI) else []
-    xhs = parse_xhs_juguang(RAW_MULTI) if os.path.exists(RAW_MULTI) else {"byMonth": {}, "catByMonth": {}}
+    douyin, xhs = _local_douyin_xhs()
     data = assemble_from_parts(tmall, douyin, xhs)
-    json.dump(data, open(DATA_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    render(data); _summary(data)
+    _write_data(data); render(data); _summary(data)
 
 if __name__ == "__main__":
     main()

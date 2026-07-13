@@ -290,7 +290,8 @@
 
   <!-- =========================== VIEW ① 일자별 =========================== -->
   <section id="view-daily" class="view">
-    <div class="s-head" style="margin-top:18px">
+    <div class="psel" id="d-src-sel" style="margin-top:18px" role="tablist" aria-label="일자별 소스"></div>
+    <div class="s-head" style="margin-top:6px">
       <div><div class="s-eye">Daily Sell-out · by Brand</div><h2 id="d-title">일자별 매출 — 브랜드별</h2></div>
       <div class="s-src" id="d-src"></div>
     </div>
@@ -476,8 +477,16 @@ function wireTips(root){
    ===================================================================== */
 const BRANDCOL={'웨이크메이크':{v:'var(--green-2)',s:'var(--green)',soft:'var(--green-soft)'},
                 '컬러그램':{v:'var(--coral-2)',s:'var(--coral)',soft:'var(--coral-soft)'}};
+let curDailySrc='douyin';
+function dailyData(){return (curDailySrc==='tmall' && DATA.dailyTmall) ? DATA.dailyTmall : DATA.daily;}
+function renderDailySrcSel(){
+  const el=document.getElementById('d-src-sel');
+  if(!DATA.dailyTmall){ el.style.display='none'; return; }
+  const opts=[['douyin','도우인 · 6월'],['tmall','티몰 · 1–6월(시트)']];
+  el.innerHTML='<span class="selbl">일자별 소스</span>'+opts.map(o=>`<button class="pbtn${curDailySrc===o[0]?' active':''}" data-dsrc="${o[0]}">${o[1]}</button>`).join('');
+}
 function analyzeBrand(brand){
-  const a=DATA.daily.series[brand]||[]; if(!a.length) return null;
+  const a=dailyData().series[brand]||[]; if(!a.length) return null;
   const n=a.length, vals=a.map(x=>x.salesKRW), sum=vals.reduce((s,x)=>s+x,0), avg=sum/n;
   const h=Math.floor(n/2)||1;
   const fa=vals.slice(0,h).reduce((s,x)=>s+x,0)/h;
@@ -498,7 +507,8 @@ function analyzeBrand(brand){
   return {n,sum,avg,fa,sa,trend,slope,peak,trough,sd,spikes,dips,wdAvg,weAvg,orders,buyers,aov};
 }
 function renderDaily(){
-  const D=DATA.daily;
+  renderDailySrcSel();
+  const D=dailyData();
   document.getElementById('d-title').textContent=`일자별 매출 — 브랜드별 (${D.month})`;
   document.getElementById('d-src').innerHTML=`${D.platformLabel}<br>${D.coverage} · ${D.metricNote}`;
   const A={}; D.brands.forEach(b=>A[b]=analyzeBrand(b));
@@ -518,16 +528,20 @@ function renderDaily(){
   renderDailyChart(A);
   renderDailyInsight(A);
   renderDailyTable();
-  document.getElementById('d-note').innerHTML=`※ 일자별 소스는 <b>도우인 역직구(海外旗舰店)</b> 로우데이터입니다. 티몰·샤오홍슈 일자별을 구글시트 <code>일자별매출</code> 탭에 추가하면 총 매출 기준으로 자동 확장됩니다. 5월 일자별 데이터가 채워지면 '전월 대비'가 자동 표기됩니다.`;
+  document.getElementById('d-note').innerHTML = curDailySrc==='tmall'
+    ? `※ <b>티몰글로벌 일자별</b>(海外旗舰店 결제완료금액) — 구글시트 <code>웨이크메이크_티몰 일자별매출</code> 탭과 동기화. 컬러그램은 시트 보유 구간(~4월)까지 표기됩니다.`
+    : `※ <b>도우인 역직구(海外旗舰店)</b> 로우데이터(6월). 상단 토글로 <b>티몰 일자별(시트 동기화)</b>을 볼 수 있습니다. 도우인 일자별을 시트에 추가하면 동일하게 동기화됩니다.`;
 }
 function renderDailyChart(A){
-  const D=DATA.daily, dates=D.dates, n=dates.length;
+  const D=dailyData(), dates=D.dates, n=dates.length, longR=n>40;
   const W=720,H=300,mL=46,mR=14,mT=14,mB=34,iw=W-mL-mR,ih=H-mT-mB;
   let max=0; D.brands.forEach(b=>D.series[b].forEach(x=>{if(x.salesKRW>max)max=x.salesKRW;})); max*=1.14||1;
   const x=i=>mL+(n>1?iw*i/(n-1):iw/2), y=v=>mT+ih*(1-v/max);
   let g='';
   for(let k=0;k<=4;k++){const v=max*k/4,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
-  dates.forEach((d,i)=>{ if(n<=16||i%2===0||i===n-1){const g2=dow(d);g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-12}" text-anchor="middle" ${isWeekend(d)?'style="fill:var(--coral)"':''}>${+d.slice(8,10)}</text>`;}});
+  const step=Math.max(1,Math.ceil(n/14));
+  dates.forEach((d,i)=>{ const show=longR?(i%step===0||i===n-1):(n<=16||i%2===0||i===n-1);
+    if(show){const lab=longR?mdOf(d):(+d.slice(8,10));g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-12}" text-anchor="middle" ${(!longR&&isWeekend(d))?'style="fill:var(--coral)"':''}>${lab}</text>`;}});
   const idx=Object.fromEntries(dates.map((d,i)=>[d,i]));
   D.brands.forEach(b=>{
     const c=BRANDCOL[b]||BRANDCOL['웨이크메이크'], arr=D.series[b];
@@ -542,11 +556,11 @@ function renderDailyChart(A){
   document.getElementById('d-chart').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="일자별 브랜드 매출">${g}</svg>`;
 }
 function renderDailyInsight(A){
-  const D=DATA.daily, items=[];
+  const D=dailyData(), items=[], src=curDailySrc==='tmall'?'티몰':'도우인';
   D.brands.forEach(b=>{const a=A[b];if(!a)return;const c=BRANDCOL[b]||BRANDCOL['웨이크메이크'];
     const dir=a.trend>=3?'상승':a.trend<=-3?'하락':'보합';
     const dirC=a.trend>=3?'var(--good)':a.trend<=-3?'var(--bad)':'var(--gold)';
-    const peakFest=(+a.peak.date.slice(8,10)>=10 && +a.peak.date.slice(8,10)<=18)?' <b>(618 성수기)</b>':'';
+    const peakFest=(a.peak.date.slice(5,7)==='06' && +a.peak.date.slice(8,10)>=8 && +a.peak.date.slice(8,10)<=20)?' <b>(618 성수기)</b>':'';
     const weTxt=a.weAvg&&a.wdAvg?(a.weAvg>a.wdAvg*1.05?`주말이 주중보다 <b>${pc((a.weAvg/a.wdAvg-1)*100,0)}</b> 높음`:a.weAvg<a.wdAvg*0.95?`주중이 주말보다 <b>${pc((a.wdAvg/a.weAvg-1)*100,0)}</b> 높음`:'주중·주말 유사'):'';
     items.push({h:b+' 추세',c:dirC,t:`전반 일평균 ${smartW(a.fa)} → 후반 ${smartW(a.sa)} <b style="color:${dirC}">${dir}(${a.trend>=0?'+':''}${a.trend.toFixed(0)}%)</b>. 피크 <b>${mdOf(a.peak.date)}</b> ${smartW(a.peak.salesKRW)}${peakFest} · 최저 ${mdOf(a.trough.date)} ${smartW(a.trough.salesKRW)}.${weTxt?' '+weTxt+'.':''}`});
   });
@@ -554,12 +568,15 @@ function renderDailyInsight(A){
   const wm=A['웨이크메이크'], cg=A['컬러그램'];
   if(wm&&cg){
     const bigger=wm.sum>=cg.sum?'웨이크메이크':'컬러그램', ratio=(Math.max(wm.sum,cg.sum)/Math.min(wm.sum,cg.sum));
-    items.push({h:'브랜드 비교',c:'var(--navy)',t:`${D.month} 도우인 역직구 합계 <b>웨메 ${smartW(wm.sum)}</b> vs <b>컬그 ${smartW(cg.sum)}</b> (${bigger} ${ratio.toFixed(1)}배). 객단가는 웨메 ${won(wm.aov)} · 컬그 ${won(cg.aov)} — 컬그는 <b>주문수 우위</b>(${intc(cg.orders)} vs ${intc(wm.orders)}건), 저단가·다빈도 구조.`});
+    const cov=(cg.n!==wm.n)?` (컬그 ${cg.n}일 · 웨메 ${wm.n}일 · 커버리지 상이)`:'';
+    const ordMore=cg.orders>=wm.orders?['컬그',cg.orders,wm.orders]:['웨메',wm.orders,cg.orders];
+    const lowAov=cg.aov<=wm.aov?'컬그':'웨메';
+    items.push({h:'브랜드 비교',c:'var(--navy)',t:`${D.month} ${src} 역직구 합계 <b>웨메 ${smartW(wm.sum)}</b> vs <b>컬그 ${smartW(cg.sum)}</b> (${bigger} ${ratio.toFixed(1)}배)${cov}. 객단가 웨메 ${won(wm.aov)} · 컬그 ${won(cg.aov)}(${lowAov} 저단가) — 주문수는 <b>${ordMore[0]} 우위</b>(${intc(ordMore[1])} vs ${intc(ordMore[2])}건).`});
   }
-  document.getElementById('d-insight').innerHTML=`<h3><span class="tag">자동 진단</span> ${D.month} 일자별 매출 — 추세·특이일·브랜드 구조 (자동 생성)</h3><div class="ins-grid">`+items.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div>`;
+  document.getElementById('d-insight').innerHTML=`<h3><span class="tag">자동 진단</span> ${D.month} 일자별 매출(${src}) — 추세·특이일·브랜드 구조 (자동 생성)</h3><div class="ins-grid">`+items.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div>`;
 }
 function renderDailyTable(){
-  const D=DATA.daily, idxOf={};
+  const D=dailyData(), idxOf={};
   D.brands.forEach(b=>D.series[b].forEach(x=>{(idxOf[x.date]=idxOf[x.date]||{})[b]=x;}));
   const rows=D.dates.map(d=>{
     const wm=(idxOf[d]||{})['웨이크메이크']||{salesKRW:0,orders:0}, cg=(idxOf[d]||{})['컬러그램']||{salesKRW:0,orders:0};
@@ -937,6 +954,7 @@ document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.cl
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['daily','platforms','tmall'].includes(v))showView(v);});
 document.getElementById('p-sel').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curPlat=b.dataset.plat;renderPlatforms();});
 document.getElementById('p-brand').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curBrand=b.dataset.brand;curPlat='통합';renderPlatforms();});
+document.getElementById('d-src-sel').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curDailySrc=b.dataset.dsrc;renderDaily();});
 
 /* theme toggle */
 document.getElementById('themeBtn').addEventListener('click',()=>{
