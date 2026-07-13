@@ -74,10 +74,16 @@ COST_PLATFORM = {
 def monthNum(m):
     mm = re.sub(r"[^0-9]", "", str(m))
     return int(mm) if mm else 0
+_LINEMAP = {}   # 티몰글로벌 시트 라인명(id→국문명, 브랜드접두 제거)
+def set_linemap(d):
+    global _LINEMAP; _LINEMAP = d or {}
 def kname(pid, cn):
+    pid = str(pid)
+    nm = _LINEMAP.get(pid)
+    if nm and re.search(r"[가-힣]", nm): return nm        # 시트 국문명 우선(정본)
     if NAME_MAP.get(pid): return NAME_MAP[pid]
     cn = str(cn or "").strip()
-    return cn[:26] if cn else ("코드 " + str(pid)[-6:])
+    return cn[:26] if cn else ("코드 " + pid[-6:])       # 국문 매칭 없으면 중문명
 def is_gift(p):
     cn = str(p.get("cn") or "")
     if ("赠品" in cn) and (p.get("payCNY") or 0) == 0: return True
@@ -116,10 +122,23 @@ def _parse_tmall_sheets(sheet):
         f = num(s)
         return round(f * 100, 2) if 0 < f <= 1.5 else round(f, 2)
 
-    tmall_actual = []
+    tmall_rows = []   # '티몰글로벌' 탭: 첫 '티몰' 행=웨메(원), 둘째=컬러그램(백만원)
     for row in sheet("티몰글로벌"):
         if len(row) > 8 and str(row[8]).strip() == "티몰":
-            tmall_actual = [num(x) for x in row[9:15]]; break
+            tmall_rows.append([num(x) for x in row[9:15]])
+    tmall_actual = tmall_rows[0] if tmall_rows else []
+    targets = {"웨이크메이크": tmall_actual}
+    if len(tmall_rows) >= 2:   # 컬러그램 섹션은 백만원 → 원 환산
+        targets["컬러그램"] = [v * 1e6 if (v and abs(v) < 1e5) else v for v in tmall_rows[1]]
+    linemap = {}   # 티몰코드→라인명(국문 정본) : 인접 셀 스캔(WM col1-2, CG col23-24 등)
+    for row in sheet("티몰글로벌"):
+        for j in range(len(row) - 1):
+            pid = re.sub(r"[^0-9]", "", str(row[j]))
+            nmv = str(row[j + 1]).strip()
+            if len(pid) >= 11 and nmv and re.search(r"[^\d,.\s]", nmv):
+                nmv = re.sub(r"^(웨이크메이크|컬러그램|WAKEMAKE|COLORGRAM)\s*", "", nmv, flags=re.I).strip()
+                if pid not in linemap and nmv: linemap[pid] = nmv
+    set_linemap(linemap)
 
     def idx(header, name):
         try: return header.index(name)
@@ -237,7 +256,8 @@ def _parse_tmall_sheets(sheet):
                   "buyUV": round(c["buy"]), "gmvKRW": round(c["gmv"] * FX),
                   "shareOfTotalUV": round(c["visit"] / total_uv * 1000) / 10 if total_uv else 0,
                   "roas": round(c["gmv"] / c["ad"] * 10) / 10 if c["ad"] else 0}
-    return {"months": months, "monthly": monthly, "cost": cost, "products": products, "traffic": traffic, "xhs": xhs}
+    return {"months": months, "monthly": monthly, "cost": cost, "products": products,
+            "traffic": traffic, "xhs": xhs, "targets": targets, "linemap": linemap}
 
 # =========================================================================
 #  A-2. 구글시트 판독기 (탭명=엑셀 시트명) + 티몰 일자별  (신규)
@@ -290,9 +310,8 @@ def fetch_tmall_ad_products(sid, gid):
         if ad <= 0: continue
         nm = str(r[iNm]) if 0 <= iNm < len(r) else ""
         brand = "컬러그램" if "COLORGRAM" in nm.upper().replace(" ", "") else "웨이크메이크"
-        name = NAME_MAP.get(pid) or (nm[:26] if nm.strip() else "코드 " + pid[-6:])
         out.setdefault(m, []).append({
-            "id": pid, "name": name, "brand": brand,
+            "id": pid, "name": kname(pid, nm), "brand": brand,
             "adKRW": round(ad * FX),
             "directGmvKRW": round((_numc(r[iGmv]) if 0 <= iGmv < len(r) else 0) * FX),
             "roi": round(_numc(r[iRoi]) if 0 <= iRoi < len(r) else 0, 2),
@@ -374,8 +393,9 @@ def compute_tmall(u, ad=None):
 
     def one_brand(bko, bkey):
         isWM = (bko == "웨이크메이크")
+        btargets = u.get("targets", {}).get(bko) or []
         series = []
-        for m in months:
+        for mi, m in enumerate(months):
             rows = bprods(m, bkey)
             sales = sum(p["payCNY"] for p in rows) * FX
             uv = sum(p["uv"] for p in rows)
@@ -391,7 +411,7 @@ def compute_tmall(u, ad=None):
             xhsAd = round(xh.get("adKRW", 0))
             paid = tmAd + xhsAd
             mo = monthly_by.get(m, {}) if isWM else {}
-            target = round(mo.get("targetKRW", 0))
+            target = round(btargets[mi]) if (mi < len(btargets) and btargets[mi]) else (round(mo.get("targetKRW", 0)) if isWM else 0)
             if isWM:
                 costK = round(sum(c["cny"] for c in cs) * FX)
                 oy = round(sum(c["cny"] for c in cs if c["owner"] == "OY") * FX)
