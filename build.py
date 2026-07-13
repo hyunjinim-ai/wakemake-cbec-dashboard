@@ -84,6 +84,52 @@ def kname(pid, cn):
     if NAME_MAP.get(pid): return NAME_MAP[pid]
     cn = str(cn or "").strip()
     return cn[:26] if cn else ("코드 " + pid[-6:])       # 국문 매칭 없으면 중문명
+def _is_loopy(name):
+    n = str(name).lower()
+    return "loopy" in n or "루피" in n
+
+def _merge_sellout(products, total_payCNY):
+    """동일 제품(같은 라인명) SKU 합산 · loopy 콜라보는 별도 유지."""
+    from collections import OrderedDict
+    g = OrderedDict(); out = []
+    for p in products:
+        if _is_loopy(p["name"]): out.append(p); continue
+        k = p["name"]
+        if k not in g:
+            e = dict(p); e["ids"] = [p["id"]]; e["_uvconv"] = (p["uv"] or 0) * (p["conv"] or 0); g[k] = e
+        else:
+            e = g[k]
+            e["payKRW"] += p["payKRW"]; e["payCNY"] += p["payCNY"]; e["uv"] += p["uv"]
+            e["_uvconv"] += (p["uv"] or 0) * (p["conv"] or 0); e["ids"].append(p["id"])
+            if p["status"] == "온라인": e["status"] = "온라인"
+            if p.get("new"): e["new"] = True
+    for e in g.values():
+        e["conv"] = round(e["_uvconv"] / e["uv"], 2) if e["uv"] else 0
+        e.pop("_uvconv", None); out.append(e)
+    for p in out:
+        p["share"] = round(p["payCNY"] / total_payCNY * 1000) / 10 if total_payCNY else 0
+    out.sort(key=lambda x: -x["payKRW"])
+    return out
+
+def _merge_ad(adlist):
+    """동일 제품(같은 상품명) 광고비 합산 · loopy 콜라보는 별도 유지."""
+    from collections import OrderedDict
+    g = OrderedDict(); out = []
+    for a in adlist:
+        if _is_loopy(a["name"]): out.append(a); continue
+        k = a["name"]
+        if k not in g:
+            e = dict(a); e["ids"] = [a["id"]]; g[k] = e
+        else:
+            e = g[k]
+            for f in ("adKRW", "directGmvKRW", "imp", "clk"): e[f] = (e.get(f) or 0) + (a.get(f) or 0)
+            e["ids"].append(a["id"])
+    for e in g.values():
+        e["roi"] = round(e["directGmvKRW"] / e["adKRW"], 2) if e.get("adKRW") else 0
+        out.append(e)
+    out.sort(key=lambda x: -x["adKRW"])
+    return out
+
 def is_gift(p):
     cn = str(p.get("cn") or "")
     if ("赠品" in cn) and (p.get("payCNY") or 0) == 0: return True
@@ -442,7 +488,8 @@ def compute_tmall(u, ad=None):
                 "payKRW": round((p.get("payCNY") or 0) * FX), "payCNY": p.get("payCNY") or 0,
                 "conv": p.get("conv") or 0, "share": round((p["payCNY"] / tot * 1000)) / 10 if tot else 0,
             } for p in rows]
-            adlist = sorted(adBM.get(m, {}).get(bko, []), key=lambda a: -a["adKRW"])
+            products = _merge_sellout(products, tot)   # 동일제품(같은 라인명) SKU 합산 · loopy 별도
+            adlist = _merge_ad(sorted(adBM.get(m, {}).get(bko, []), key=lambda a: -a["adKRW"]))
             if isWM:
                 cur = u["cost"].get(m, []); prev = u["cost"].get(months[i - 1], []) if i > 0 else []
                 def find(rows_, o, it):
