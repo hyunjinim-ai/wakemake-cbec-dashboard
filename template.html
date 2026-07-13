@@ -476,7 +476,8 @@
 
   <!-- =========================== VIEW ④ 도우인 월별 =========================== -->
   <section id="view-douyin" class="view">
-    <div class="psel" id="dy-brand" style="margin-top:18px" role="tablist" aria-label="브랜드 선택"></div>
+    <div id="dy-combined" style="margin-top:18px"></div>
+    <div class="psel" id="dy-brand" style="margin-top:14px" role="tablist" aria-label="브랜드 선택"></div>
     <div id="dy-body"></div>
   </section>
 
@@ -1005,7 +1006,7 @@ function renderMarketing(){ const {J,PREV,M}=ctx();
   document.getElementById('donutSub').textContent=`${cur} 유료광고 구성`;
   document.getElementById('donut').innerHTML=`<svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="유료광고 구성"><g transform="rotate(-90 60 60)"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--coral-2)" stroke-width="${SW}"/><circle class="hit" cx="60" cy="60" r="${R}" fill="none" stroke="var(--green-2)" stroke-width="${SW}" stroke-dasharray="${seg.toFixed(1)} ${C0.toFixed(1)}" data-tip="${esc('티몰 유료광고 '+won(tmAd)+' ('+pc(tmAd/tot*100)+')')}"/></g><text x="60" y="55" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-weight="700">유료 계</text><text x="60" y="72" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="800" class="num">${smart(tot)}</text></svg>`;
   document.getElementById('donut-legend').innerHTML=[{n:'티몰 유료광고 (스틸)',v:tmAd,c:'var(--green-2)'},{n:'쥐광(聚光) CID (OY)',v:xhAd,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('')
-    +(xhAd===0?`<div class="note" style="margin-top:8px"><b>${curTmallBrand} 쥐광(聚光)/CID ₩0</b> — 해당 데이터가 시트에 없습니다. <b>'마케팅비_쥐광'</b>·<b>'CID'</b> 탭을 추가하면 웨메와 동일하게 집계됩니다.</div>`:'');
+    +(xhAd===0?`<div class="note" style="margin-top:8px">${curTmallBrand==='웨이크메이크'?'웨메는 샤오홍슈 <b>효과광고(聚光)/CID 미집행</b> — 聚光은 컬그 채널입니다.':`컬그 聚光/CID는 <b>컬러그램 샤오홍씽·CID-광고</b> 탭 기준으로, ${cur} 데이터는 아직 미입력입니다(현재 1~5월).`}</div>`:'');
   const badge=document.getElementById('xhs-badge');
   if(!J.xhsAdKRW && !J.xhsGmvKRW){
     badge.className='badge'; badge.textContent='—';
@@ -1145,55 +1146,107 @@ sel.innerHTML=MONTHS.map(m=>`<option value="${m}">${m}</option>`).join('');
 sel.value=cur;
 sel.addEventListener('change',e=>{cur=e.target.value; renderTmall();});
 
-/* ===== ④ 도우인 월별 ===== */
+/* ===== ④ 도우인 월별 (실데이터: 도우인 일자별매출·상품판매·OY마케팅) ===== */
 let curDouyinBrand='웨이크메이크';
-function dyKpi(brand){ try{ return DATA.platforms.byBrand[brand].byPlatform['도우인'].kpi||{}; }catch(e){ return {}; } }
-function dyTrend(){
-  const mp=DATA.monthlyPlatform||{months:[],'도우인':[]};
-  const jun=(dyKpi('웨이크메이크').salesKRW||0)+(dyKpi('컬러그램').salesKRW||0);
-  return { months:(mp.months||[]).concat(jun?['6월']:[]), vals:(mp['도우인']||[]).concat(jun?[jun]:[]) };
+const DYD=DATA.douyin||{monthly:{},products:{}};
+const OYCAT={'Traffic AD':'유료 트래픽 광고','KOL':'KOL(인플루언서)','KOC':'KOC(마이크로)','SNS':'SNS 바이럴','达人直播':'인플루언서 라이브','竞品采购':'경쟁사 리서치 구매','星图2%':'星图 수수료(도우인)','星图 2%':'星图 수수료(도우인)','美one':'美ONE(李佳琦)'};
+function dyM(b){ return (DYD.monthly&&DYD.monthly[b])||{}; }
+function dyAt(b,m){ return dyM(b)[m]||null; }
+function dyPrevMonth(m){ const i=MONTHS.indexOf(m); return i>0?MONTHS[i-1]:null; }
+function dyTrendChart2(wm,cg){
+  const W=720,H=250,mL=54,mR=14,mT=16,mB=28,iw=W-mL-mR,ih=H-mT-mB,n=MONTHS.length;
+  const all=wm.concat(cg), max=Math.max(...all,1)*1.14, x=i=>mL+(n>1?iw*i/(n-1):iw/2), y=v=>mT+ih*(1-v/max); let g='';
+  for(let k=0;k<=4;k++){const v=max*k/4,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
+  MONTHS.forEach((m,i)=>{g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-9}" text-anchor="middle" ${m===cur?'style="font-weight:800;fill:var(--ink)"':''}>${m}</text>`;});
+  [['웨이크메이크',wm,BRANDCOL['웨이크메이크'].v],['컬러그램',cg,BRANDCOL['컬러그램'].v]].forEach(([b,vals,col])=>{
+    const pts=vals.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ');
+    g+=`<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2.6" stroke-linejoin="round"/>`;
+    vals.forEach((v,i)=>{const sel=MONTHS[i]===cur;g+=`<circle class="hit" cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${sel?5:3.4}" fill="${sel?col:'var(--surface)'}" stroke="${col}" stroke-width="2" data-tip="${esc(b+' '+MONTHS[i]+'  '+won(v))}"/>`;});
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="도우인 브랜드별 월별 매출">${g}</svg>`;
 }
 function renderDouyinBrandSel(){
   document.getElementById('dy-brand').innerHTML='<span class="selbl">브랜드</span>'+['웨이크메이크','컬러그램'].map(b=>`<button class="pbtn${b===curDouyinBrand?' active':''}" data-dybrand="${b}">${b}</button>`).join('');
 }
+function renderDouyinCombined(){
+  const el=document.getElementById('dy-combined'); if(!el) return;
+  const pm=dyPrevMonth(cur);
+  const at=m=>{let s=0,o=0,bu=0;['웨이크메이크','컬러그램'].forEach(b=>{const x=dyAt(b,m);if(x){s+=x.salesKRW||0;o+=x.orders||0;bu+=x.buyers||0;}});return{s,o,bu};};
+  const C=at(cur), P=pm?at(pm):null, tot=C.s||1;
+  const each=['웨이크메이크','컬러그램'].map(b=>{const x=dyAt(b,cur)||{};return{b,s:x.salesKRW||0};});
+  const split=each.filter(x=>x.s>0).map(x=>`<div class="seg" style="width:${(x.s/tot*100).toFixed(1)}%;background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}" data-tip="${esc(x.b+' '+won(x.s)+' ('+pc(x.s/tot*100)+')')}">${x.s/tot>0.12?x.b:''}</div>`).join('');
+  const legs=each.map(x=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}"></i>${x.b}</span></span><span class="vv num">${won(x.s)} · ${pc(x.s/tot*100)}</span></div>`).join('');
+  const stat=(lab,val,foot,ac)=>`<div class="kpi" style="flex:1"><div class="k-accent" style="background:${ac}"></div><div class="k-label">${lab}</div><div class="k-val num" style="font-size:23px;margin-top:6px">${val}</div><div class="k-foot num">${foot}</div></div>`;
+  el.innerHTML=`<div class="s-head" style="margin-bottom:8px"><div><div class="s-eye" style="color:var(--coral)">Douyin · Combined</div><h2>${cur} 도우인 통합 (웨메+컬그) 고정 요약</h2></div><div class="s-src">브랜드 선택과 무관 · 항상 합계</div></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      ${stat('통합 도우인 매출', smartW(C.s), '전월 '+(P?mom(C.s,P.s):'–')+(P?' · '+pm+' '+smartW(P.s):''), 'var(--coral-2)')}
+      ${stat('통합 주문수', intc(C.o)+'건', '구매자 '+intc(C.bu)+'명 · 전월 '+(P?mom(C.o,P.o):'–'), 'var(--green-2)')}
+    </div>
+    <div class="card" style="margin-top:12px"><div class="splitbar">${split}</div><div style="margin-top:10px">${legs}</div></div>`;
+}
 function renderDouyin(){
-  renderDouyinBrandSel();
-  const B=curDouyinBrand, K=dyKpi(B), O=dyKpi(B==='웨이크메이크'?'컬러그램':'웨이크메이크');
+  renderDouyinCombined(); renderDouyinBrandSel();
+  const B=curDouyinBrand, K=dyAt(B,cur)||{}, pm=dyPrevMonth(cur), P=pm?dyAt(B,pm):null;
+  const O=dyAt(B==='웨이크메이크'?'컬러그램':'웨이크메이크',cur)||{};
   const c=BRANDCOL[B]||BRANDCOL['웨이크메이크'];
-  const roasTxt=(K.roas!=null)?K.roas.toFixed(2)+'x':'—';
+  const pv=k=>P?P[k]:null;
   const kpis=[
-    kpiCard('도우인 매출(6월)', smartW(K.salesKRW||0), 'GMV '+smartW(K.gmvKRW||0)+' · 海外旗舰店(역직구)', c.v),
-    kpiCard('주문수', intc(K.orders||0)+'건', '구매자 '+intc(K.buyers||0)+'명', 'var(--green-2)'),
-    kpiCard('객단가(AOV)', won(K.aov||0), (K.aov>=(O.aov||0)?'상대 브랜드보다 높음':'상대 브랜드보다 낮음'), 'var(--blue)'),
-    (K.roas!=null)
-      ? kpiCard('도우인 ROAS', roasTxt, '매출 / 도우인 마케팅비('+smartW(K.costKRW||0)+')', 'var(--navy)')
-      : kpiCard('도우인 마케팅비', smartW(K.costKRW||0), (K.costKRW?'라이브방송 Still 부담':'광고비 미집계 · ROAS 산출 불가'), 'var(--navy)'),
+    kpiCard('도우인 매출('+cur+')', smartW(K.salesKRW||0), 'GMV '+smartW(K.gmvKRW||0)+' · 海外旗舰店', c.v, mom(K.salesKRW,pv('salesKRW'))),
+    kpiCard('주문수', intc(K.orders||0)+'건', '구매자 '+intc(K.buyers||0)+'명', 'var(--green-2)', mom(K.orders,pv('orders'))),
+    kpiCard('객단가(AOV)', won(K.aov||0), (K.aov>=(O.aov||0)?'상대 브랜드보다 높음':'상대 브랜드보다 낮음'), 'var(--blue)', mom(K.aov,pv('aov'))),
+    kpiCard('구매자수', intc(K.buyers||0)+'명', '노출 '+smart(K.impUV||0)+' · 클릭 '+intc(K.clickUV||0), 'var(--navy)', mom(K.buyers,pv('buyers'))),
   ].join('');
-  const conv=(K.uv&&K.buyers)?K.buyers/K.uv*100:null;
+  // 퍼널
+  const ctr=(K.impUV&&K.clickUV)?K.clickUV/K.impUV*100:null, cvr=(K.clickUV&&K.buyers)?K.buyers/K.clickUV*100:null;
+  // 인사이트
+  const gmom=P?(K.salesKRW-P.salesKRW)/(P.salesKRW||1)*100:null;
+  const vals=MONTHS.map(m=>(dyAt(B,m)||{}).salesKRW||0), peak=Math.max(...vals), peakM=MONTHS[vals.indexOf(peak)];
   const ins=[];
-  if(K.roas!=null){ const bad=K.roas<1.5; ins.push({h:'광고 효율 '+(bad?'점검':'양호'),c:bad?'var(--warn)':'var(--good)',t:`도우인 ROAS <b>${roasTxt}</b> · 마케팅비 ${smartW(K.costKRW||0)}(라이브 Still 부담).`}); }
-  else ins.push({h:'광고 효율',c:'var(--ink-3)',t:`도우인 광고비 미집계 — ROAS 산출 불가. 매출 ${smartW(K.salesKRW||0)}는 자연·라이브 유입 기준.`});
-  ins.push({h:'객단가 구조',c:'var(--gold)',t:`AOV <b>${won(K.aov||0)}</b> · 주문 ${intc(K.orders||0)}건 / 구매자 ${intc(K.buyers||0)}명. ${B==='컬러그램'?'저가·다구매형':'고가·집중형'} 패턴.`});
-  if(conv!=null) ins.push({h:'구매 전환',c:conv>=3?'var(--good)':'var(--warn)',t:`도우인 유입 ${intc(K.uv)} 중 구매전환 <b>${pc(conv,2)}</b>.`});
-  const insHtml=`<div class="callout" style="border-left-color:${c.v}"><h3><span class="dot" style="background:${c.v}"></span>${B} · 6월 도우인 진단</h3><div class="ins-grid" style="grid-template-columns:1fr;margin-top:8px">`+ins.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div></div>`;
-  const T=dyTrend();
-  const trendHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Performance Trend</div><h2>① 상반기 도우인 매출 추이 (합산)</h2></div><div class="s-src">1~5월 플랫폼 시트 · 6월 일자별 집계<br>브랜드 합산 · 환율 220원</div></div>
-    <div class="card"><div class="card-h"><div><div class="c-t">도우인(抖音) 월별 매출</div><div class="c-s">웨메+컬그 합산 · 라인 차트</div></div><div class="legend"><span class="lg line"><i style="background:var(--coral-2)"></i>도우인 합산</span></div></div>${cgTrendChart(T.months,T.vals)}</div>
-    <div class="note" style="margin-top:10px">※ 1~5월은 도우인 <b>브랜드 합산</b>(플랫폼 월별 시트)만 확보되어 브랜드 분리가 불가합니다. 6월은 일자별 데이터로 분리(웨메 ${smartW(dyKpi('웨이크메이크').salesKRW||0)} · 컬그 ${smartW(dyKpi('컬러그램').salesKRW||0)})됩니다.</div></section>`;
-  const ph=(eye,num,title,body)=>`<section class="blk"><div class="s-head"><div><div class="s-eye">${eye}</div><h2>${num} ${title}</h2></div></div><div class="note" style="padding:20px;text-align:center;font-size:13px">${body}</div></section>`;
-  const sellPh=ph('Sell-out','②','6월 상품별 Sell-out',`도우인은 스토어 단위 일자 집계만 있어 <b>상품별 매출 분해가 불가</b>합니다. 시트에 <b>'도우인_웨메'·'도우인_컬그' 상품별</b> 탭을 추가하면 웨메 티몰과 동일 형식으로 표시됩니다.`);
-  const mkKnown=(K.costKRW||0)>0
-    ? `<div class="kv"><span class="kk"><span class="lg"><i style="background:var(--coral-2)"></i>도우인 라이브방송(Still 부담 수수료)</span></span><span class="vv num">${won(K.costKRW)}</span></div>`
-    : `<div class="note" style="border:none;background:none;padding:6px 0">${B} 도우인 마케팅비가 시트에 없습니다.</div>`;
-  const mktPh=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>③ 6월 마케팅 비용 상세</h2></div><div class="s-src">확보분만 표시 · 항목별 상세는<br>도우인_웨메/컬그 탭 필요</div></div>
-    <div class="card"><div class="card-h"><div><div class="c-t">${B} 도우인 마케팅비 (확보분)</div></div></div><div style="padding:4px 2px">${mkKnown}</div>
-    <div class="note" style="margin-top:10px">쥐광(巨量)·라이브 커미션·인플루언서 등 <b>항목별 상세</b>는 <b>'도우인_웨메'·'도우인_컬그' 마케팅비</b> 탭 추가 시 웨메 티몰과 동일하게 집계됩니다.</div></div></section>`;
-  const trafPh=ph('Traffic Source','④','6월 유입경로',`도우인 유입경로(자연·광고·라이브·검색) 데이터가 시트에 없습니다. <b>'도우인_웨메'·'도우인_컬그' 유입</b> 탭 추가 시 표시됩니다.`);
+  ins.push({h:'매출 추세 '+(gmom==null?'':gmom>=0?'성장':'둔화'),c:gmom==null?'var(--ink-3)':gmom>=0?'var(--good)':'var(--warn)',
+    t:`${cur} 도우인 <b>${smartW(K.salesKRW||0)}</b>${P?` · 전월 대비 <b>${mom(K.salesKRW,P.salesKRW)}</b>`:''}. 상반기 최고 ${peakM} ${smartW(peak)}.`});
+  ins.push({h:'객단가 구조',c:'var(--gold)',t:`AOV <b>${won(K.aov||0)}</b> · 주문 ${intc(K.orders||0)}건 / 구매자 ${intc(K.buyers||0)}명. ${B==='컬러그램'?'저가·다구매형':'상대적 고가·집중형'} 패턴.`});
+  if(cvr!=null) ins.push({h:'전환 퍼널',c:cvr>=3?'var(--good)':'var(--warn)',t:`상품 노출 ${smart(K.impUV||0)} → 클릭 ${intc(K.clickUV||0)}(CTR <b>${pc(ctr,2)}</b>) → 구매 ${intc(K.buyers||0)}(CVR <b>${pc(cvr,2)}</b>).`});
+  const insHtml=`<div class="callout" style="border-left-color:${c.v}"><h3><span class="dot" style="background:${c.v}"></span>${B} · ${cur} 도우인 진단</h3><div class="ins-grid" style="grid-template-columns:1fr;margin-top:8px">`+ins.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div></div>`;
+  // 추이(브랜드 2라인)
+  const wmV=MONTHS.map(m=>(dyAt('웨이크메이크',m)||{}).salesKRW||0), cgV=MONTHS.map(m=>(dyAt('컬러그램',m)||{}).salesKRW||0);
+  const trendHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Performance Trend</div><h2>① 상반기 도우인 매출 추이</h2></div><div class="s-src">브랜드별 월매출(载体=全部)<br>증정 제외 결제금액 · 환율 220원</div></div>
+    <div class="card"><div class="card-h"><div><div class="c-t">도우인(抖音) 월별 매출</div><div class="c-s">웨메 vs 컬그 · 라인 차트</div></div><div class="legend"><span class="lg line"><i style="background:${BRANDCOL['웨이크메이크'].v}"></i>웨메</span><span class="lg line"><i style="background:${BRANDCOL['컬러그램'].v}"></i>컬그</span></div></div>${dyTrendChart2(wmV,cgV)}</div></section>`;
+  // Sell-out(실상품)
+  const prods=(DYD.products&&DYD.products[B])||[];
+  let sellHtml;
+  if(prods.length){
+    const top=prods.slice(0,15), maxP=top[0].payKRW||1;
+    const rows=top.map((p,i)=>`<tr data-tip="${esc(p.name+'\n결제 '+won(p.payKRW)+' · 비중 '+pc(p.share))}"><td class="rank">${i+1}</td><td class="l">${p.name}</td><td class="l barcell"><i style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td></tr>`).join('')
+      +(prods.length>15?`<tr><td colspan="4" class="l" style="color:var(--ink-3);font-size:11px">외 ${prods.length-15}개 상품 · 결제금액 상위 15개</td></tr>`:'');
+    sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div><div class="s-src">도우인 상품판매(载体=全部)<br>증정 제외 결제금액</div></div>
+      <div class="card"><div class="tbl-wrap"><table><thead><tr><th class="l">#</th><th class="l">상품(중문 정리명)</th><th>결제금액(₩)</th><th>비중</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="note" style="margin-top:8px">상품명은 도우인 원문(브랜드 접두 정리). 티몰 SKU 매핑은 상품ID가 달라 별도 · 필요 시 매핑 확장.</div></div></section>`;
+  } else sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} 도우인 ${cur} 상품 데이터가 없습니다.</div></section>`;
+  // 마케팅비(OY마케팅, 브랜드 총액)
+  const oy=(DATA.oyMkt&&DATA.oyMkt[B]&&DATA.oyMkt[B][cur])||{};
+  const oyEnt=Object.entries(oy).sort((a,b)=>b[1]-a[1]), oyTot=oyEnt.reduce((s,x)=>s+x[1],0);
+  let mktHtml;
+  if(oyEnt.length){
+    const mx=oyEnt[0][1];
+    const bars=oyEnt.map(([cat,v])=>`<div class="pbar" data-tip="${esc((OYCAT[cat]||cat)+' '+won(v)+' ('+pc(v/oyTot*100)+')')}"><div class="pb-top"><div class="pb-name"><span class="nm">${OYCAT[cat]||cat}</span></div><div class="pb-val num">${won(v)}</div></div><div class="pb-track"><div class="pb-fill" style="width:${(v/mx*100).toFixed(1)}%"></div></div></div>`).join('');
+    mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>③ ${cur} 마케팅 비용 상세</h2></div><div class="s-src">OY 집행 마케팅비(브랜드 총액)<br>채널 구분 없음 · ₩ 기준</div></div>
+      <div class="card"><div class="card-h"><div><div class="c-t">${B} ${cur} 마케팅비 <span class="num">${won(oyTot)}</span></div><div class="c-s">항목별 · OY마케팅 비용 사용내역</div></div></div><div class="pbars">${bars}</div>
+      <div class="note" style="margin-top:8px">※ OY마케팅비는 <b>브랜드 단위 총액</b>(도우인·샤오홍슈·티몰 통합)으로, 도우인 <b>채널 전용</b> 분리는 시트에 채널 컬럼이 없어 불가합니다. ${B==='컬러그램'?'컬그는 도우인 유료광고 미투입.':''}</div></div></section>`;
+  } else mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>③ ${cur} 마케팅 비용 상세</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} ${cur} OY마케팅비 데이터가 없습니다.</div></section>`;
+  // 유입·전환 퍼널
+  const fun=(K.impUV||K.clickUV||K.buyers)?`<section class="blk"><div class="s-head"><div><div class="s-eye">Traffic · Funnel</div><h2>④ ${cur} 유입·전환 퍼널</h2></div><div class="s-src">상품 노출→클릭→구매<br>도우인 일자별 집계</div></div>
+    <div class="card"><div class="fnl">
+      <div class="kv"><span class="kk">상품 노출(UV)</span><span class="vv num">${intc(K.impUV||0)}</span></div>
+      <div class="kv"><span class="kk">상품 클릭(UV) · CTR</span><span class="vv num">${intc(K.clickUV||0)} · ${pc(ctr,2)}</span></div>
+      <div class="kv"><span class="kk">구매자 · CVR(클릭→구매)</span><span class="vv num">${intc(K.buyers||0)} · ${pc(cvr,2)}</span></div>
+      <div class="kv"><span class="kk">주문 전환(구매/노출)</span><span class="vv num">${pc((K.impUV?K.buyers/K.impUV*100:0),3)}</span></div>
+    </div></div></section>`
+    :`<section class="blk"><div class="s-head"><div><div class="s-eye">Traffic · Funnel</div><h2>④ ${cur} 유입·전환 퍼널</h2></div></div><div class="note" style="padding:20px;text-align:center">노출/클릭 데이터 없음</div></section>`;
   document.getElementById('dy-body').innerHTML=
-    `<div class="s-head" style="margin-top:8px"><div><div class="s-eye" style="color:var(--coral)">Douyin · Monthly</div><h2>도우인(抖音) 월별 — ${B}</h2></div><div class="s-src">역직구 海外旗舰店 · 6월 기준<br>증정 제외 결제금액 · 환율 220원</div></div>
+    `<div class="s-head" style="margin-top:8px"><div><div class="s-eye" style="color:var(--coral)">Douyin · Monthly</div><h2>도우인(抖音) 월별 — ${B}</h2></div><div class="s-src">역직구 海外旗舰店 · ${cur} 기준<br>증정 제외 결제금액 · 환율 220원</div></div>
      <div class="kpis">${kpis}</div>
      <div class="s-head" style="margin:22px 0 6px"><div><div class="s-eye">EC Insight</div><h2>EC 인사이트</h2></div></div>${insHtml}
-     ${trendHtml}${sellPh}${mktPh}${trafPh}`;
+     ${trendHtml}${sellHtml}${mktHtml}${fun}`;
 }
 
 /* ===== view orchestration ===== */

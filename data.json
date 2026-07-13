@@ -20,14 +20,14 @@
    "oyKRW": 14013780,
    "stKRW": 7780520,
    "tmallAdKRW": 7780470,
-   "paidAdKRW": 14582635,
+   "paidAdKRW": 7780470,
    "roas": 11.29,
-   "paidRoas": 16.88,
-   "xhsAdKRW": 6802165,
-   "xhsGmvKRW": 14668975,
-   "xhsRoas": 2.2,
-   "xhsShare": 4.6,
-   "xhsUV": 15390
+   "paidRoas": 31.64,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   },
   {
    "month": "2월",
@@ -40,14 +40,14 @@
    "oyKRW": 8685380,
    "stKRW": 8788780,
    "tmallAdKRW": 5378491,
-   "paidAdKRW": 8884807,
+   "paidAdKRW": 5378491,
    "roas": 10.45,
-   "paidRoas": 20.55,
-   "xhsAdKRW": 3506316,
-   "xhsGmvKRW": 8847021,
-   "xhsRoas": 2.5,
-   "xhsShare": 2.4,
-   "xhsUV": 6634
+   "paidRoas": 33.95,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   },
   {
    "month": "3월",
@@ -60,14 +60,14 @@
    "oyKRW": 16712520,
    "stKRW": 11659780,
    "tmallAdKRW": 9797433,
-   "paidAdKRW": 17256410,
+   "paidAdKRW": 9797433,
    "roas": 6.98,
-   "paidRoas": 11.48,
-   "xhsAdKRW": 7458977,
-   "xhsGmvKRW": 16496143,
-   "xhsRoas": 2.2,
-   "xhsShare": 4.8,
-   "xhsUV": 13762
+   "paidRoas": 20.22,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   },
   {
    "month": "4월",
@@ -80,14 +80,14 @@
    "oyKRW": 17063200,
    "stKRW": 23301300,
    "tmallAdKRW": 10938972,
-   "paidAdKRW": 19746819,
+   "paidAdKRW": 10938972,
    "roas": 6.21,
-   "paidRoas": 12.7,
-   "xhsAdKRW": 8807847,
-   "xhsGmvKRW": 23904129,
-   "xhsRoas": 2.7,
-   "xhsShare": 4.4,
-   "xhsUV": 14425
+   "paidRoas": 22.92,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   },
   {
    "month": "5월",
@@ -100,14 +100,14 @@
    "oyKRW": 27554340,
    "stKRW": 15814480,
    "tmallAdKRW": 8791352,
-   "paidAdKRW": 22497495,
+   "paidAdKRW": 8791352,
    "roas": 4.56,
-   "paidRoas": 8.8,
-   "xhsAdKRW": 13706143,
-   "xhsGmvKRW": 13412199,
-   "xhsRoas": 1.0,
-   "xhsShare": 4.0,
-   "xhsUV": 10392
+   "paidRoas": 22.51,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   },
   {
    "month": "6월",
@@ -120,14 +120,14 @@
    "oyKRW": 30342400,
    "stKRW": 17026460,
    "tmallAdKRW": 8993031,
-   "paidAdKRW": 31490546,
+   "paidAdKRW": 8993031,
    "roas": 3.16,
-   "paidRoas": 4.75,
-   "xhsAdKRW": 22497515,
-   "xhsGmvKRW": 19522494,
-   "xhsRoas": 0.9,
-   "xhsShare": 6.8,
-   "xhsUV": 15271
+   "paidRoas": 16.64,
+   "xhsAdKRW": 0,
+   "xhsGmvKRW": 0,
+   "xhsRoas": 0,
+   "xhsShare": 0,
+   "xhsUV": 0
   }
  ],
  "byMonth": {
@@ -991,20 +991,6 @@
      "cur": 7780520,
      "prev": 0,
      "diff": 7780520
-    },
-    {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 7211600,
-     "prev": 0,
-     "diff": 7211600
-    },
-    {
-     "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 6802180,
-     "prev": 0,
-     "diff": 6802180
     }
    ],
    "traffic": {
@@ -2020,25 +2006,11 @@
      "diff": -2401960
     },
     {
-     "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 3506360,
-     "prev": 6802180,
-     "diff": -3295820
-    },
-    {
      "owner": "스틸",
      "item": "도우인 라이브방송(Still 부담 수수료)",
      "cur": 3410220,
      "prev": 0,
      "diff": 3410220
-    },
-    {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 3330800,
-     "prev": 7211600,
-     "diff": -3880800
     },
     {
      "owner": "OY",
@@ -3032,20 +3004,6 @@
      "diff": 4418920
     },
     {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 8688240,
-     "prev": 3330800,
-     "diff": 5357440
-    },
-    {
-     "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 7458880,
-     "prev": 3506360,
-     "diff": 3952520
-    },
-    {
      "owner": "스틸",
      "item": "도우인 라이브방송(Still 부담 수수료)",
      "cur": 1862300,
@@ -4012,20 +3970,6 @@
     },
     {
      "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 8807920,
-     "prev": 7458880,
-     "diff": 1349040
-    },
-    {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 4725380,
-     "prev": 8688240,
-     "diff": -3962860
-    },
-    {
-     "owner": "OY",
      "item": "라이브방송 올리브영 지원분",
      "cur": 3529900,
      "prev": 565400,
@@ -4888,20 +4832,6 @@
     }
    ],
    "costItems": [
-    {
-     "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 13706220,
-     "prev": 8807920,
-     "diff": 4898300
-    },
-    {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 11380600,
-     "prev": 4725380,
-     "diff": 6655220
-    },
     {
      "owner": "스틸",
      "item": "티몰 유료광고(내부광고 소모액)",
@@ -5848,13 +5778,6 @@
    ],
    "costItems": [
     {
-     "owner": "OY",
-     "item": "샤오홍씽 CID 효과광고(聚光)",
-     "cur": 22497420,
-     "prev": 13706220,
-     "diff": 8791200
-    },
-    {
      "owner": "스틸",
      "item": "티몰 유료광고(내부광고 소모액)",
      "cur": 8992940,
@@ -5867,13 +5790,6 @@
      "cur": 8033520,
      "prev": 7023060,
      "diff": 1010460
-    },
-    {
-     "owner": "OY",
-     "item": "KOL/KOC/SNS 바이럴 마케팅",
-     "cur": 5494720,
-     "prev": 11380600,
-     "diff": -5885880
     },
     {
      "owner": "OY",
@@ -5991,14 +5907,14 @@
      "oyKRW": 14013780,
      "stKRW": 7780520,
      "tmallAdKRW": 7780470,
-     "paidAdKRW": 14582635,
+     "paidAdKRW": 7780470,
      "roas": 11.29,
-     "paidRoas": 16.88,
-     "xhsAdKRW": 6802165,
-     "xhsGmvKRW": 14668975,
-     "xhsRoas": 2.2,
-     "xhsShare": 4.6,
-     "xhsUV": 15390
+     "paidRoas": 31.64,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     },
     {
      "month": "2월",
@@ -6011,14 +5927,14 @@
      "oyKRW": 8685380,
      "stKRW": 8788780,
      "tmallAdKRW": 5378491,
-     "paidAdKRW": 8884807,
+     "paidAdKRW": 5378491,
      "roas": 10.45,
-     "paidRoas": 20.55,
-     "xhsAdKRW": 3506316,
-     "xhsGmvKRW": 8847021,
-     "xhsRoas": 2.5,
-     "xhsShare": 2.4,
-     "xhsUV": 6634
+     "paidRoas": 33.95,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     },
     {
      "month": "3월",
@@ -6031,14 +5947,14 @@
      "oyKRW": 16712520,
      "stKRW": 11659780,
      "tmallAdKRW": 9797433,
-     "paidAdKRW": 17256410,
+     "paidAdKRW": 9797433,
      "roas": 6.98,
-     "paidRoas": 11.48,
-     "xhsAdKRW": 7458977,
-     "xhsGmvKRW": 16496143,
-     "xhsRoas": 2.2,
-     "xhsShare": 4.8,
-     "xhsUV": 13762
+     "paidRoas": 20.22,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     },
     {
      "month": "4월",
@@ -6051,14 +5967,14 @@
      "oyKRW": 17063200,
      "stKRW": 23301300,
      "tmallAdKRW": 10938972,
-     "paidAdKRW": 19746819,
+     "paidAdKRW": 10938972,
      "roas": 6.21,
-     "paidRoas": 12.7,
-     "xhsAdKRW": 8807847,
-     "xhsGmvKRW": 23904129,
-     "xhsRoas": 2.7,
-     "xhsShare": 4.4,
-     "xhsUV": 14425
+     "paidRoas": 22.92,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     },
     {
      "month": "5월",
@@ -6071,14 +5987,14 @@
      "oyKRW": 27554340,
      "stKRW": 15814480,
      "tmallAdKRW": 8791352,
-     "paidAdKRW": 22497495,
+     "paidAdKRW": 8791352,
      "roas": 4.56,
-     "paidRoas": 8.8,
-     "xhsAdKRW": 13706143,
-     "xhsGmvKRW": 13412199,
-     "xhsRoas": 1.0,
-     "xhsShare": 4.0,
-     "xhsUV": 10392
+     "paidRoas": 22.51,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     },
     {
      "month": "6월",
@@ -6091,14 +6007,14 @@
      "oyKRW": 30342400,
      "stKRW": 17026460,
      "tmallAdKRW": 8993031,
-     "paidAdKRW": 31490546,
+     "paidAdKRW": 8993031,
      "roas": 3.16,
-     "paidRoas": 4.75,
-     "xhsAdKRW": 22497515,
-     "xhsGmvKRW": 19522494,
-     "xhsRoas": 0.9,
-     "xhsShare": 6.8,
-     "xhsUV": 15271
+     "paidRoas": 16.64,
+     "xhsAdKRW": 0,
+     "xhsGmvKRW": 0,
+     "xhsRoas": 0,
+     "xhsShare": 0,
+     "xhsUV": 0
     }
    ],
    "byMonth": {
@@ -6962,20 +6878,6 @@
        "cur": 7780520,
        "prev": 0,
        "diff": 7780520
-      },
-      {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 7211600,
-       "prev": 0,
-       "diff": 7211600
-      },
-      {
-       "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 6802180,
-       "prev": 0,
-       "diff": 6802180
       }
      ],
      "traffic": {
@@ -7991,25 +7893,11 @@
        "diff": -2401960
       },
       {
-       "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 3506360,
-       "prev": 6802180,
-       "diff": -3295820
-      },
-      {
        "owner": "스틸",
        "item": "도우인 라이브방송(Still 부담 수수료)",
        "cur": 3410220,
        "prev": 0,
        "diff": 3410220
-      },
-      {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 3330800,
-       "prev": 7211600,
-       "diff": -3880800
       },
       {
        "owner": "OY",
@@ -9003,20 +8891,6 @@
        "diff": 4418920
       },
       {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 8688240,
-       "prev": 3330800,
-       "diff": 5357440
-      },
-      {
-       "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 7458880,
-       "prev": 3506360,
-       "diff": 3952520
-      },
-      {
        "owner": "스틸",
        "item": "도우인 라이브방송(Still 부담 수수료)",
        "cur": 1862300,
@@ -9983,20 +9857,6 @@
       },
       {
        "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 8807920,
-       "prev": 7458880,
-       "diff": 1349040
-      },
-      {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 4725380,
-       "prev": 8688240,
-       "diff": -3962860
-      },
-      {
-       "owner": "OY",
        "item": "라이브방송 올리브영 지원분",
        "cur": 3529900,
        "prev": 565400,
@@ -10859,20 +10719,6 @@
       }
      ],
      "costItems": [
-      {
-       "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 13706220,
-       "prev": 8807920,
-       "diff": 4898300
-      },
-      {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 11380600,
-       "prev": 4725380,
-       "diff": 6655220
-      },
       {
        "owner": "스틸",
        "item": "티몰 유료광고(내부광고 소모액)",
@@ -11819,13 +11665,6 @@
      ],
      "costItems": [
       {
-       "owner": "OY",
-       "item": "샤오홍씽 CID 효과광고(聚光)",
-       "cur": 22497420,
-       "prev": 13706220,
-       "diff": 8791200
-      },
-      {
        "owner": "스틸",
        "item": "티몰 유료광고(내부광고 소모액)",
        "cur": 8992940,
@@ -11838,13 +11677,6 @@
        "cur": 8033520,
        "prev": 7023060,
        "diff": 1010460
-      },
-      {
-       "owner": "OY",
-       "item": "KOL/KOC/SNS 바이럴 마케팅",
-       "cur": 5494720,
-       "prev": 11380600,
-       "diff": -5885880
       },
       {
        "owner": "OY",
@@ -16189,7 +16021,7 @@
   ],
   "platformLabel": "도우인(抖音) 역직구 · 海外旗舰店",
   "metricNote": "일 결제금액(用户支付金额) · 증정 제외 · 환율 220원",
-  "coverage": "2026-06-01 ~ 2026-06-22",
+  "coverage": "2026-06-01 ~ 2026-06-30",
   "dates": [
    "2026-06-01",
    "2026-06-02",
@@ -16212,7 +16044,15 @@
    "2026-06-19",
    "2026-06-20",
    "2026-06-21",
-   "2026-06-22"
+   "2026-06-22",
+   "2026-06-23",
+   "2026-06-24",
+   "2026-06-25",
+   "2026-06-26",
+   "2026-06-27",
+   "2026-06-28",
+   "2026-06-29",
+   "2026-06-30"
   ],
   "series": {
    "웨이크메이크": [
@@ -16391,6 +16231,70 @@
      "orders": 55,
      "buyers": 53,
      "aov": 23879
+    },
+    {
+     "date": "2026-06-23",
+     "salesKRW": 2322302,
+     "gmvKRW": 2477574,
+     "orders": 102,
+     "buyers": 87,
+     "aov": 26693
+    },
+    {
+     "date": "2026-06-24",
+     "salesKRW": 2445755,
+     "gmvKRW": 2542474,
+     "orders": 97,
+     "buyers": 85,
+     "aov": 28774
+    },
+    {
+     "date": "2026-06-25",
+     "salesKRW": 1961978,
+     "gmvKRW": 2028818,
+     "orders": 80,
+     "buyers": 70,
+     "aov": 28028
+    },
+    {
+     "date": "2026-06-26",
+     "salesKRW": 1973367,
+     "gmvKRW": 2040918,
+     "orders": 77,
+     "buyers": 70,
+     "aov": 28191
+    },
+    {
+     "date": "2026-06-27",
+     "salesKRW": 2232795,
+     "gmvKRW": 2319695,
+     "orders": 90,
+     "buyers": 83,
+     "aov": 26902
+    },
+    {
+     "date": "2026-06-28",
+     "salesKRW": 2233642,
+     "gmvKRW": 2398000,
+     "orders": 85,
+     "buyers": 82,
+     "aov": 27240
+    },
+    {
+     "date": "2026-06-29",
+     "salesKRW": 1248289,
+     "gmvKRW": 1284998,
+     "orders": 50,
+     "buyers": 47,
+     "aov": 26558
+    },
+    {
+     "date": "2026-06-30",
+     "salesKRW": 0,
+     "gmvKRW": 0,
+     "orders": 0,
+     "buyers": 0,
+     "aov": 0
     }
    ],
    "컬러그램": [
@@ -16569,6 +16473,70 @@
      "orders": 57,
      "buyers": 39,
      "aov": 11464
+    },
+    {
+     "date": "2026-06-23",
+     "salesKRW": 912949,
+     "gmvKRW": 935330,
+     "orders": 172,
+     "buyers": 98,
+     "aov": 9315
+    },
+    {
+     "date": "2026-06-24",
+     "salesKRW": 713493,
+     "gmvKRW": 766128,
+     "orders": 352,
+     "buyers": 156,
+     "aov": 4574
+    },
+    {
+     "date": "2026-06-25",
+     "salesKRW": 626760,
+     "gmvKRW": 681032,
+     "orders": 228,
+     "buyers": 154,
+     "aov": 4070
+    },
+    {
+     "date": "2026-06-26",
+     "salesKRW": 284772,
+     "gmvKRW": 300630,
+     "orders": 120,
+     "buyers": 62,
+     "aov": 4594
+    },
+    {
+     "date": "2026-06-27",
+     "salesKRW": 442391,
+     "gmvKRW": 478324,
+     "orders": 190,
+     "buyers": 70,
+     "aov": 6321
+    },
+    {
+     "date": "2026-06-28",
+     "salesKRW": 377060,
+     "gmvKRW": 393822,
+     "orders": 137,
+     "buyers": 61,
+     "aov": 6182
+    },
+    {
+     "date": "2026-06-29",
+     "salesKRW": 5649994,
+     "gmvKRW": 5763890,
+     "orders": 650,
+     "buyers": 535,
+     "aov": 10560
+    },
+    {
+     "date": "2026-06-30",
+     "salesKRW": 2585620,
+     "gmvKRW": 2684880,
+     "orders": 364,
+     "buyers": 236,
+     "aov": 10956
     }
    ]
   },
@@ -17409,14 +17377,14 @@
       "hasData": true,
       "hasProductDetail": false,
       "kpi": {
-       "salesKRW": 48533324,
-       "gmvKRW": 52854193,
+       "salesKRW": 62951453,
+       "gmvKRW": 67946670,
        "costKRW": 10383780,
-       "roas": 4.67,
-       "orders": 2276,
-       "buyers": 1921,
-       "aov": 21324,
-       "uv": 1416540
+       "roas": 6.06,
+       "orders": 2857,
+       "buyers": 2445,
+       "aov": 22034,
+       "uv": 0
       },
       "products": [],
       "daily": [
@@ -17551,12 +17519,60 @@
         "salesKRW": 1265537,
         "orders": 55,
         "buyers": 53
+       },
+       {
+        "date": "2026-06-23",
+        "salesKRW": 2322302,
+        "orders": 102,
+        "buyers": 87
+       },
+       {
+        "date": "2026-06-24",
+        "salesKRW": 2445755,
+        "orders": 97,
+        "buyers": 85
+       },
+       {
+        "date": "2026-06-25",
+        "salesKRW": 1961978,
+        "orders": 80,
+        "buyers": 70
+       },
+       {
+        "date": "2026-06-26",
+        "salesKRW": 1973367,
+        "orders": 77,
+        "buyers": 70
+       },
+       {
+        "date": "2026-06-27",
+        "salesKRW": 2232795,
+        "orders": 90,
+        "buyers": 83
+       },
+       {
+        "date": "2026-06-28",
+        "salesKRW": 2233642,
+        "orders": 85,
+        "buyers": 82
+       },
+       {
+        "date": "2026-06-29",
+        "salesKRW": 1248289,
+        "orders": 50,
+        "buyers": 47
+       },
+       {
+        "date": "2026-06-30",
+        "salesKRW": 0,
+        "orders": 0,
+        "buyers": 0
        }
       ],
       "funnel": {
-       "expUV": 1416540,
-       "clickUV": 73073,
-       "buyers": 1921
+       "expUV": 0,
+       "clickUV": 0,
+       "buyers": 2445
       },
       "note": "스토어 단위 일자 집계 · 상품별 sell-out 은 시트 `도우인_상품별` 입력 시 표시"
      },
@@ -17565,99 +17581,26 @@
       "hasData": true,
       "hasProductDetail": false,
       "kpi": {
-       "salesKRW": 19522494,
-       "gmvKRW": 19522494,
-       "adKRW": 24015489,
-       "costKRW": 27992140,
-       "roas": 0.7,
-       "uv": 15271,
-       "exp": 2080613,
-       "clk": 227360
+       "salesKRW": 0,
+       "gmvKRW": 0,
+       "adKRW": 0,
+       "costKRW": 0,
+       "roas": 0,
+       "uv": 0,
+       "exp": 0,
+       "clk": 0
       },
-      "categories": [
-       {
-        "cn": "十六色眼影",
-        "adKRW": 12522442,
-        "exp": 1140543,
-        "clk": 127916,
-        "sku": null,
-        "ko": null,
-        "matched": false
-       },
-       {
-        "cn": "粉糖气垫",
-        "adKRW": 9067687,
-        "exp": 724677,
-        "clk": 76311,
-        "sku": "WM-CUSHION",
-        "ko": "워터 글로우 코팅 쿠션",
-        "matched": true
-       },
-       {
-        "cn": "气垫种草",
-        "adKRW": 771028,
-        "exp": 67046,
-        "clk": 7074,
-        "sku": "WM-CUSHION",
-        "ko": "워터 글로우 코팅 쿠션",
-        "matched": true
-       },
-       {
-        "cn": "眼影妆教",
-        "adKRW": 524365,
-        "exp": 52808,
-        "clk": 5435,
-        "sku": null,
-        "ko": null,
-        "matched": false
-       },
-       {
-        "cn": "眼影测评",
-        "adKRW": 425450,
-        "exp": 33338,
-        "clk": 2904,
-        "sku": null,
-        "ko": null,
-        "matched": false
-       },
-       {
-        "cn": "眼影种草",
-        "adKRW": 305831,
-        "exp": 29882,
-        "clk": 4375,
-        "sku": null,
-        "ko": null,
-        "matched": false
-       },
-       {
-        "cn": "气垫测评",
-        "adKRW": 216191,
-        "exp": 14821,
-        "clk": 1464,
-        "sku": "WM-CUSHION",
-        "ko": "워터 글로우 코팅 쿠션",
-        "matched": true
-       },
-       {
-        "cn": "眼影合集",
-        "adKRW": 182494,
-        "exp": 17498,
-        "clk": 1881,
-        "sku": null,
-        "ko": null,
-        "matched": false
-       }
-      ],
+      "categories": [],
       "products": [],
       "note": "聚光 로우 기준 집행 상세(카테고리별) · GMV/UV 는 기여 GMV 소스 기준(탭③과 소폭 상이)"
      }
     },
     "combined": {
      "kpi": {
-      "salesKRW": 217738978,
-      "costKRW": 47368860,
-      "roas": 4.6,
-      "orders": 2276
+      "salesKRW": 212634613,
+      "costKRW": 19376720,
+      "roas": 10.97,
+      "orders": 2857
      },
      "bySales": [
       {
@@ -17666,11 +17609,11 @@
       },
       {
        "platform": "도우인",
-       "salesKRW": 48533324
+       "salesKRW": 62951453
       },
       {
        "platform": "샤오홍슈",
-       "salesKRW": 19522494
+       "salesKRW": 0
       }
      ],
      "products": [
@@ -17693,7 +17636,7 @@
        "ko": "워터 글로우 코팅 쿠션",
        "티몰": 15323000,
        "도우인": 0,
-       "샤오홍슈_ad": 10054906
+       "샤오홍슈_ad": 0
       },
       {
        "sku": "WM-CHEEK",
@@ -17971,58 +17914,7 @@
      ],
      "note": "매출 = 티몰 결제(확정) + 도우인 결제(확정) + 샤오홍슈 기여GMV(광고 기여 추정치) · 비용 = 채널 귀속 마케팅비 합. 확정매출과 추정치가 혼합되므로 통합 ROAS는 참고 지표입니다."
     },
-    "unmatched": [
-     {
-      "platform": "샤오홍슈",
-      "cnName": "十六色眼影",
-      "metricLabel": "聚光 집행",
-      "valueKRW": 12522442,
-      "reason": "'十六色(16색)'은 문자상 16색 데일리 팔레트지만, 6월 聚光 최대 집행은 히어로 '소프트 블러링 아이팔레트'일 가능성 — 실제 프로모션 SKU 판별 필요",
-      "candidates": [
-       "소프트 블러링 아이팔레트"
-      ]
-     },
-     {
-      "platform": "샤오홍슈",
-      "cnName": "眼影妆教",
-      "metricLabel": "聚光 집행",
-      "valueKRW": 524365,
-      "reason": "콘텐츠 유형(妆教=메이크업 튜토리얼) 태그 — 특정 아이섀도우 SKU 불명",
-      "candidates": [
-       "소프트 블러링 아이팔레트"
-      ]
-     },
-     {
-      "platform": "샤오홍슈",
-      "cnName": "眼影测评",
-      "metricLabel": "聚光 집행",
-      "valueKRW": 425450,
-      "reason": "콘텐츠 유형(测评=리뷰) 태그 — 특정 SKU 불명",
-      "candidates": [
-       "소프트 블러링 아이팔레트"
-      ]
-     },
-     {
-      "platform": "샤오홍슈",
-      "cnName": "眼影种草",
-      "metricLabel": "聚光 집행",
-      "valueKRW": 305831,
-      "reason": "콘텐츠 유형(种草=제품 소개) 태그 — 특정 SKU 불명",
-      "candidates": [
-       "소프트 블러링 아이팔레트"
-      ]
-     },
-     {
-      "platform": "샤오홍슈",
-      "cnName": "眼影合集",
-      "metricLabel": "聚光 집행",
-      "valueKRW": 182494,
-      "reason": "콘텐츠 유형(合集=모음) 태그 — 특정 SKU 불명",
-      "candidates": [
-       "소프트 블러링 아이팔레트"
-      ]
-     }
-    ]
+    "unmatched": []
    },
    "컬러그램": {
     "brand": "컬러그램",
@@ -18480,14 +18372,14 @@
       "hasData": true,
       "hasProductDetail": false,
       "kpi": {
-       "salesKRW": 31918944,
-       "gmvKRW": 32774603,
+       "salesKRW": 43511985,
+       "gmvKRW": 44778639,
        "costKRW": 0,
        "roas": null,
-       "orders": 3321,
-       "buyers": 2646,
-       "aov": 9611,
-       "uv": 589294
+       "orders": 5534,
+       "buyers": 4018,
+       "aov": 7863,
+       "uv": 0
       },
       "products": [],
       "daily": [
@@ -18622,12 +18514,60 @@
         "salesKRW": 447128,
         "orders": 57,
         "buyers": 39
+       },
+       {
+        "date": "2026-06-23",
+        "salesKRW": 912949,
+        "orders": 172,
+        "buyers": 98
+       },
+       {
+        "date": "2026-06-24",
+        "salesKRW": 713493,
+        "orders": 352,
+        "buyers": 156
+       },
+       {
+        "date": "2026-06-25",
+        "salesKRW": 626760,
+        "orders": 228,
+        "buyers": 154
+       },
+       {
+        "date": "2026-06-26",
+        "salesKRW": 284772,
+        "orders": 120,
+        "buyers": 62
+       },
+       {
+        "date": "2026-06-27",
+        "salesKRW": 442391,
+        "orders": 190,
+        "buyers": 70
+       },
+       {
+        "date": "2026-06-28",
+        "salesKRW": 377060,
+        "orders": 137,
+        "buyers": 61
+       },
+       {
+        "date": "2026-06-29",
+        "salesKRW": 5649994,
+        "orders": 650,
+        "buyers": 535
+       },
+       {
+        "date": "2026-06-30",
+        "salesKRW": 2585620,
+        "orders": 364,
+        "buyers": 236
        }
       ],
       "funnel": {
-       "expUV": 589294,
-       "clickUV": 63859,
-       "buyers": 2646
+       "expUV": 0,
+       "clickUV": 0,
+       "buyers": 4018
       },
       "note": "스토어 단위 일자 집계 · 상품별 sell-out 은 시트 `도우인_상품별` 입력 시 표시"
      },
@@ -18652,10 +18592,10 @@
     },
     "combined": {
      "kpi": {
-      "salesKRW": 126015144,
+      "salesKRW": 137608185,
       "costKRW": 5194812,
-      "roas": 24.26,
-      "orders": 3321
+      "roas": 26.49,
+      "orders": 5534
      },
      "bySales": [
       {
@@ -18664,7 +18604,7 @@
       },
       {
        "platform": "도우인",
-       "salesKRW": 31918944
+       "salesKRW": 43511985
       },
       {
        "platform": "샤오홍슈",
@@ -19194,6 +19134,465 @@
     "reason": "콘텐츠 유형(合集=모음) 태그 — 특정 SKU 불명"
    }
   ]
+ },
+ "douyin": {
+  "monthly": {
+   "컬러그램": {
+    "2월": {
+     "salesKRW": 33110733,
+     "gmvKRW": 34063218,
+     "orders": 3584,
+     "buyers": 3037,
+     "impUV": 760683,
+     "clickUV": 74367,
+     "aov": 10902
+    },
+    "1월": {
+     "salesKRW": 22822807,
+     "gmvKRW": 24120290,
+     "orders": 2367,
+     "buyers": 1959,
+     "impUV": 821726,
+     "clickUV": 72022,
+     "aov": 11650
+    },
+    "4월": {
+     "salesKRW": 20409015,
+     "gmvKRW": 21060633,
+     "orders": 2209,
+     "buyers": 1517,
+     "impUV": 652826,
+     "clickUV": 47548,
+     "aov": 13454
+    },
+    "3월": {
+     "salesKRW": 27285722,
+     "gmvKRW": 28401245,
+     "orders": 3051,
+     "buyers": 2167,
+     "impUV": 760230,
+     "clickUV": 55350,
+     "aov": 12591
+    },
+    "5월": {
+     "salesKRW": 32568111,
+     "gmvKRW": 33455356,
+     "orders": 3158,
+     "buyers": 2305,
+     "impUV": 596538,
+     "clickUV": 52674,
+     "aov": 14129
+    },
+    "6월": {
+     "salesKRW": 43511985,
+     "gmvKRW": 44778639,
+     "orders": 5534,
+     "buyers": 4018,
+     "impUV": 978854,
+     "clickUV": 100266,
+     "aov": 10829
+    }
+   },
+   "웨이크메이크": {
+    "3월": {
+     "salesKRW": 31358584,
+     "gmvKRW": 32489888,
+     "orders": 1227,
+     "buyers": 1077,
+     "impUV": 589512,
+     "clickUV": 49899,
+     "aov": 29117
+    },
+    "2월": {
+     "salesKRW": 75463689,
+     "gmvKRW": 76429102,
+     "orders": 2665,
+     "buyers": 2342,
+     "impUV": 738543,
+     "clickUV": 69612,
+     "aov": 32222
+    },
+    "6월": {
+     "salesKRW": 62951453,
+     "gmvKRW": 67946670,
+     "orders": 2857,
+     "buyers": 2445,
+     "impUV": 1733714,
+     "clickUV": 94981,
+     "aov": 25747
+    },
+    "5월": {
+     "salesKRW": 86627180,
+     "gmvKRW": 92532770,
+     "orders": 5208,
+     "buyers": 3414,
+     "impUV": 2021844,
+     "clickUV": 121915,
+     "aov": 25374
+    },
+    "4월": {
+     "salesKRW": 58900380,
+     "gmvKRW": 61208948,
+     "orders": 2920,
+     "buyers": 2173,
+     "impUV": 1272169,
+     "clickUV": 85378,
+     "aov": 27106
+    },
+    "1월": {
+     "salesKRW": 18284805,
+     "gmvKRW": 19086190,
+     "orders": 859,
+     "buyers": 730,
+     "impUV": 189968,
+     "clickUV": 23040,
+     "aov": 25048
+    }
+   }
+  },
+  "products": {
+   "웨이크메이크": [
+    {
+     "name": "十六色眼影盘14g韩系珠光哑光四季眼影烟熏妆",
+     "payKRW": 46828723,
+     "share": 74.4
+    },
+    {
+     "name": "浪姐化妆师同款三色阴影修容盘新款持久渐变修容",
+     "payKRW": 4602002,
+     "share": 7.3
+    },
+    {
+     "name": "新款粉底刷一字斜面刮刀抹平软毛韩系不卡粉",
+     "payKRW": 3046853,
+     "share": 4.8
+    },
+    {
+     "name": "经典粉底刷一字型粉刷上脸无痕轻薄不吃粉化妆刷",
+     "payKRW": 2718672,
+     "share": 4.3
+    },
+    {
+     "name": "六色多用眼影盘韩系珠光哑光便携彩妆化妆爆卖L",
+     "payKRW": 880697,
+     "share": 1.4
+    },
+    {
+     "name": "粉糖气垫膏水润奶油肌韩系水光冬季干皮",
+     "payKRW": 732609,
+     "share": 1.2
+    },
+    {
+     "name": "裸感轻盈气垫持久保湿持妆不脱妆防汗清透",
+     "payKRW": 599326,
+     "share": 1.0
+    },
+    {
+     "name": "液体腮红水粉融合脸颊韩系粉嫩甜美便携彩妆",
+     "payKRW": 582127,
+     "share": 0.9
+    },
+    {
+     "name": "wakemake粉糖气垫膏水润奶油肌韩系水光冬季干皮",
+     "payKRW": 520032,
+     "share": 0.8
+    },
+    {
+     "name": "水润气垫膏一正一替带粉刷遮瑕保湿持久干皮奶油肌韩系正品进口",
+     "payKRW": 514287,
+     "share": 0.8
+    },
+    {
+     "name": "wakemake唯可魅水润升级粉糖气垫膏12.5g*2一正一替",
+     "payKRW": 509188,
+     "share": 0.8
+    },
+    {
+     "name": "26年7月wakemake唯可魅气垫粉底液30ml韩系遮瑕素颜",
+     "payKRW": 232522,
+     "share": 0.4
+    },
+    {
+     "name": "透明分层双色腮红5g修容提亮控油着色阴影腮红膏",
+     "payKRW": 211510,
+     "share": 0.3
+    },
+    {
+     "name": "WAKEMAKE唯可魅经典腮红刷鼻影修容化妆刷子",
+     "payKRW": 172557,
+     "share": 0.3
+    },
+    {
+     "name": "润叠唇釉水润保湿持色柔焦口红雾面哑光柔焦显色",
+     "payKRW": 165416,
+     "share": 0.3
+    },
+    {
+     "name": "水光玻璃唇釉持久上色保湿口红女生必备通勤妆",
+     "payKRW": 145596,
+     "share": 0.2
+    },
+    {
+     "name": "眼线笔卧蚕笔大容量防水防汗不晕染韩妆必备化妆",
+     "payKRW": 120362,
+     "share": 0.2
+    },
+    {
+     "name": "纯透高光修容一体盘哑光珠光提亮脸部轮廓",
+     "payKRW": 103783,
+     "share": 0.2
+    },
+    {
+     "name": "雾面哑光口红唇膏彩妆韩系不粘杯日常约会通用",
+     "payKRW": 82914,
+     "share": 0.1
+    },
+    {
+     "name": "wakemake唯可魅遮瑕BB霜20ml带刮刀韩系彩妆好物",
+     "payKRW": 68130,
+     "share": 0.1
+    },
+    {
+     "name": "透明分层双色腮红5g修容提亮控油着色阴影腮红03",
+     "payKRW": 45263,
+     "share": 0.1
+    },
+    {
+     "name": "勿拍测试测试测试测试测试测试测试测试测试测试",
+     "payKRW": 34628,
+     "share": 0.1
+    },
+    {
+     "name": "眉笔防水防汗不掉色韩妆必备画眉浅色韩系甜美",
+     "payKRW": 34258,
+     "share": 0.1
+    }
+   ],
+   "컬러그램": [
+    {
+     "name": "小年糕唇釉雾面哑光丝绒口红腮红唇颊两用",
+     "payKRW": 17600009,
+     "share": 40.4
+    },
+    {
+     "name": "糖葫芦琥珀琉光唇釉3.5g镜面韩系水光显色",
+     "payKRW": 7165477,
+     "share": 16.5
+    },
+    {
+     "name": "小年糕唇釉雾面唇泥哑光丝绒韩系口红cosme大赏榜单",
+     "payKRW": 7003867,
+     "share": 16.1
+    },
+    {
+     "name": "糖葫芦唇部精华蜜9g服帖饱满光泽保湿",
+     "payKRW": 3736438,
+     "share": 8.6
+    },
+    {
+     "name": "韩国colorgram唇部打底哑光唇泥裸色遮盖唇色深唇",
+     "payKRW": 3002932,
+     "share": 6.9
+    },
+    {
+     "name": "糖葫芦唇釉水光镜面口红不沾杯唇釉韩系口红临期2026-10",
+     "payKRW": 2387532,
+     "share": 5.5
+    },
+    {
+     "name": "糖葫芦初甜唇釉口红水光镜面韩妆韩系口红伪素颜不沾杯",
+     "payKRW": 454113,
+     "share": 1.0
+    },
+    {
+     "name": "卧蚕笔双头笔高光提亮阴影防汗珠光自然饱满卧蚕",
+     "payKRW": 332922,
+     "share": 0.8
+    },
+    {
+     "name": "双头修容笔棒细节高光阴影鼻影冷暖皮自然防汗修饰",
+     "payKRW": 292897,
+     "share": 0.7
+    },
+    {
+     "name": "小年糕丝绒哑光口红雾面韩国显色持久唇膏3.2g",
+     "payKRW": 240827,
+     "share": 0.6
+    },
+    {
+     "name": "蜜糖罐水雾唇釉哑光柔雾口红腮红唇颊两用持久叠涂韩国",
+     "payKRW": 170524,
+     "share": 0.4
+    },
+    {
+     "name": "雾面唇泥哑光果酱膏唇颊腮红韩系口红临期27年1月",
+     "payKRW": 148271,
+     "share": 0.3
+    },
+    {
+     "name": "colorgram糖葫芦唇釉水光镜面韩系口红-临期",
+     "payKRW": 140318,
+     "share": 0.3
+    },
+    {
+     "name": "爱心12色眼影盘珠光哑光细闪韩系低饱和温柔",
+     "payKRW": 129734,
+     "share": 0.3
+    },
+    {
+     "name": "哑光柔雾唇线笔阴影笔丰唇韩系oliveyoung",
+     "payKRW": 118290,
+     "share": 0.3
+    },
+    {
+     "name": "双头雾面唇线笔阴影笔丰唇打底护唇韩系口红化妆品",
+     "payKRW": 109993,
+     "share": 0.3
+    },
+    {
+     "name": "colorgram 小年糕唇釉雾面哑光丝绒口红腮红2026-11",
+     "payKRW": 102485,
+     "share": 0.2
+    },
+    {
+     "name": "糖葫芦琥珀琉光唇釉3.5g双支组合镜面韩系水光显色",
+     "payKRW": 88880,
+     "share": 0.2
+    },
+    {
+     "name": "colorgram小年糕唇釉哑光水光唇釉韩系临期2027-07",
+     "payKRW": 75856,
+     "share": 0.2
+    },
+    {
+     "name": "韩国colorgram双头修容笔棒细节高光阴影鼻影自然",
+     "payKRW": 56892,
+     "share": 0.1
+    },
+    {
+     "name": "colorgram糖葫芦水光镜面唇釉显白学生低饱和色玻璃唇",
+     "payKRW": 43811,
+     "share": 0.1
+    },
+    {
+     "name": "colorgram4色眼影盘提亮爆闪塑颜哑光四宫格修容",
+     "payKRW": 30950,
+     "share": 0.1
+    },
+    {
+     "name": "colorgram糖葫芦水光透明闪粉唇油细闪韩系临期2027-2",
+     "payKRW": 27460,
+     "share": 0.1
+    },
+    {
+     "name": "韩国colorgramLOOPY限定PVC化妆包",
+     "payKRW": 21340,
+     "share": 0.0
+    },
+    {
+     "name": "韩国唇线笔mini 0.25g丰唇饱满打底丝滑勾勒",
+     "payKRW": 14175,
+     "share": 0.0
+    },
+    {
+     "name": "colorgram糖葫芦唇釉水光镜面韩系临期2026-11",
+     "payKRW": 11174,
+     "share": 0.0
+    },
+    {
+     "name": "温柔粉底液妆前乳自然提亮遮瑕防晒隔离素颜霜推荐学生",
+     "payKRW": 4818,
+     "share": 0.0
+    }
+   ]
+  },
+  "note": "도우인 일자별매출·상품판매 탭(载体=全部) · 증정 제외 결제금액 · 환율 220원"
+ },
+ "oyMkt": {
+  "컬러그램": {
+   "1월": {
+    "KOL": 1208652,
+    "Traffic AD": 4814604,
+    "SNS": 2678750,
+    "KOC": 799596
+   },
+   "2월": {
+    "KOC": 654215,
+    "KOL": 3728820,
+    "Traffic AD": 4004283,
+    "达人直播": 3363744
+   },
+   "3월": {
+    "KOL": 10486678,
+    "Traffic AD": 12449831,
+    "KOC": 1201266,
+    "SNS": 2766875,
+    "达人直播": 509603
+   },
+   "4월": {
+    "KOL": 5989731,
+    "星图2%": 119795,
+    "Traffic AD": 14237537,
+    "KOC": 1276393,
+    "SNS": 2766875,
+    "达人直播": 3201930
+   },
+   "5월": {
+    "KOL": 8602277,
+    "星图2%": 172819,
+    "Traffic AD": 14800819,
+    "KOC": 1299458,
+    "SNS": 2829375
+   },
+   "6월": {
+    "KOL": 5629902,
+    "星图2%": 113104,
+    "Traffic AD": 13971983,
+    "SNS": 2829375
+   }
+  },
+  "웨이크메이크": {
+   "1월": {
+    "KOL": 4346004,
+    "Traffic AD": 6625920,
+    "SNS": 2678750
+   },
+   "2월": {
+    "KOL": 565752,
+    "Traffic AD": 3415471,
+    "SNS": 2678750,
+    "达人直播": 1799979,
+    "竞品采购": 1505020
+   },
+   "3월": {
+    "KOL": 5974679,
+    "Traffic AD": 7504650,
+    "SNS": 2766875,
+    "达人直播": 567099
+   },
+   "4월": {
+    "KOL": 1912464,
+    "星图2%": 38249,
+    "Traffic AD": 8861911,
+    "SNS": 2766875,
+    "美one": 10724408,
+    "达人直播": 3930512
+   },
+   "5월": {
+    "KOL": 7993626,
+    "星图 2%": 160576,
+    "Traffic AD": 14288620,
+    "KOC": 937617,
+    "SNS": 2891875
+   },
+   "6월": {
+    "KOL": 5183580,
+    "星图 2%": 104128,
+    "Traffic AD": 23474687,
+    "KOC": 390674,
+    "SNS": 2891875
+   }
+  }
  },
  "dailyStatus": {
   "sample": false,
@@ -21839,5 +22238,5 @@
    "컬러그램": null
   }
  },
- "builtAt": "2026-07-13 16:58"
+ "builtAt": "2026-07-13 17:39"
 }
