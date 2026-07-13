@@ -550,9 +550,9 @@ def parse_daily_status(cfg):
     """실시간 일자별 시트('26년 하반기 …') → 실데이터 dailyStatus + 월별 플랫폼 추이.
     반환 (dailyStatus, monthlyPlatform) · 실패 시 (None, None)."""
     sid = cfg.get("dailySheetId"); gids = cfg.get("dailyGids", {})
-    if not sid or not gids: return None, None
+    if not sid or not gids: return None, None, None
     S = _fetch_gid_rows(sid, gids.get("summary"))
-    if not S: return None, None
+    if not S: return None, None, None
 
     # --- 요약: 브랜드×플랫폼 목표/실적(백만원→원) + 월별 플랫폼 ---
     tgt = {"웨이크메이크": {}, "컬러그램": {}}; act = {"웨이크메이크": {}, "컬러그램": {}}
@@ -565,10 +565,13 @@ def parse_daily_status(cfg):
             p = _PLAT_KO[lab]
             tgt[cur_b][p] = round(_numc(c(4)) * 1e6)
             act[cur_b][p] = round(_numc(c(5)) * 1e6)
-    monthly = {"티몰": {}, "도우인": {}}   # 월별 섹션: 브랜드 idx3, 플랫폼 idx4, 값 idx5+
+    monthly = {"티몰": {}, "도우인": {}}   # 월별 섹션: 브랜드 idx3, 플랫폼 idx4, 값 idx5+ (WM+CG 합산)
+    mbrand = {"웨이크메이크": {"티몰": {}, "도우인": {}}, "컬러그램": {"티몰": {}, "도우인": {}}}  # 브랜드별
+    _BKO = {"WAKEMAKE": "웨이크메이크", "COLORGRAM": "컬러그램"}
     for i, r in enumerate(S):
-        if (str(r[3]).strip() if len(r) > 3 else "") in ("COLORGRAM", "WAKEMAKE"):
-            hdr = S[i]
+        bkey = str(r[3]).strip() if len(r) > 3 else ""
+        if bkey in ("COLORGRAM", "WAKEMAKE"):
+            bko = _BKO[bkey]; hdr = S[i]
             cols = [(j, int(re.sub(r"[^0-9]", "", str(hdr[j]))))
                     for j in range(5, len(hdr)) if "월" in str(hdr[j]) and re.sub(r"[^0-9]", "", str(hdr[j]))]
             for r2 in S[i + 1:i + 6]:
@@ -577,7 +580,9 @@ def parse_daily_status(cfg):
                     ko = "티몰" if p == "TMALL" else "도우인"
                     for cj, mi in cols:
                         v = _numc(r2[cj]) if cj < len(r2) else 0
-                        if v > 0: monthly[ko][mi] = monthly[ko].get(mi, 0) + round(v)
+                        if v > 0:
+                            monthly[ko][mi] = monthly[ko].get(mi, 0) + round(v)
+                            mbrand[bko][ko][mi] = mbrand[bko][ko].get(mi, 0) + round(v)
 
     # --- 브랜드 일자별(매출 by 플랫폼·UV·주문) ---
     def parse_brand_daily(gid):
@@ -613,7 +618,7 @@ def parse_daily_status(cfg):
     dmap = {"웨이크메이크": parse_brand_daily(gids.get("wakemake")),
             "컬러그램": parse_brand_daily(gids.get("colorgram"))}
     asof_all = [d["date"] for b in dmap for d in dmap[b]]
-    if not asof_all: return None, None
+    if not asof_all: return None, None, None
     asOf = max(asof_all); maxDay = int(asOf[8:10]); mon = int(asOf[5:7])
 
     # --- UV 전월비(역직구 海外旗舰店 스토어, 당월 MTD vs 전월 동기간) ---
@@ -644,7 +649,13 @@ def parse_daily_status(cfg):
     mp = {"months": ["%d월" % m for m in mos],
           "티몰": [monthly["티몰"].get(m) for m in mos],
           "도우인": [monthly["도우인"].get(m) for m in mos]}
-    return ds, mp
+    tbb = {}   # 티몰 브랜드별 월별 매출 + 7월 실적/목표
+    for b in ("웨이크메이크", "컬러그램"):
+        tm = mbrand[b]["티몰"]; ms2 = sorted(tm.keys())
+        tbb[b] = {"months": ["%d월" % m for m in ms2], "sales": [tm[m] for m in ms2],
+                  "target7": tgt[b].get("티몰", 0), "actual7": act[b].get("티몰", 0),
+                  "asOfMonth": ds["month"]}
+    return ds, mp, tbb
 
 def daily_status_sample():
     """페이지① 상단 '7월 현황' 샘플 — 새 실시간 시트(1B_7…) 연결 전 레이아웃용.
@@ -1007,7 +1018,7 @@ def _write_data(data):
     if os.path.exists(DATA_JSON):
         try: old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
         except Exception: old = {}
-    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform"):
+    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand"):
         if k not in data and old.get(k): data[k] = old[k]
     if "dailyStatus" not in data:
         data["dailyStatus"] = daily_status_sample()
@@ -1081,10 +1092,11 @@ def main():
             for mth, lst in adp.items():
                 if mth in data.get("byMonth", {}): data["byMonth"][mth]["adProducts"] = lst
             if adp: print("[상품별 광고] %d개월 · 예: %s %d품목" % (len(adp), max(adp), len(adp.get(max(adp), []))))
-        ds, mp = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
+        ds, mp, tbb = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
         if ds:
             data["dailyStatus"] = ds
             if mp and mp["months"]: data["monthlyPlatform"] = mp
+            if tbb: data["tmallByBrand"] = tbb
             print("[일자별 현황] 실데이터 연결 · 기준 %s · %s" %
                   (ds["asOf"], " / ".join("%s 실적 ₩%s" % (b, format(sum(ds["data"][b]["actual"].values()), ",")) for b in ds["brands"])))
         else:

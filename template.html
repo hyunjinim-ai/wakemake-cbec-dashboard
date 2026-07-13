@@ -361,7 +361,9 @@
 
   <!-- =========================== VIEW ③ 티몰 월별 (기존) =========================== -->
   <section id="view-tmall" class="view">
-    <div class="s-head" style="margin-top:18px">
+    <div class="psel" id="t-brand" style="margin-top:18px" role="tablist" aria-label="브랜드 선택"></div>
+    <div id="tmall-wm">
+    <div class="s-head" style="margin-top:6px">
       <div><div class="s-eye">Tmall Global · Monthly</div><h2>티몰글로벌 월별 성과</h2></div>
       <div class="topctrl">
         <select id="monthSel" class="msel" aria-label="기준월 선택"></select>
@@ -462,6 +464,8 @@
         <div class="pbars" id="trafbars"></div>
       </div>
     </section>
+    </div><!-- /tmall-wm -->
+    <div id="tmall-cg"></div>
   </section>
 
   <footer>
@@ -960,12 +964,12 @@ function renderMarketing(){ const {J,PREV,M}=ctx();
   const tmAd=J.tmallAdKRW||0, xhAd=J.xhsAdKRW||0, paid=tmAd+xhAd;
   document.getElementById('cost-total').innerHTML=`${cur} 유료광고 ${won(paid)} · 티몰 ${smart(tmAd)}(스틸) + 聚光 ${smart(xhAd)}(OY)`;
   // 상품별 광고 효율 (스틸이 집행한 티몰 내부 유료광고)
-  const ap=(M.adProducts||[]).slice(), thd=document.querySelector('#costtable thead'), tbd=document.querySelector('#costtable tbody');
+  const apAll=(M.adProducts||[]), ap=apAll.slice(0,15), thd=document.querySelector('#costtable thead'), tbd=document.querySelector('#costtable tbody');
   if(ap.length){
     thd.innerHTML=`<tr><th class="l">#</th><th class="l">상품</th><th class="l">브랜드</th><th>광고비(₩)</th><th>직접ROI</th><th>노출</th><th>클릭</th></tr>`;
     const maxAd=ap[0].adKRW||1;
     tbd.innerHTML=ap.map((p,i)=>{const cg=p.brand==='컬러그램';
-      return `<tr data-tip="${esc(p.name+'\n광고비 '+won(p.adKRW)+'\n직접ROI '+p.roi+' · 직접GMV '+won(p.directGmvKRW||0)+'\n노출 '+intc(p.imp)+' · 클릭 '+intc(p.clk))}"><td class="rank">${i+1}</td><td class="l">${p.name}</td><td class="l"><span class="chip ${cg?'new':'on'}">${cg?'컬그':'웨메'}</span></td><td class="l barcell"><i style="width:${(p.adKRW/maxAd*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.adKRW)}</span></td><td class="num" style="color:${p.roi>=3?'var(--good)':p.roi<1?'var(--bad)':'var(--ink)'};font-weight:800">${(p.roi||0).toFixed(2)}</td><td class="num">${intc(p.imp)}</td><td class="num">${intc(p.clk)}</td></tr>`;}).join('');
+      return `<tr data-tip="${esc(p.name+'\n광고비 '+won(p.adKRW)+'\n직접ROI '+p.roi+' · 직접GMV '+won(p.directGmvKRW||0)+'\n노출 '+intc(p.imp)+' · 클릭 '+intc(p.clk))}"><td class="rank">${i+1}</td><td class="l">${p.name}</td><td class="l"><span class="chip ${cg?'new':'on'}">${cg?'컬그':'웨메'}</span></td><td class="l barcell"><i style="width:${(p.adKRW/maxAd*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.adKRW)}</span></td><td class="num" style="color:${p.roi>=3?'var(--good)':p.roi<1?'var(--bad)':'var(--ink)'};font-weight:800">${(p.roi||0).toFixed(2)}</td><td class="num">${intc(p.imp)}</td><td class="num">${intc(p.clk)}</td></tr>`;}).join('')+(apAll.length>ap.length?`<tr><td colspan="7" class="l" style="color:var(--ink-3);font-size:11px">외 ${apAll.length-ap.length}개 상품 · 광고비 상위 15개만 표시</td></tr>`:'');
   } else {
     thd.innerHTML=`<tr><th class="l">주체</th><th class="l">항목</th><th>당월(₩)</th><th>전월(₩)</th><th>증감</th></tr>`;
     const owC=o=>o==='OY'?'var(--green)':'var(--coral)';
@@ -1041,7 +1045,44 @@ function setTmallTitles(){
   document.getElementById('h2Mkt').textContent=`③ ${cur} 마케팅 비용 상세`;
   document.getElementById('h2Traf').textContent=`④ ${cur} 점포 유입경로`;
 }
-function renderTmall(){ setTmallTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost(); }
+let curTmallBrand='웨이크메이크';
+function renderTmallBrandSel(){
+  document.getElementById('t-brand').innerHTML='<span class="selbl">브랜드</span>'+['웨이크메이크','컬러그램'].map(b=>`<button class="pbtn${b===curTmallBrand?' active':''}" data-tbrand="${b}">${b}</button>`).join('');
+}
+function renderTmall(){
+  renderTmallBrandSel();
+  const wm=curTmallBrand==='웨이크메이크';
+  document.getElementById('tmall-wm').style.display=wm?'':'none';
+  document.getElementById('tmall-cg').style.display=wm?'none':'';
+  if(wm){ setTmallTitles(); renderKPIs(); renderInsight(); renderSellout(); renderMarketing(); renderRecs(); renderTraffic(); renderSales(); renderCost(); }
+  else renderTmallCG();
+}
+function cgTrendChart(months,vals){
+  const W=720,H=250,mL=54,mR=14,mT=16,mB=28,iw=W-mL-mR,ih=H-mT-mB,n=months.length;
+  const max=Math.max(...vals,1)*1.14, x=i=>mL+(n>1?iw*i/(n-1):iw/2), y=v=>mT+ih*(1-v/max); let g='';
+  for(let k=0;k<=4;k++){const v=max*k/4,yy=y(v);g+=`<line class="grid-l" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/><text class="axis" x="${mL-6}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${smart(v)}</text>`;}
+  months.forEach((m,i)=>{g+=`<text class="glab" x="${x(i).toFixed(1)}" y="${H-9}" text-anchor="middle">${m}</text>`;});
+  const pts=vals.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ');
+  g+=`<polygon points="${x(0).toFixed(1)},${(mT+ih).toFixed(1)} ${pts} ${x(n-1).toFixed(1)},${(mT+ih).toFixed(1)}" fill="var(--coral-2)" fill-opacity="0.08"/>`;
+  g+=`<polyline points="${pts}" fill="none" stroke="var(--coral-2)" stroke-width="2.6" stroke-linejoin="round"/>`;
+  vals.forEach((v,i)=>{g+=`<circle class="hit" cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="4" fill="var(--coral-2)" stroke="var(--surface)" stroke-width="1.6" data-tip="${esc(months[i]+'  '+won(v))}"/>`;});
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="컬러그램 티몰 월별">${g}</svg>`;
+}
+function renderTmallCG(){
+  const el=document.getElementById('tmall-cg'), T=(DATA.tmallByBrand||{})['컬러그램'];
+  if(!T||!T.months||!T.months.length){ el.innerHTML=`<div class="note" style="margin-top:18px;padding:22px;text-align:center;font-size:13px">🔒 컬러그램 티몰 데이터가 아직 없습니다 — <code>python build.py --gsheet</code> 동기화 시 표시됩니다.</div>`; return; }
+  const sales=T.sales, months=T.months, avg=sales.reduce((s,x)=>s+x,0)/sales.length, mx=Math.max(...sales), ach=T.target7?T.actual7/T.target7*100:0;
+  const kpis=[
+    kpiCard(`${T.asOfMonth} 티몰 실적`,smartW(T.actual7),`목표 ${smartW(T.target7)} · 달성 ${pc(ach,0)}`,'var(--coral-2)'),
+    kpiCard(`티몰 월평균`,smartW(avg),`${months[0]}~${months[months.length-1]} 평균`,'var(--green-2)'),
+    kpiCard('최고월',smartW(mx),months[sales.indexOf(mx)]+' 매출','var(--blue)'),
+    kpiCard('확보 범위',months.length+'개월',`${months[0]}~${months[months.length-1]} + ${T.asOfMonth}`,'var(--navy)'),
+  ].join('');
+  el.innerHTML=`<div class="s-head" style="margin-top:6px"><div><div class="s-eye">Tmall Global · Colorgram</div><h2>컬러그램 티몰 월별</h2></div><div class="s-src">요약탭 기준 월별 매출<br>환율 220원 · 증정 제외</div></div>
+    <div class="kpis">${kpis}</div>
+    <section class="blk"><div class="card"><div class="card-h"><div><div class="c-t">컬러그램 티몰 월별 매출</div><div class="c-s">${months.join('·')} 실적</div></div><div class="legend"><span class="lg line"><i style="background:var(--coral-2)"></i>컬러그램</span></div></div>${cgTrendChart(months,sales)}</div></section>
+    <div class="note" style="margin-top:14px">※ 컬러그램은 <b>티몰 월별 매출 + ${T.asOfMonth} 목표/실적</b>까지 시트에 있습니다. <b>상품별 sell-out · 상품별 광고 효율 · 유입경로 상세</b>는 컬러그램 티몰 상세 탭(상품별판매·내부광고·점포유입)이 시트에 없어 표시할 수 없습니다 — 웨이크메이크와 동일 형식으로 추가하면 자동 표시됩니다.</div>`;
+}
 
 /* month selector */
 const sel=document.getElementById('monthSel');
@@ -1062,6 +1103,7 @@ document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.cl
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['daily','platforms','tmall'].includes(v))showView(v);});
 document.getElementById('p-sel').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curPlat=b.dataset.plat;renderPlatforms();});
 document.getElementById('p-brand').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curBrand=b.dataset.brand;curPlat='통합';renderPlatforms();});
+document.getElementById('t-brand').addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(!b)return;curTmallBrand=b.dataset.tbrand;renderTmall();});
 
 /* theme toggle */
 document.getElementById('themeBtn').addEventListener('click',()=>{
