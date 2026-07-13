@@ -130,14 +130,16 @@ def _parse_tmall_sheets(sheet):
     targets = {"웨이크메이크": tmall_actual}
     if len(tmall_rows) >= 2:   # 컬러그램 섹션은 백만원 → 원 환산
         targets["컬러그램"] = [v * 1e6 if (v and abs(v) < 1e5) else v for v in tmall_rows[1]]
-    linemap = {}   # 티몰코드→라인명(국문 정본) : 인접 셀 스캔(WM col1-2, CG col23-24 등)
+    linemap = {}   # 티몰코드→라인명(국문 정본): 인접셀 스캔 · 한글(국문)이면 항상 우선
     for row in sheet("티몰글로벌"):
         for j in range(len(row) - 1):
             pid = re.sub(r"[^0-9]", "", str(row[j]))
             nmv = str(row[j + 1]).strip()
             if len(pid) >= 11 and nmv and re.search(r"[^\d,.\s]", nmv):
                 nmv = re.sub(r"^(웨이크메이크|컬러그램|WAKEMAKE|COLORGRAM)\s*", "", nmv, flags=re.I).strip()
-                if pid not in linemap and nmv: linemap[pid] = nmv
+                if not nmv: continue
+                if re.search(r"[가-힣]", nmv) or pid not in linemap:   # 국문 우선(중문 선점 방지)
+                    linemap[pid] = nmv
     set_linemap(linemap)
 
     def idx(header, name):
