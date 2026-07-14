@@ -416,6 +416,37 @@ def _dy_clean(cn):
     s = re.sub(r"^(WAKE ?MAKE\s*/?\s*唯可魅|韩国\s*colorgram|colorgram|唯可魅)", "", str(cn or ""), flags=re.I)
     s = re.sub(r"【[^】]*】", "", s)
     return s.strip() or str(cn or "")
+# 도우인 중문 상품명 → 티몰 한글명 근사 매칭(키워드, 정확도 우선 순서로 배치)
+_DY_MATCH_RULES = {
+    "웨이크메이크": [
+        (["十六色"], "소프트 블러링 아이팔레트"), (["六色"], "6색 멀티 팔레트"),
+        (["三色", "修容"], "믹스 블러링 볼륨 쉐딩"), (["三色", "阴影"], "믹스 블러링 볼륨 쉐딩"),
+        (["高光修容"], "윤곽 형광 조색 팔레트"),
+        (["粉底刷"], "스파츌라 와이드 파운데이션 브러시"),
+        (["裸感", "气垫"], "심리스 웨어 쿠션"), (["气垫"], "워터 글로우 코팅 쿠션"),
+        (["水光", "唇"], "워터풀 글로우 틴트"), (["玻璃唇"], "워터풀 글로우 틴트"),
+        (["叠", "唇"], "워터 블러링 레이어 틴트"),
+        (["雾面", "口红"], "볼드 립 블러 틴트"), (["雾面", "唇"], "볼드 립 블러 틴트"),
+        (["腮红"], "쉐이킹 블러 치크"), (["眉笔"], "내추럴 하드 브로우 펜슬"),
+    ],
+    "컬러그램": [
+        (["糖葫芦", "精华"], "탕후루 립 세럼"),
+        (["糖葫芦", "琥珀"], "탕후루 워터 틴트"), (["糖葫芦", "琉光"], "탕후루 워터 틴트"),
+        (["糖葫芦", "水光"], "탕후루 워터 틴트"), (["糖葫芦", "镜面"], "탕후루 워터 틴트"),
+        (["糖葫芦"], "탕후루 딥글레이즈 틴트"),
+        (["小年糕"], "누디 블러 틴트 (loopy 콜라보)"),
+        (["橡皮擦"], "긱 누드 컬러 커버 틴트"), (["唇部打底"], "긱 누드 컬러 커버 틴트"),
+        (["卧蚕笔"], "올인원 애교살 메이커"), (["修容笔"], "입체 창조 쉐딩 스틱"),
+        (["唇线笔"], "올인원립라이너"), (["眼影盘"], "포켓링 아이 팔레트"),
+        (["蜜糖罐"], "쥬시 잼 블러 틴트"), (["果酱"], "틴토리 잼"),
+        (["化妆包"], "루피 PVC 파우치"),
+    ],
+}
+def _dy_match(cn, brand):
+    s = str(cn or "")
+    for kws, ko in _DY_MATCH_RULES.get(brand, []):
+        if all(k in s for k in kws): return ko
+    return None
 
 def parse_douyin_sheet(sid, gid_daily, gid_prod=None):
     """도우인 일자별매출(载体=全部·시간=不限=일총합)·상품판매(载体=全部) → 브랜드별 월집계+6월 상품."""
@@ -450,13 +481,22 @@ def parse_douyin_sheet(sid, gid_daily, gid_prod=None):
             if len(r) < 7 or str(r[5]).strip() != "全部": continue
             b = _DY_BRAND.get(str(r[0]).strip().upper())
             if not b or _mm_ko(r[2]) != "6월": continue
+            raw = str(r[3]).strip()
+            if "测试" in raw or "勿拍" in raw: continue   # 테스트 상품 제외
             agg.setdefault(b, {})
-            nm = _dy_clean(r[3])
+            nm = _dy_clean(raw)
             agg[b][nm] = agg[b].get(nm, 0.0) + _numc(r[6]) * FX
         for b in agg:
-            tot = sum(agg[b].values())
-            lst = [{"name": nm, "payKRW": round(v), "share": round(v / tot * 1000) / 10 if tot else 0}
-                   for nm, v in agg[b].items() if v > 0]
+            grp = {}   # 티몰 한글명 매칭 시 동일명끼리 합산(티몰 sell-out 방식과 일관)
+            for nm, v in agg[b].items():
+                if v <= 0: continue
+                ko = _dy_match(nm, b); disp = ko or nm
+                g = grp.setdefault(disp, {"name": disp, "matched": bool(ko), "payKRW": 0.0, "cns": []})
+                g["payKRW"] += v; g["cns"].append(nm)
+            tot = sum(g["payKRW"] for g in grp.values())
+            lst = [{"name": g["name"], "matched": g["matched"], "payKRW": round(g["payKRW"]),
+                    "share": round(g["payKRW"] / tot * 1000) / 10 if tot else 0,
+                    "cn": " · ".join(g["cns"][:3])} for g in grp.values()]
             lst.sort(key=lambda x: -x["payKRW"])
             products[b] = lst
     daily.sort(key=lambda x: (x["brand"], x["date"]))

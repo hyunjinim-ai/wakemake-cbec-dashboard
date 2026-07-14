@@ -1171,15 +1171,16 @@ function renderDouyinBrandSel(){
 function renderDouyinCombined(){
   const el=document.getElementById('dy-combined'); if(!el) return;
   const pm=dyPrevMonth(cur);
-  const at=m=>{let s=0,o=0,bu=0;['웨이크메이크','컬러그램'].forEach(b=>{const x=dyAt(b,m);if(x){s+=x.salesKRW||0;o+=x.orders||0;bu+=x.buyers||0;}});return{s,o,bu};};
+  const at=m=>{let s=0,o=0,bu=0,uv=0;['웨이크메이크','컬러그램'].forEach(b=>{const x=dyAt(b,m);if(x){s+=x.salesKRW||0;o+=x.orders||0;bu+=x.buyers||0;uv+=x.clickUV||0;}});return{s,o,bu,uv};};
   const C=at(cur), P=pm?at(pm):null, tot=C.s||1;
-  const each=['웨이크메이크','컬러그램'].map(b=>{const x=dyAt(b,cur)||{};return{b,s:x.salesKRW||0};});
+  const each=['웨이크메이크','컬러그램'].map(b=>{const x=dyAt(b,cur)||{};return{b,s:x.salesKRW||0,uv:x.clickUV||0};});
   const split=each.filter(x=>x.s>0).map(x=>`<div class="seg" style="width:${(x.s/tot*100).toFixed(1)}%;background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}" data-tip="${esc(x.b+' '+won(x.s)+' ('+pc(x.s/tot*100)+')')}">${x.s/tot>0.12?x.b:''}</div>`).join('');
-  const legs=each.map(x=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}"></i>${x.b}</span></span><span class="vv num">${won(x.s)} · ${pc(x.s/tot*100)}</span></div>`).join('');
-  const stat=(lab,val,foot,ac)=>`<div class="kpi" style="flex:1"><div class="k-accent" style="background:${ac}"></div><div class="k-label">${lab}</div><div class="k-val num" style="font-size:23px;margin-top:6px">${val}</div><div class="k-foot num">${foot}</div></div>`;
+  const legs=each.map(x=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${(BRANDCOL[x.b]||BRANDCOL['웨이크메이크']).v}"></i>${x.b}</span></span><span class="vv num">${won(x.s)} · ${pc(x.s/tot*100)} · 방문UV ${intc(x.uv)}</span></div>`).join('');
+  const stat=(lab,val,foot,ac)=>`<div class="kpi" style="flex:1;min-width:180px"><div class="k-accent" style="background:${ac}"></div><div class="k-label">${lab}</div><div class="k-val num" style="font-size:23px;margin-top:6px">${val}</div><div class="k-foot num">${foot}</div></div>`;
   el.innerHTML=`<div class="s-head" style="margin-bottom:8px"><div><div class="s-eye" style="color:var(--coral)">Douyin · Combined</div><h2>${cur} 도우인 통합 (웨메+컬그) 고정 요약</h2></div><div class="s-src">브랜드 선택과 무관 · 항상 합계</div></div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       ${stat('통합 도우인 매출', smartW(C.s), '전월 '+(P?mom(C.s,P.s):'–')+(P?' · '+pm+' '+smartW(P.s):''), 'var(--coral-2)')}
+      ${stat('통합 방문 UV(클릭)', intc(C.uv)+'명', '상품 클릭 UV 합 · 전월 '+(P?mom(C.uv,P.uv):'–'), 'var(--blue)')}
       ${stat('통합 주문수', intc(C.o)+'건', '구매자 '+intc(C.bu)+'명 · 전월 '+(P?mom(C.o,P.o):'–'), 'var(--green-2)')}
     </div>
     <div class="card" style="margin-top:12px"><div class="splitbar">${split}</div><div style="margin-top:10px">${legs}</div></div>`;
@@ -1215,12 +1216,12 @@ function renderDouyin(){
   const prods=(DYD.products&&DYD.products[B])||[];
   let sellHtml;
   if(prods.length){
-    const top=prods.slice(0,15), maxP=top[0].payKRW||1;
-    const rows=top.map((p,i)=>`<tr data-tip="${esc(p.name+'\n결제 '+won(p.payKRW)+' · 비중 '+pc(p.share))}"><td class="rank">${i+1}</td><td class="l">${p.name}</td><td class="l barcell"><i style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td></tr>`).join('')
+    const top=prods.slice(0,15), maxP=top[0].payKRW||1, unm=prods.filter(p=>!p.matched).length;
+    const rows=top.map((p,i)=>`<tr data-tip="${esc(p.name+'\n원문: '+(p.cn||'')+'\n결제 '+won(p.payKRW)+' · 비중 '+pc(p.share))}"><td class="rank">${i+1}</td><td class="l">${p.name}${p.matched?'':` <span class="chip off">원문</span>`}</td><td class="l barcell"><i style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td></tr>`).join('')
       +(prods.length>15?`<tr><td colspan="4" class="l" style="color:var(--ink-3);font-size:11px">외 ${prods.length-15}개 상품 · 결제금액 상위 15개</td></tr>`:'');
-    sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div><div class="s-src">도우인 상품판매(载体=全部)<br>증정 제외 결제금액</div></div>
-      <div class="card"><div class="tbl-wrap"><table><thead><tr><th class="l">#</th><th class="l">상품(중문 정리명)</th><th>결제금액(₩)</th><th>비중</th></tr></thead><tbody>${rows}</tbody></table></div>
-      <div class="note" style="margin-top:8px">상품명은 도우인 원문(브랜드 접두 정리). 티몰 SKU 매핑은 상품ID가 달라 별도 · 필요 시 매핑 확장.</div></div></section>`;
+    sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div><div class="s-src">도우인 상품판매(载体=全部)<br>티몰 한글명 근사 매칭</div></div>
+      <div class="card"><div class="tbl-wrap"><table><thead><tr><th class="l">#</th><th class="l">상품 (티몰 한글 매칭)</th><th>결제금액(₩)</th><th>비중</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="note" style="margin-top:8px">도우인 원문 상품명을 <b>티몰 한글명으로 근사 자동매칭</b>(동일명 합산)했습니다. <b>원문</b> 태그는 매칭 미확정(중문 유지)${unm?` · ${B} ${unm}건`:''} — 정확 매핑을 주시면 반영합니다. (마우스 오버 시 원문 표시)</div></div></section>`;
   } else sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} 도우인 ${cur} 상품 데이터가 없습니다.</div></section>`;
   // 마케팅비(OY마케팅, 브랜드 총액)
   const oy=(DATA.oyMkt&&DATA.oyMkt[B]&&DATA.oyMkt[B][cur])||{};
