@@ -1495,8 +1495,8 @@ def main():
             ms = [m for m in _allm if m in cgXhs] or sorted(cgXhs, key=lambda x: int(x[:-1]))
             xhsEff["컬러그램"] = {"months": ms,
                 "rows": _eff_rows(cgXhs, ms, tmMon.get("컬러그램", {}) or {}, lambda s: s["cid"], lambda s: s["jg"], lambda s: s["cidGmv"]),
-                "labels": {"main": "CID 효과광고", "sub": "信息流(KOL)", "inflow": "CID 유입 GMV", "owner": "OY"},
-                "note": "CID·信息流 = OY(올리브영) 집행 · 유입 = CID 성사 GMV(30일 기여) · 티몰 실매출 = 티몰 일자별매출(COLORGRAM 매장) · 데이터 1~5월"}
+                "labels": {"main": "CID 효과광고", "sub": "쥐광(聚光)", "inflow": "CID 유입 GMV", "owner": "OY"},
+                "note": "컬그는 쥐광(聚光)·CID 모두 집행 = OY(올리브영) · ROI는 성사 GMV가 측정되는 CID 기준(쥐광=인지형 유입) · 티몰 실매출=티몰 일자별매출(COLORGRAM 매장) · 데이터 1~5월"}
         _local_dy, xhs = _local_douyin_xhs()
         douyin = dyx.get("daily") or _local_dy   # 공식 도우인 일자별(전월) 우선, 실패 시 로컬(부분)
         data = assemble_from_parts(tmall, douyin, xhs)

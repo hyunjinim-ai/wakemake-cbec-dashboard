@@ -72,6 +72,12 @@
     color:var(--ink-2);cursor:pointer;font-size:16px;line-height:1;display:grid;place-items:center}
   .tbtn:hover{border-color:var(--green);color:var(--green)}
   .tbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+  .syncwrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  .tbtn.syncbtn{width:auto;height:34px;padding:0 13px;gap:5px;font-size:13px;font-weight:800;
+    text-decoration:none;background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .tbtn.syncbtn:hover{background:var(--green);color:#fff}
+  .tbtn.syncbtn .sbt{font-size:12.5px}
+  .synctime{font-size:10.5px;color:var(--ink-3);font-weight:700}
 
   /* tabs (top-level views) */
   .tabs{display:flex;gap:4px;margin:16px 0 2px;border-bottom:1px solid var(--border);flex-wrap:wrap}
@@ -307,6 +313,10 @@
       <div class="sub">티몰글로벌(天猫国际) · 도우인(抖音) · 샤오홍슈(小红书) &nbsp;·&nbsp; 환율 <b>1元 = 220원</b> · 증정 제외 결제금액</div>
     </div>
     <div class="topctrl">
+      <div class="syncwrap">
+        <a class="tbtn syncbtn" id="syncBtn" href="https://github.com/hyunjinim-ai/wakemake-cbec-dashboard/actions/workflows/sync.yml" target="_blank" rel="noopener" title="구글시트 최신 데이터로 재동기화 (GitHub Actions에서 'Run workflow' 클릭 → 1~2분 후 반영)">🔄 <span class="sbt">동기화</span></a>
+        <span class="synctime" id="syncTime"></span>
+      </div>
       <button class="tbtn" id="themeBtn" title="라이트/다크 전환" aria-label="테마 전환">◐</button>
     </div>
   </header>
@@ -1331,7 +1341,8 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
 });
 
 /* init */
-(function(){const fi=document.getElementById('foot-info');if(fi){const a=DATA.dailyStatus&&DATA.dailyStatus.asOf?' · 일자별 기준 '+DATA.dailyStatus.asOf:'';const b=DATA.builtAt?' · 갱신 '+DATA.builtAt:'';fi.textContent='데이터: 티몰글로벌·도우인·샤오홍슈 · 증정 제외 결제금액 · 환율 1元=220원(고정, 변동 미반영)'+a+b;}})();
+(function(){const fi=document.getElementById('foot-info');if(fi){const a=DATA.dailyStatus&&DATA.dailyStatus.asOf?' · 일자별 기준 '+DATA.dailyStatus.asOf:'';const b=DATA.builtAt?' · 갱신 '+DATA.builtAt:'';fi.textContent='데이터: 티몰글로벌·도우인·샤오홍슈 · 증정 제외 결제금액 · 환율 1元=220원(고정, 변동 미반영)'+a+b;}
+  const st=document.getElementById('syncTime');if(st&&DATA.builtAt)st.textContent='최근 '+DATA.builtAt;})();
 const startView=(location.hash||'#daily').slice(1);
 showView(['daily','platforms','tmall','douyin'].includes(startView)?startView:'daily');
 wireTips(document.body);

@@ -1,0 +1,52 @@
+name: 데이터 동기화 (Sync from Google Sheets)
+
+# 자동 동기화: 스케줄(정기) + 수동 실행(Run workflow 버튼)
+on:
+  workflow_dispatch: {}          # ← GitHub Actions 탭의 'Run workflow' = 수동 동기화 버튼
+  schedule:
+    - cron: '0 1,4,7,10 * * *'   # UTC → KST 10·13·16·19시 (하루 4회 자동 동기화)
+
+permissions:
+  contents: write                # index.html/data.json 커밋·푸시 권한
+
+concurrency:
+  group: sync-data
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 시트 설정 복원 (secret SHEET_CONFIG)
+        env:
+          SHEET_CONFIG: ${{ secrets.SHEET_CONFIG }}
+        run: |
+          if [ -z "$SHEET_CONFIG" ]; then
+            echo "::error::SHEET_CONFIG secret 이 없습니다. 저장소 Settings → Secrets → Actions 에 sheet.config.json 내용을 SHEET_CONFIG 로 추가하세요."
+            exit 1
+          fi
+          printf '%s' "$SHEET_CONFIG" > sheet.config.json
+
+      - name: 빌드 (구글시트 → index.html / data.json)
+        run: python build.py --gsheet
+
+      - name: 변경 시 커밋·푸시 (→ Cloudflare 자동 재배포)
+        run: |
+          git config user.name "sync-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html data.json
+          if git diff --cached --quiet; then
+            echo "데이터 변경 없음 — 커밋 생략"
+          else
+            git commit -m "chore: 데이터 자동 동기화 $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+            git push
+            echo "동기화 커밋·푸시 완료 → Cloudflare 재배포"
+          fi
