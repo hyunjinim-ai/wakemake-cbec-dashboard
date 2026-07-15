@@ -448,7 +448,7 @@
             <div style="display:flex;align-items:center;gap:16px"><div id="donut" style="flex:none"></div><div id="donut-legend" style="flex:1;min-width:0"></div></div>
           </div>
           <div class="card xhs warnb" id="xhscard">
-            <div class="card-h"><div><div class="c-t">샤오홍슈(小红书) CID 성과</div><div class="c-s">효과광고(聚光)</div></div><span class="badge bad" id="xhs-badge"></span></div>
+            <div class="card-h"><div><div class="c-t">쥐광(聚光) + CID 집행</div><div class="c-s">샤오홍슈 효과광고 · 티몰 유입 견인</div></div><span class="badge" id="xhs-badge"></span></div>
             <div id="xhs-kv"></div>
           </div>
         </div>
@@ -928,11 +928,14 @@ let curTmallBrand='웨이크메이크';
 function TB(){ return (DATA.tmallBrands&&DATA.tmallBrands[curTmallBrand]) || {series:S, byMonth:DATA.byMonth}; }
 function ctx(){ const SB=TB().series, BM=TB().byMonth; let i=SB.findIndex(x=>x.month===cur); if(i<0)i=SB.length-1; return {i, J:SB[i], PREV:i>0?SB[i-1]:null, M:BM[cur]||BM[SB[i].month]}; }
 function renderKPIs(){ const {J,PREV}=ctx(); const pv=k=>PREV?PREV[k]:null;
+  const paid=J.paidAdKRW||J.tmallAdKRW||0, xh=J.xhsAdKRW||0;
   const cards=[
     {l:cur+' 티몰 매출',v:smartW(J.salesKRW),foot:J.targetKRW?`목표 ${smartW(J.targetKRW)} · 달성 ${pc(J.achv)}`:'월 목표 미설정(시트)',mom:mom(J.salesKRW,pv('salesKRW')),ac:'var(--green-2)'},
     {l:'총 방문자 (UV)',v:intc(J.uv)+'명',foot:J.pv?`노출량(PV) ${intc(J.pv)}`:'증정품 제외 상품 UV 합',mom:mom(J.uv,pv('uv')),ac:'var(--blue)'},
-    {l:cur+' 티몰 유료마케팅비',v:smartW(J.tmallAdKRW||0),foot:`티몰 내부 유료광고 소모액<br>※ 비용은 스틸에서 지불`,mom:mom(J.tmallAdKRW,pv('tmallAdKRW'),true),ac:'var(--coral-2)'},
-    {l:'유료광고 ROAS',v:(J.paidRoas||0).toFixed(2)+'x',foot:'매출 / (티몰유료광고 + 聚光 CID)',mom:mom(J.paidRoas,pv('paidRoas')),ac:'var(--navy)'},
+    {l:cur+' 티몰 유료광고비',v:smartW(paid),foot:`내부광고 ${smart(J.tmallAdKRW||0)}${xh?` + 쥐광·CID ${smart(xh)}`:''}`,mom:mom(paid,PREV?(PREV.paidAdKRW||PREV.tmallAdKRW||0):null,true),ac:'var(--coral-2)'},
+    {l:'유료광고 ROAS',v:(J.paidRoas||0).toFixed(2)+'x',foot:'매출 / (내부광고 + 쥐광聚光 + CID)',mom:mom(J.paidRoas,pv('paidRoas')),ac:'var(--navy)'},
+    {l:'CPUV (방문단가)',v:'₩'+intc(J.cpuv||0),foot:'유료광고비 / 방문 UV',mom:mom(J.cpuv,pv('cpuv'),true),ac:'var(--gold)'},
+    {l:'광고 CTR',v:(J.ctr||0).toFixed(1)+'%',foot:'내부광고 클릭 / 노출',mom:mom(J.ctr,pv('ctr')),ac:'var(--green)'},
   ];
   document.getElementById('kpis').innerHTML=cards.map(c=>`<div class="kpi"><div class="k-accent" style="background:${c.ac}"></div><div class="k-top"><span class="k-label">${c.l}</span>${c.mom}</div><div class="k-val num">${c.v}</div><div class="k-foot num">${c.foot}</div></div>`).join('');
 }
@@ -1008,16 +1011,17 @@ function renderMarketing(){ const {J,PREV,M}=ctx();
   document.getElementById('donut-legend').innerHTML=[{n:'티몰 유료광고 (스틸)',v:tmAd,c:'var(--green-2)'},{n:'쥐광(聚光) CID (OY)',v:xhAd,c:'var(--coral-2)'}].map(r=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${r.c}"></i>${r.n}</span></span><span class="vv num">${won(r.v)} · ${pc(r.v/tot*100)}</span></div>`).join('')
     +(xhAd===0?`<div class="note" style="margin-top:8px">${curTmallBrand==='웨이크메이크'?'웨메는 샤오홍슈 <b>효과광고(聚光)/CID 미집행</b> — 聚光은 컬그 채널입니다.':`컬그 聚光/CID는 <b>컬러그램 샤오홍씽·CID-광고</b> 탭 기준으로, ${cur} 데이터는 아직 미입력입니다(현재 1~5월).`}</div>`:'');
   const badge=document.getElementById('xhs-badge');
-  if(!J.xhsAdKRW && !J.xhsGmvKRW){
-    badge.className='badge'; badge.textContent='—';
+  const jg=J.jgKRW||0, cid=J.cidKRW||0, xtot=jg+cid, pxt=PREV?((PREV.jgKRW||0)+(PREV.cidKRW||0)):null;
+  if(!xtot){
+    badge.className='badge'; badge.textContent='미집행';
     document.getElementById('xhscard').className='card xhs warnb';
-    document.getElementById('xhs-kv').innerHTML=`<div class="note" style="border:none;background:none;padding:6px 0">${curTmallBrand}의 샤오홍슈(聚光) 월별 데이터는 시트에 없습니다. 7월 현황은 <b>① 일자별 현황</b>에서 확인하세요.</div>`;
+    document.getElementById('xhs-kv').innerHTML=`<div class="note" style="border:none;background:none;padding:6px 0">${curTmallBrand}는 ${cur} 쥐광(聚光)/CID <b>미집행</b>. 효과광고(聚光·CID)는 <b>컬러그램 채널</b>이며 티몰 유입을 견인 → 티몰 ROAS 분모에 포함됩니다.</div>`;
   } else {
-    const xr=J.xhsRoas, bad=xr<1.5;
-    badge.className='badge '+(bad?'bad':'good'); badge.textContent=`ROAS ${xr.toFixed(1)}x ${bad?'· 적자':'· 양호'}`;
-    document.getElementById('xhscard').className='card xhs '+(bad?'':'warnb');
-    const rows=[['광고비 (CID 聚光)',won(J.xhsAdKRW)],['기여 GMV',won(J.xhsGmvKRW)],['ROAS',xr.toFixed(1)+'x'],['유입 UV',intc(J.xhsUV)+'명'],['전체 UV 중 비중',pc(J.xhsShare)],['전월 대비 광고비',mom(J.xhsAdKRW,PREV?PREV.xhsAdKRW:null,true)]];
-    document.getElementById('xhs-kv').innerHTML=rows.map(r=>`<div class="kv"><span class="kk">${r[0]}</span><span class="vv num" ${r[0]==='ROAS'&&bad?'style="color:var(--bad)"':''}>${r[1]}</span></div>`).join('');
+    badge.className='badge good'; badge.textContent=`집행 ${smartW(xtot)}`;
+    document.getElementById('xhscard').className='card xhs';
+    const rows=[['쥐광(聚光) 집행',won(jg)],['CID 집행',won(cid)],['쥐광+CID 계',won(xtot)],['티몰 내부광고',won(J.tmallAdKRW||0)],['티몰 유료광고 계',won(J.paidAdKRW||0)],['전월 대비 쥐광+CID',mom(xtot,pxt,true)]];
+    document.getElementById('xhs-kv').innerHTML=rows.map(r=>`<div class="kv"><span class="kk">${r[0]}</span><span class="vv num">${r[1]}</span></div>`).join('')
+      +`<div class="note" style="margin-top:6px">쥐광(聚光)·CID는 샤오홍슈 효과광고지만 <b>티몰 상품페이지 유입</b>을 견인 → 티몰 ROAS 분모(내부광고+쥐광+CID)에 포함.</div>`;
   }
 }
 function renderRecs(){ const {J,M}=ctx();
@@ -1192,10 +1196,10 @@ function renderDouyin(){
   const c=BRANDCOL[B]||BRANDCOL['웨이크메이크'];
   const pv=k=>P?P[k]:null;
   const kpis=[
-    kpiCard('도우인 매출('+cur+')', smartW(K.salesKRW||0), 'GMV '+smartW(K.gmvKRW||0)+' · 海外旗舰店', c.v, mom(K.salesKRW,pv('salesKRW'))),
+    kpiCard('도우인 매출('+cur+')', smartW(K.salesKRW||0), 'GMV '+smartW(K.gmvKRW||0)+' · 방문UV '+intc(K.clickUV||0), c.v, mom(K.salesKRW,pv('salesKRW'))),
+    kpiCard('도우인 ROI', (K.roi!=null?K.roi.toFixed(2)+'x':'—'), '매출 / 라이브방송 지원 '+smartW(K.liveKRW||0), 'var(--navy)', mom(K.roi,pv('roi'))),
     kpiCard('주문수', intc(K.orders||0)+'건', '구매자 '+intc(K.buyers||0)+'명', 'var(--green-2)', mom(K.orders,pv('orders'))),
     kpiCard('객단가(AOV)', won(K.aov||0), (K.aov>=(O.aov||0)?'상대 브랜드보다 높음':'상대 브랜드보다 낮음'), 'var(--blue)', mom(K.aov,pv('aov'))),
-    kpiCard('구매자수', intc(K.buyers||0)+'명', '노출 '+smart(K.impUV||0)+' · 클릭 '+intc(K.clickUV||0), 'var(--navy)', mom(K.buyers,pv('buyers'))),
   ].join('');
   // 퍼널
   const ctr=(K.impUV&&K.clickUV)?K.clickUV/K.impUV*100:null, cvr=(K.clickUV&&K.buyers)?K.buyers/K.clickUV*100:null;
@@ -1205,6 +1209,7 @@ function renderDouyin(){
   const ins=[];
   ins.push({h:'매출 추세 '+(gmom==null?'':gmom>=0?'성장':'둔화'),c:gmom==null?'var(--ink-3)':gmom>=0?'var(--good)':'var(--warn)',
     t:`${cur} 도우인 <b>${smartW(K.salesKRW||0)}</b>${P?` · 전월 대비 <b>${mom(K.salesKRW,P.salesKRW)}</b>`:''}. 상반기 최고 ${peakM} ${smartW(peak)}.`});
+  if(K.roi!=null) ins.push({h:'도우인 ROI '+(K.roi>=3?'양호':'점검'),c:K.roi>=3?'var(--good)':'var(--warn)',t:`매출 ${smartW(K.salesKRW||0)} / 라이브방송 지원 ${smartW(K.liveKRW||0)} = <b>ROI ${K.roi.toFixed(2)}x</b>. <span style="color:var(--ink-3)">※ 도우인 내부광고비(千川) 데이터 미보유 → 라이브 지원만 반영, 샤오홍슈 쥐광/CID 제외</span>.`});
   ins.push({h:'객단가 구조',c:'var(--gold)',t:`AOV <b>${won(K.aov||0)}</b> · 주문 ${intc(K.orders||0)}건 / 구매자 ${intc(K.buyers||0)}명. ${B==='컬러그램'?'저가·다구매형':'상대적 고가·집중형'} 패턴.`});
   if(cvr!=null) ins.push({h:'전환 퍼널',c:cvr>=3?'var(--good)':'var(--warn)',t:`상품 노출 ${smart(K.impUV||0)} → 클릭 ${intc(K.clickUV||0)}(CTR <b>${pc(ctr,2)}</b>) → 구매 ${intc(K.buyers||0)}(CVR <b>${pc(cvr,2)}</b>).`});
   const insHtml=`<div class="callout" style="border-left-color:${c.v}"><h3><span class="dot" style="background:${c.v}"></span>${B} · ${cur} 도우인 진단</h3><div class="ins-grid" style="grid-template-columns:1fr;margin-top:8px">`+ins.map(x=>`<div class="ins-item"><div class="it-h"><span class="dot" style="background:${x.c}"></span>${x.h}</div>${x.t}</div>`).join('')+`</div></div>`;
@@ -1217,12 +1222,24 @@ function renderDouyin(){
   let sellHtml;
   if(prods.length){
     const top=prods.slice(0,15), maxP=top[0].payKRW||1, unm=prods.filter(p=>!p.matched).length;
-    const rows=top.map((p,i)=>`<tr data-tip="${esc(p.name+'\n원문: '+(p.cn||'')+'\n결제 '+won(p.payKRW)+' · 비중 '+pc(p.share))}"><td class="rank">${i+1}</td><td class="l">${p.name}${p.matched?'':` <span class="chip off">원문</span>`}</td><td class="l barcell"><i style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td></tr>`).join('')
-      +(prods.length>15?`<tr><td colspan="4" class="l" style="color:var(--ink-3);font-size:11px">외 ${prods.length-15}개 상품 · 결제금액 상위 15개</td></tr>`:'');
-    sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div><div class="s-src">도우인 상품판매(载体=全部)<br>티몰 한글명 근사 매칭</div></div>
-      <div class="card"><div class="tbl-wrap"><table><thead><tr><th class="l">#</th><th class="l">상품 (티몰 한글 매칭)</th><th>결제금액(₩)</th><th>비중</th></tr></thead><tbody>${rows}</tbody></table></div>
-      <div class="note" style="margin-top:8px">도우인 원문 상품명을 <b>티몰 한글명으로 근사 자동매칭</b>(동일명 합산)했습니다. <b>원문</b> 태그는 매칭 미확정(중문 유지)${unm?` · ${B} ${unm}건`:''} — 정확 매핑을 주시면 반영합니다. (마우스 오버 시 원문 표시)</div></div></section>`;
+    const rows=top.map((p,i)=>`<tr data-tip="${esc(p.name+'\n원문: '+(p.cn||'')+'\n결제 '+won(p.payKRW)+' · 비중 '+pc(p.share)+' · 구매전환 '+pc(p.conv||0,2))}"><td class="rank">${i+1}</td><td class="l">${p.name}${p.matched?'':` <span class="chip off">원문</span>`}</td><td class="l barcell"><i style="width:${(p.payKRW/maxP*100).toFixed(1)}%"></i><span class="num emph" style="display:block;text-align:right">${won(p.payKRW)}</span></td><td class="num">${pc(p.share)}</td><td class="num" style="color:${(p.conv||0)>=3?'var(--good)':(p.conv||0)<1?'var(--bad)':'var(--ink)'};font-weight:800">${pc(p.conv||0,2)}</td></tr>`).join('')
+      +(prods.length>15?`<tr><td colspan="5" class="l" style="color:var(--ink-3);font-size:11px">외 ${prods.length-15}개 상품 · 결제금액 상위 15개</td></tr>`:'');
+    sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out · 광고효율</div><h2>② ${cur} 상품별 Sell-out</h2></div><div class="s-src">도우인 상품판매(载体=全部)<br>티몰 한글명 근사 매칭</div></div>
+      <div class="card"><div class="tbl-wrap"><table><thead><tr><th class="l">#</th><th class="l">상품 (티몰 한글 매칭)</th><th>결제금액(₩)</th><th>비중</th><th>구매전환</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="note" style="margin-top:8px">도우인 원문 상품명을 <b>티몰 한글명으로 근사 자동매칭</b>(동일명 합산). <b>구매전환</b>=상품 클릭→성사 전환율(광고효율 지표, 도우인은 상품별 광고비 미제공). <b>원문</b> 태그는 매칭 미확정${unm?` · ${B} ${unm}건`:''}.</div></div></section>`;
   } else sellHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Sell-out</div><h2>② ${cur} 상품별 Sell-out</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} 도우인 ${cur} 상품 데이터가 없습니다.</div></section>`;
+  // 채널·유형별 점유(载体类型)
+  const car=(DYD.carriers&&DYD.carriers[B])||{};
+  const carEnt=Object.entries(car).sort((a,b)=>b[1]-a[1]), carTot=carEnt.reduce((s,x)=>s+x[1],0);
+  const CARCOL={'라이브방송':'var(--coral-2)','상품카드':'var(--green-2)','숏폼영상':'var(--blue)','이미지·글':'var(--gold)','기타':'var(--ink-3)'};
+  let carHtml='';
+  if(carEnt.length){
+    const csplit=carEnt.map(([k,v])=>`<div class="seg" style="width:${(v/carTot*100).toFixed(1)}%;background:${CARCOL[k]||'var(--ink-3)'}" data-tip="${esc(k+' '+won(v)+' ('+pc(v/carTot*100)+')')}">${v/carTot>0.1?k:''}</div>`).join('');
+    const clegs=carEnt.map(([k,v])=>`<div class="kv"><span class="kk"><span class="lg"><i style="background:${CARCOL[k]||'var(--ink-3)'}"></i>${k}</span></span><span class="vv num">${won(v)} · ${pc(v/carTot*100)}</span></div>`).join('');
+    carHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Channel Mix · 载体类型</div><h2>③ ${cur} 채널·유형별 매출 점유</h2></div><div class="s-src">라이브방송·상품카드·숏폼 등<br>증정 제외 결제금액</div></div>
+      <div class="card"><div class="splitbar">${csplit}</div><div style="margin-top:10px">${clegs}</div>
+      <div class="note" style="margin-top:8px">${B==='컬러그램'?'컬그는 <b>라이브방송 중심</b>':'웨메는 <b>상품카드(검색·추천) 중심</b>'} 판매 구조.</div></div></section>`;
+  }
   // 마케팅비(OY마케팅, 브랜드 총액)
   const oy=(DATA.oyMkt&&DATA.oyMkt[B]&&DATA.oyMkt[B][cur])||{};
   const oyEnt=Object.entries(oy).sort((a,b)=>b[1]-a[1]), oyTot=oyEnt.reduce((s,x)=>s+x[1],0);
@@ -1230,12 +1247,12 @@ function renderDouyin(){
   if(oyEnt.length){
     const mx=oyEnt[0][1];
     const bars=oyEnt.map(([cat,v])=>`<div class="pbar" data-tip="${esc((OYCAT[cat]||cat)+' '+won(v)+' ('+pc(v/oyTot*100)+')')}"><div class="pb-top"><div class="pb-name"><span class="nm">${OYCAT[cat]||cat}</span></div><div class="pb-val num">${won(v)}</div></div><div class="pb-track"><div class="pb-fill" style="width:${(v/mx*100).toFixed(1)}%"></div></div></div>`).join('');
-    mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>③ ${cur} 마케팅 비용 상세</h2></div><div class="s-src">OY 집행 마케팅비(브랜드 총액)<br>채널 구분 없음 · ₩ 기준</div></div>
+    mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>④ ${cur} 마케팅 비용 상세</h2></div><div class="s-src">OY 집행 마케팅비(브랜드 총액)<br>채널 구분 없음 · ₩ 기준</div></div>
       <div class="card"><div class="card-h"><div><div class="c-t">${B} ${cur} 마케팅비 <span class="num">${won(oyTot)}</span></div><div class="c-s">항목별 · OY마케팅 비용 사용내역</div></div></div><div class="pbars">${bars}</div>
-      <div class="note" style="margin-top:8px">※ OY마케팅비는 <b>브랜드 단위 총액</b>(도우인·샤오홍슈·티몰 통합)으로, 도우인 <b>채널 전용</b> 분리는 시트에 채널 컬럼이 없어 불가합니다. ${B==='컬러그램'?'컬그는 도우인 유료광고 미투입.':''}</div></div></section>`;
-  } else mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>③ ${cur} 마케팅 비용 상세</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} ${cur} OY마케팅비 데이터가 없습니다.</div></section>`;
+      <div class="note" style="margin-top:8px">※ OY마케팅비는 <b>브랜드 단위 총액</b>(도우인·샤오홍슈·티몰 통합)으로, 도우인 <b>채널 전용</b> 분리는 시트에 채널 컬럼이 없어 불가합니다. 도우인 ROI 분모(라이브방송 지원)와는 별개 지표입니다.</div></div></section>`;
+  } else mktHtml=`<section class="blk"><div class="s-head"><div><div class="s-eye">Marketing Cost</div><h2>④ ${cur} 마케팅 비용 상세</h2></div></div><div class="note" style="padding:20px;text-align:center">${B} ${cur} OY마케팅비 데이터가 없습니다.</div></section>`;
   // 유입·전환 퍼널
-  const fun=(K.impUV||K.clickUV||K.buyers)?`<section class="blk"><div class="s-head"><div><div class="s-eye">Traffic · Funnel</div><h2>④ ${cur} 유입·전환 퍼널</h2></div><div class="s-src">상품 노출→클릭→구매<br>도우인 일자별 집계</div></div>
+  const fun=(K.impUV||K.clickUV||K.buyers)?`<section class="blk"><div class="s-head"><div><div class="s-eye">Traffic · Funnel</div><h2>⑤ ${cur} 유입·전환 퍼널</h2></div><div class="s-src">상품 노출→클릭→구매<br>도우인 일자별 집계</div></div>
     <div class="card"><div class="fnl">
       <div class="kv"><span class="kk">상품 노출(UV)</span><span class="vv num">${intc(K.impUV||0)}</span></div>
       <div class="kv"><span class="kk">상품 클릭(UV) · CTR</span><span class="vv num">${intc(K.clickUV||0)} · ${pc(ctr,2)}</span></div>
@@ -1247,7 +1264,7 @@ function renderDouyin(){
     `<div class="s-head" style="margin-top:8px"><div><div class="s-eye" style="color:var(--coral)">Douyin · Monthly</div><h2>도우인(抖音) 월별 — ${B}</h2></div><div class="s-src">역직구 海外旗舰店 · ${cur} 기준<br>증정 제외 결제금액 · 환율 220원</div></div>
      <div class="kpis">${kpis}</div>
      <div class="s-head" style="margin:22px 0 6px"><div><div class="s-eye">EC Insight</div><h2>EC 인사이트</h2></div></div>${insHtml}
-     ${trendHtml}${sellHtml}${mktHtml}${fun}`;
+     ${trendHtml}${sellHtml}${carHtml}${mktHtml}${fun}`;
 }
 
 /* ===== view orchestration ===== */

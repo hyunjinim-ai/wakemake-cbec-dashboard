@@ -450,25 +450,32 @@ def _dy_match(cn, brand):
 
 def parse_douyin_sheet(sid, gid_daily, gid_prod=None):
     """도우인 일자별매출(载体=全部·시간=不限=일총합)·상품판매(载体=全部) → 브랜드별 월집계+6월 상품."""
-    monthly = {}; daily = []
+    monthly = {}; daily = []; carriers = {}
+    _CAR = {"直播": "라이브방송", "商品卡": "상품카드", "短视频": "숏폼영상", "图文": "이미지·글", "其他": "기타"}
     rows = _fetch_gid_rows(sid, gid_daily) if gid_daily else []
     for r in rows[1:] if rows else []:
         if len(r) < 10: continue
-        if str(r[3]).strip() != "全部" or str(r[4]).strip() != "不限": continue
+        if str(r[4]).strip() != "不限": continue   # 시간대=不限(총합)만
         b = _DY_BRAND.get(str(r[0]).strip().upper()); ko = _mm_ko(r[2])
         if not b or not ko: continue
-        d = monthly.setdefault(b, {}).setdefault(ko, {"salesKRW": 0.0, "gmvKRW": 0.0, "orders": 0, "buyers": 0, "impUV": 0, "clickUV": 0})
-        d["salesKRW"] += _numc(r[6]) * FX; d["gmvKRW"] += _numc(r[5]) * FX
-        d["orders"] += int(_numc(r[7])); d["buyers"] += int(_numc(r[8]))
-        d["impUV"] += int(_numc(r[24])) if len(r) > 24 else 0
-        d["clickUV"] += int(_numc(r[25])) if len(r) > 25 else 0
-        ymd = re.sub(r"[^0-9]", "", str(r[2]))[:8]
-        if len(ymd) == 8:
-            daily.append({"date": "%s-%s-%s" % (ymd[:4], ymd[4:6], ymd[6:8]),
-                          "store": str(r[1]).strip(), "brand": b, "stype": "cross",
-                          "gmvCNY": _numc(r[5]), "payCNY": _numc(r[6]),
-                          "orders": int(_numc(r[7])), "buyers": int(_numc(r[8])),
-                          "aov": _numc(r[9]), "expUV": 0, "clickUV": 0})
+        carrier = str(r[3]).strip()
+        if carrier == "全部":
+            d = monthly.setdefault(b, {}).setdefault(ko, {"salesKRW": 0.0, "gmvKRW": 0.0, "orders": 0, "buyers": 0, "impUV": 0, "clickUV": 0})
+            d["salesKRW"] += _numc(r[6]) * FX; d["gmvKRW"] += _numc(r[5]) * FX
+            d["orders"] += int(_numc(r[7])); d["buyers"] += int(_numc(r[8]))
+            d["impUV"] += int(_numc(r[24])) if len(r) > 24 else 0
+            d["clickUV"] += int(_numc(r[25])) if len(r) > 25 else 0
+            ymd = re.sub(r"[^0-9]", "", str(r[2]))[:8]
+            if len(ymd) == 8:
+                daily.append({"date": "%s-%s-%s" % (ymd[:4], ymd[4:6], ymd[6:8]),
+                              "store": str(r[1]).strip(), "brand": b, "stype": "cross",
+                              "gmvCNY": _numc(r[5]), "payCNY": _numc(r[6]),
+                              "orders": int(_numc(r[7])), "buyers": int(_numc(r[8])),
+                              "aov": _numc(r[9]), "expUV": 0, "clickUV": 0})
+        elif ko == "6월":   # 6월 载体(채널/유형)별 점유
+            cn = _CAR.get(carrier, carrier)
+            cd = carriers.setdefault(b, {})
+            cd[cn] = cd.get(cn, 0.0) + _numc(r[6]) * FX
     for b in monthly:
         for ko, d in monthly[b].items():
             d["salesKRW"] = round(d["salesKRW"]); d["gmvKRW"] = round(d["gmvKRW"])
@@ -483,24 +490,27 @@ def parse_douyin_sheet(sid, gid_daily, gid_prod=None):
             if not b or _mm_ko(r[2]) != "6월": continue
             raw = str(r[3]).strip()
             if "测试" in raw or "勿拍" in raw: continue   # 테스트 상품 제외
-            agg.setdefault(b, {})
-            nm = _dy_clean(raw)
-            agg[b][nm] = agg[b].get(nm, 0.0) + _numc(r[6]) * FX
+            nm = _dy_clean(raw); pay = _numc(r[6]) * FX
+            conv = _numc(r[8]) if len(r) > 8 else 0    # 商品점击-成交转化율(구매전환)
+            g = agg.setdefault(b, {}).setdefault(nm, {"pay": 0.0, "convw": 0.0})
+            g["pay"] += pay; g["convw"] += conv * pay
         for b in agg:
             grp = {}   # 티몰 한글명 매칭 시 동일명끼리 합산(티몰 sell-out 방식과 일관)
             for nm, v in agg[b].items():
-                if v <= 0: continue
+                if v["pay"] <= 0: continue
                 ko = _dy_match(nm, b); disp = ko or nm
-                g = grp.setdefault(disp, {"name": disp, "matched": bool(ko), "payKRW": 0.0, "cns": []})
-                g["payKRW"] += v; g["cns"].append(nm)
+                g = grp.setdefault(disp, {"name": disp, "matched": bool(ko), "payKRW": 0.0, "convw": 0.0, "cns": []})
+                g["payKRW"] += v["pay"]; g["convw"] += v["convw"]; g["cns"].append(nm)
             tot = sum(g["payKRW"] for g in grp.values())
             lst = [{"name": g["name"], "matched": g["matched"], "payKRW": round(g["payKRW"]),
                     "share": round(g["payKRW"] / tot * 1000) / 10 if tot else 0,
+                    "conv": round(g["convw"] / g["payKRW"] * 10000) / 100 if g["payKRW"] else 0,
                     "cn": " · ".join(g["cns"][:3])} for g in grp.values()]
             lst.sort(key=lambda x: -x["payKRW"])
             products[b] = lst
     daily.sort(key=lambda x: (x["brand"], x["date"]))
-    return {"monthly": monthly, "products": products, "daily": daily}
+    carriers = {b: {k: round(v) for k, v in sorted(c.items(), key=lambda x: -x[1])} for b, c in carriers.items()}
+    return {"monthly": monthly, "products": products, "daily": daily, "carriers": carriers}
 
 def parse_oy_mkt(sid, gid):
     """OY마케팅 비용 사용내역 → {브랜드:{월:{속성:₩}}} (실제 집행 마케팅비, 브랜드별)."""
@@ -527,6 +537,76 @@ def parse_oy_mkt(sid, gid):
         out.setdefault(b, {}).setdefault(ko, {})
         out[b][ko][cat] = out[b][ko].get(cat, 0) + krw
     return out
+
+def parse_xhs_jgcid(sid, gid_jg, gid_cid):
+    """쥐광(聚光, gid_jg col4 효과광고비)+CID(gid_cid 消费) 월별 → CG 귀속 {월:{jg,cid}} KRW."""
+    out = {}
+    jg = _fetch_gid_rows(sid, gid_jg) if gid_jg else []
+    for r in jg[1:] if jg else []:
+        if len(r) < 5: continue
+        mo = re.search(r"(\d+)", str(r[0]))
+        if not mo: continue
+        out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})["jg"] += _numc(r[4]) * FX
+    cid = _fetch_gid_rows(sid, gid_cid) if gid_cid else []
+    if cid:
+        h = [str(c).strip() for c in cid[0]]
+        ic = next((i for i, c in enumerate(h) if "消费" in c), 12)
+        for r in cid[1:]:
+            if len(r) <= ic: continue
+            mo = re.search(r"(\d+)", str(r[0]))
+            if not mo: continue
+            out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})["cid"] += _numc(r[ic]) * FX
+    return {ko: {"jg": round(v["jg"]), "cid": round(v["cid"])} for ko, v in out.items()}
+
+def parse_live_support(sid, gid):
+    """라이브방송 광고내역(抖音) → {브랜드:{월:지원비KRW}} = Σ(협업수수료% × 판매GMV)."""
+    B = {"colorgram": "컬러그램", "wakemake": "웨이크메이크", "wake make": "웨이크메이크"}
+    rows = _fetch_gid_rows(sid, gid); out = {}
+    if not rows: return out
+    h = [str(c).strip() for c in rows[0]]
+    def ci(*ns):
+        for x in ns:
+            for i, c in enumerate(h):
+                if x in c: return i
+        return -1
+    iM, iB, iP, iFee, iGmv = ci("라이브 방송 월", "방송 월"), ci("브랜드"), ci("플랫폼"), ci("협업 수수료", "수수료"), ci("판매 GMV", "GMV")
+    if min(iM, iB, iFee, iGmv) < 0: return out
+    for r in rows[1:]:
+        if len(r) <= max(iM, iB, iFee, iGmv): continue
+        if iP >= 0 and "抖音" not in str(r[iP]): continue
+        bl = str(r[iB]).strip().lower()
+        b = next((v for k, v in B.items() if k in bl), None)
+        mo = re.search(r"(\d+)", str(r[iM]))
+        if not b or not mo: continue
+        out.setdefault(b, {}).setdefault(mo.group(1) + "월", 0.0)
+        out[b][mo.group(1) + "월"] += _numc(r[iFee]) / 100.0 * _numc(r[iGmv]) * FX
+    return {b: {ko: round(v) for ko, v in mm.items()} for b, mm in out.items()}
+
+def apply_tmall_marketing(tmall, jgcid, adp):
+    """CG 쥐광+CID를 티몰 series에 반영(paidRoas 재계산=매출/(티몰내부광고+쥐광+CID)) + CPUV/CTR(양 브랜드)."""
+    adp = adp or {}
+    impclk = {}
+    for m, lst in adp.items():
+        for p in lst:
+            b = p.get("brand") or "웨이크메이크"
+            d = impclk.setdefault((b, m), {"imp": 0, "clk": 0})
+            d["imp"] += p.get("imp", 0); d["clk"] += p.get("clk", 0)
+    for bko, bdata in tmall.get("tmallBrands", {}).items():
+        for s in bdata["series"]:
+            m = s["month"]
+            if bko == "컬러그램":
+                jc = jgcid.get(m, {"jg": 0, "cid": 0})
+                xh = jc.get("jg", 0) + jc.get("cid", 0)
+                s["xhsAdKRW"] = xh; s["jgKRW"] = jc.get("jg", 0); s["cidKRW"] = jc.get("cid", 0)
+                s["paidAdKRW"] = s.get("tmallAdKRW", 0) + xh
+                s["paidRoas"] = round(s["salesKRW"] / s["paidAdKRW"] * 100) / 100 if s["paidAdKRW"] else 0
+            ic = impclk.get((bko, m), {"imp": 0, "clk": 0})
+            s["adImp"] = ic["imp"]; s["adClk"] = ic["clk"]
+            s["ctr"] = round(ic["clk"] / ic["imp"] * 1000) / 10 if ic["imp"] else 0
+            s["cpuv"] = round(s.get("paidAdKRW", 0) / s["uv"]) if s.get("uv") else 0
+    if tmall.get("tmallBrands"):
+        tmall["series"] = tmall["tmallBrands"]["웨이크메이크"]["series"]
+        tmall["byMonth"] = tmall["tmallBrands"]["웨이크메이크"]["byMonth"]
 
 # =========================================================================
 #  B. 기존 대시보드(RAW)에서 티몰 파트 시드 — 엑셀 없이 검증용  — 기존 유지
@@ -1315,7 +1395,7 @@ def main():
             try: cfg = json.load(open(SHEET_CFG, "r", encoding="utf-8"))
             except Exception: cfg = {}
         src = args[1] if len(args) > 1 else cfg.get("gsheetId")
-        tmall, tmDaily = None, None
+        tmall, tmDaily, adp = None, None, None
         if src:
             try:
                 sh = gsheet_reader(src, cfg.get("monthlyGids"))
@@ -1331,23 +1411,38 @@ def main():
             print("[알림] 월별 시트 읽기 실패/미설정 → 기존 티몰 데이터 유지")
             tmall = tmall_from_datajson()
         # 신규 시트 탭 먼저 파싱 → 도우인 공식 일자별을 ②/① 소스로 승격
-        eg = cfg.get("extraGids", {}); dyx, oy = {}, {}
+        eg = cfg.get("extraGids", {}); dyx, oy, jgcid, live = {}, {}, {}, {}
         if src and eg:
             try:
                 _s = _sid(src)
                 dyx = parse_douyin_sheet(_s, eg.get("도우인_일자별매출"), eg.get("도우인_상품판매"))
                 oy = parse_oy_mkt(_s, eg.get("OY마케팅비용"))
+                jgcid = parse_xhs_jgcid(_s, eg.get("쥐광_聚光"), eg.get("컬러그램_CID"))   # CG 귀속
+                live = parse_live_support(_s, eg.get("라이브방송"))
             except Exception as e:
-                print("[알림] 신규 탭 파싱 오류: %s" % str(e)[:80]); dyx, oy = {}, {}
+                print("[알림] 신규 탭 파싱 오류: %s" % str(e)[:80]); dyx, oy, jgcid, live = {}, {}, {}, {}
+        if tmall and (jgcid or adp):
+            apply_tmall_marketing(tmall, jgcid, adp)   # CG 쥐광+CID → 티몰 ROAS · CPUV/CTR
+            print("[티몰 ROAS] CG 쥐광+CID 반영 · 6월 CG paidRoas=%s" %
+                  next((s.get("paidRoas") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-"))
         _local_dy, xhs = _local_douyin_xhs()
         douyin = dyx.get("daily") or _local_dy   # 공식 도우인 일자별(전월) 우선, 실패 시 로컬(부분)
         data = assemble_from_parts(tmall, douyin, xhs)
         if dyx.get("monthly"):
+            # 도우인 ROI = 매출 / 라이브방송 지원(협업수수료)  [내부광고비 데이터 없음 → 제외]
+            for b, mm in dyx["monthly"].items():
+                for ko, d in mm.items():
+                    ls = live.get(b, {}).get(ko, 0)
+                    d["liveKRW"] = ls
+                    d["roi"] = round(d["salesKRW"] / ls * 100) / 100 if ls else None
             data["douyin"] = {"monthly": dyx["monthly"], "products": dyx.get("products", {}),
-                              "note": "도우인 일자별매출·상품판매 탭(载体=全部) · 증정 제외 결제금액 · 환율 220원"}
-            print("[도우인 시트] 월집계 %s · 6월 상품 %s · 일자 %d행 → ② 소스 승격" %
+                              "carriers": dyx.get("carriers", {}),
+                              "note": "매출=도우인 일자별매출(载体=全部) · ROI=매출/라이브방송지원(협업수수료) · 환율 220원"}
+            print("[도우인 시트] 월집계 %s · 6월 상품 %s · 载体 %s · ROI(6월)=%s" %
                   ({b: len(dyx["monthly"][b]) for b in dyx["monthly"]},
-                   {b: len(dyx["products"].get(b, [])) for b in dyx["monthly"]}, len(dyx.get("daily", []))))
+                   {b: len(dyx["products"].get(b, [])) for b in dyx["monthly"]},
+                   {b: list(dyx.get("carriers", {}).get(b, {}).keys()) for b in dyx["monthly"]},
+                   {b: dyx["monthly"][b].get("6월", {}).get("roi") for b in dyx["monthly"]}))
         if oy:
             data["oyMkt"] = oy
             print("[OY마케팅] 브랜드 %s · 6월 %s" %

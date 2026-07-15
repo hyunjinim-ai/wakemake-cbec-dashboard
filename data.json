@@ -27,7 +27,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 622939,
+   "adClk": 72489,
+   "ctr": 11.6,
+   "cpuv": 39
   },
   {
    "month": "2월",
@@ -47,7 +51,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 505918,
+   "adClk": 55777,
+   "ctr": 11.0,
+   "cpuv": 32
   },
   {
    "month": "3월",
@@ -67,7 +75,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 843347,
+   "adClk": 82679,
+   "ctr": 9.8,
+   "cpuv": 59
   },
   {
    "month": "4월",
@@ -87,7 +99,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 921165,
+   "adClk": 83892,
+   "ctr": 9.1,
+   "cpuv": 51
   },
   {
    "month": "5월",
@@ -107,7 +123,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 581875,
+   "adClk": 70555,
+   "ctr": 12.1,
+   "cpuv": 57
   },
   {
    "month": "6월",
@@ -127,7 +147,11 @@
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
    "xhsShare": 0,
-   "xhsUV": 0
+   "xhsUV": 0,
+   "adImp": 719779,
+   "adClk": 53850,
+   "ctr": 7.5,
+   "cpuv": 74
   }
  ],
  "byMonth": {
@@ -5914,7 +5938,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 622939,
+     "adClk": 72489,
+     "ctr": 11.6,
+     "cpuv": 39
     },
     {
      "month": "2월",
@@ -5934,7 +5962,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 505918,
+     "adClk": 55777,
+     "ctr": 11.0,
+     "cpuv": 32
     },
     {
      "month": "3월",
@@ -5954,7 +5986,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 843347,
+     "adClk": 82679,
+     "ctr": 9.8,
+     "cpuv": 59
     },
     {
      "month": "4월",
@@ -5974,7 +6010,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 921165,
+     "adClk": 83892,
+     "ctr": 9.1,
+     "cpuv": 51
     },
     {
      "month": "5월",
@@ -5994,7 +6034,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 581875,
+     "adClk": 70555,
+     "ctr": 12.1,
+     "cpuv": 57
     },
     {
      "month": "6월",
@@ -6014,7 +6058,11 @@
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "adImp": 719779,
+     "adClk": 53850,
+     "ctr": 7.5,
+     "cpuv": 74
     }
    ],
    "byMonth": {
@@ -11794,14 +11842,20 @@
      "oyKRW": 0,
      "stKRW": 6002860,
      "tmallAdKRW": 6002860,
-     "paidAdKRW": 6002860,
+     "paidAdKRW": 13156941,
      "roas": 19.28,
-     "paidRoas": 19.28,
-     "xhsAdKRW": 0,
+     "paidRoas": 8.8,
+     "xhsAdKRW": 7154081,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 6802165,
+     "cidKRW": 351916,
+     "adImp": 410490,
+     "adClk": 69825,
+     "ctr": 17.0,
+     "cpuv": 99
     },
     {
      "month": "2월",
@@ -11814,14 +11868,20 @@
      "oyKRW": 0,
      "stKRW": 4778234,
      "tmallAdKRW": 4778234,
-     "paidAdKRW": 4778234,
+     "paidAdKRW": 10470349,
      "roas": 17.14,
-     "paidRoas": 17.14,
-     "xhsAdKRW": 0,
+     "paidRoas": 7.82,
+     "xhsAdKRW": 5692115,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 3506316,
+     "cidKRW": 2185799,
+     "adImp": 355086,
+     "adClk": 56524,
+     "ctr": 15.9,
+     "cpuv": 95
     },
     {
      "month": "3월",
@@ -11834,14 +11894,20 @@
      "oyKRW": 0,
      "stKRW": 4968292,
      "tmallAdKRW": 4968292,
-     "paidAdKRW": 4968292,
+     "paidAdKRW": 15151340,
      "roas": 20.37,
-     "paidRoas": 20.37,
-     "xhsAdKRW": 0,
+     "paidRoas": 6.68,
+     "xhsAdKRW": 10183048,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 7458977,
+     "cidKRW": 2724071,
+     "adImp": 409078,
+     "adClk": 51618,
+     "ctr": 12.6,
+     "cpuv": 124
     },
     {
      "month": "4월",
@@ -11854,14 +11920,20 @@
      "oyKRW": 0,
      "stKRW": 4530604,
      "tmallAdKRW": 4530604,
-     "paidAdKRW": 4530604,
+     "paidAdKRW": 16484422,
      "roas": 17.16,
-     "paidRoas": 17.16,
-     "xhsAdKRW": 0,
+     "paidRoas": 4.71,
+     "xhsAdKRW": 11953818,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 8807847,
+     "cidKRW": 3145971,
+     "adImp": 504554,
+     "adClk": 47624,
+     "ctr": 9.4,
+     "cpuv": 146
     },
     {
      "month": "5월",
@@ -11874,14 +11946,20 @@
      "oyKRW": 0,
      "stKRW": 5973444,
      "tmallAdKRW": 5973444,
-     "paidAdKRW": 5973444,
+     "paidAdKRW": 22105877,
      "roas": 17.35,
-     "paidRoas": 17.35,
-     "xhsAdKRW": 0,
+     "paidRoas": 4.69,
+     "xhsAdKRW": 16132433,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 13706143,
+     "cidKRW": 2426290,
+     "adImp": 535329,
+     "adClk": 50568,
+     "ctr": 9.4,
+     "cpuv": 205
     },
     {
      "month": "6월",
@@ -11894,14 +11972,20 @@
      "oyKRW": 0,
      "stKRW": 5194812,
      "tmallAdKRW": 5194812,
-     "paidAdKRW": 5194812,
+     "paidAdKRW": 27692327,
      "roas": 18.11,
-     "paidRoas": 18.11,
-     "xhsAdKRW": 0,
+     "paidRoas": 3.4,
+     "xhsAdKRW": 22497515,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
      "xhsShare": 0,
-     "xhsUV": 0
+     "xhsUV": 0,
+     "jgKRW": 22497515,
+     "cidKRW": 0,
+     "adImp": 420120,
+     "adClk": 45121,
+     "ctr": 10.7,
+     "cpuv": 271
     }
    ],
    "byMonth": {
@@ -19145,7 +19229,9 @@
      "buyers": 3037,
      "impUV": 760683,
      "clickUV": 74367,
-     "aov": 10902
+     "aov": 10902,
+     "liveKRW": 7643185,
+     "roi": 4.33
     },
     "1월": {
      "salesKRW": 22822807,
@@ -19154,7 +19240,9 @@
      "buyers": 1959,
      "impUV": 821726,
      "clickUV": 72022,
-     "aov": 11650
+     "aov": 11650,
+     "liveKRW": 0,
+     "roi": null
     },
     "4월": {
      "salesKRW": 20409015,
@@ -19163,7 +19251,9 @@
      "buyers": 1517,
      "impUV": 652826,
      "clickUV": 47548,
-     "aov": 13454
+     "aov": 13454,
+     "liveKRW": 7628225,
+     "roi": 2.68
     },
     "3월": {
      "salesKRW": 27285722,
@@ -19172,7 +19262,9 @@
      "buyers": 2167,
      "impUV": 760230,
      "clickUV": 55350,
-     "aov": 12591
+     "aov": 12591,
+     "liveKRW": 1854952,
+     "roi": 14.71
     },
     "5월": {
      "salesKRW": 32568111,
@@ -19181,7 +19273,9 @@
      "buyers": 2305,
      "impUV": 596538,
      "clickUV": 52674,
-     "aov": 14129
+     "aov": 14129,
+     "liveKRW": 1855821,
+     "roi": 17.55
     },
     "6월": {
      "salesKRW": 43511985,
@@ -19190,7 +19284,9 @@
      "buyers": 4018,
      "impUV": 978854,
      "clickUV": 100266,
-     "aov": 10829
+     "aov": 10829,
+     "liveKRW": 9859828,
+     "roi": 4.41
     }
    },
    "웨이크메이크": {
@@ -19201,7 +19297,9 @@
      "buyers": 1077,
      "impUV": 589512,
      "clickUV": 49899,
-     "aov": 29117
+     "aov": 29117,
+     "liveKRW": 2231691,
+     "roi": 14.05
     },
     "2월": {
      "salesKRW": 75463689,
@@ -19210,7 +19308,9 @@
      "buyers": 2342,
      "impUV": 738543,
      "clickUV": 69612,
-     "aov": 32222
+     "aov": 32222,
+     "liveKRW": 4934963,
+     "roi": 15.29
     },
     "6월": {
      "salesKRW": 62951453,
@@ -19219,7 +19319,9 @@
      "buyers": 2445,
      "impUV": 1733714,
      "clickUV": 94981,
-     "aov": 25747
+     "aov": 25747,
+     "liveKRW": 10383687,
+     "roi": 6.06
     },
     "5월": {
      "salesKRW": 86627180,
@@ -19228,7 +19330,9 @@
      "buyers": 3414,
      "impUV": 2021844,
      "clickUV": 121915,
-     "aov": 25374
+     "aov": 25374,
+     "liveKRW": 9568757,
+     "roi": 9.05
     },
     "4월": {
      "salesKRW": 58900380,
@@ -19237,7 +19341,9 @@
      "buyers": 2173,
      "impUV": 1272169,
      "clickUV": 85378,
-     "aov": 27106
+     "aov": 27106,
+     "liveKRW": 15892118,
+     "roi": 3.71
     },
     "1월": {
      "salesKRW": 18284805,
@@ -19246,7 +19352,9 @@
      "buyers": 730,
      "impUV": 189968,
      "clickUV": 23040,
-     "aov": 25048
+     "aov": 25048,
+     "liveKRW": 0,
+     "roi": null
     }
    }
   },
@@ -19257,6 +19365,7 @@
      "matched": true,
      "payKRW": 46828723,
      "share": 74.4,
+     "conv": 1.81,
      "cn": "十六色眼影盘14g韩系珠光哑光四季眼影烟熏妆"
     },
     {
@@ -19264,6 +19373,7 @@
      "matched": true,
      "payKRW": 5765525,
      "share": 9.2,
+     "conv": 6.11,
      "cn": "经典粉底刷一字型粉刷上脸无痕轻薄不吃粉化妆刷 · 新款粉底刷一字斜面刮刀抹平软毛韩系不卡粉"
     },
     {
@@ -19271,6 +19381,7 @@
      "matched": true,
      "payKRW": 4602002,
      "share": 7.3,
+     "conv": 3.02,
      "cn": "浪姐化妆师同款三色阴影修容盘新款持久渐变修容"
     },
     {
@@ -19278,6 +19389,7 @@
      "matched": true,
      "payKRW": 2508638,
      "share": 4.0,
+     "conv": 5.1,
      "cn": "水润气垫膏一正一替带粉刷遮瑕保湿持久干皮奶油肌韩系正品进口 · 粉糖气垫膏水润奶油肌韩系水光冬季干皮 · wakemake唯可魅水润升级粉糖气垫膏12.5g*2一正一替"
     },
     {
@@ -19285,6 +19397,7 @@
      "matched": true,
      "payKRW": 1011457,
      "share": 1.6,
+     "conv": 8.55,
      "cn": "液体腮红水粉融合脸颊韩系粉嫩甜美便携彩妆 · WAKEMAKE唯可魅经典腮红刷鼻影修容化妆刷子 · 透明分层双色腮红5g修容提亮控油着色阴影腮红03"
     },
     {
@@ -19292,6 +19405,7 @@
      "matched": true,
      "payKRW": 880697,
      "share": 1.4,
+     "conv": 1.96,
      "cn": "六色多用眼影盘韩系珠光哑光便携彩妆化妆爆卖L"
     },
     {
@@ -19299,6 +19413,7 @@
      "matched": true,
      "payKRW": 599326,
      "share": 1.0,
+     "conv": 3.35,
      "cn": "裸感轻盈气垫持久保湿持妆不脱妆防汗清透"
     },
     {
@@ -19306,6 +19421,7 @@
      "matched": true,
      "payKRW": 165416,
      "share": 0.3,
+     "conv": 11.74,
      "cn": "润叠唇釉水润保湿持色柔焦口红雾面哑光柔焦显色"
     },
     {
@@ -19313,6 +19429,7 @@
      "matched": true,
      "payKRW": 145596,
      "share": 0.2,
+     "conv": 4.4,
      "cn": "水光玻璃唇釉持久上色保湿口红女生必备通勤妆"
     },
     {
@@ -19320,6 +19437,7 @@
      "matched": false,
      "payKRW": 120362,
      "share": 0.2,
+     "conv": 11.99,
      "cn": "眼线笔卧蚕笔大容量防水防汗不晕染韩妆必备化妆"
     },
     {
@@ -19327,6 +19445,7 @@
      "matched": true,
      "payKRW": 103783,
      "share": 0.2,
+     "conv": 4.56,
      "cn": "纯透高光修容一体盘哑光珠光提亮脸部轮廓"
     },
     {
@@ -19334,6 +19453,7 @@
      "matched": true,
      "payKRW": 82914,
      "share": 0.1,
+     "conv": 2.88,
      "cn": "雾面哑光口红唇膏彩妆韩系不粘杯日常约会通用"
     },
     {
@@ -19341,6 +19461,7 @@
      "matched": false,
      "payKRW": 68130,
      "share": 0.1,
+     "conv": 4.2,
      "cn": "wakemake唯可魅遮瑕BB霜20ml带刮刀韩系彩妆好物"
     },
     {
@@ -19348,6 +19469,7 @@
      "matched": true,
      "payKRW": 34258,
      "share": 0.1,
+     "conv": 16.01,
      "cn": "眉笔防水防汗不掉色韩妆必备画眉浅色韩系甜美"
     }
    ],
@@ -19357,6 +19479,7 @@
      "matched": true,
      "payKRW": 25023044,
      "share": 57.5,
+     "conv": 6.02,
      "cn": "小年糕丝绒哑光口红雾面韩国显色持久唇膏3.2g · 小年糕唇釉雾面唇泥哑光丝绒韩系口红cosme大赏榜单 · 小年糕唇釉雾面哑光丝绒口红腮红唇颊两用"
     },
     {
@@ -19364,6 +19487,7 @@
      "matched": true,
      "payKRW": 10318766,
      "share": 23.7,
+     "conv": 2.55,
      "cn": "糖葫芦初甜唇釉口红水光镜面韩妆韩系口红伪素颜不沾杯 · 糖葫芦琥珀琉光唇釉3.5g镜面韩系水光显色 · 糖葫芦琥珀琉光唇釉3.5g双支组合镜面韩系水光显色"
     },
     {
@@ -19371,6 +19495,7 @@
      "matched": true,
      "payKRW": 3736438,
      "share": 8.6,
+     "conv": 1.74,
      "cn": "糖葫芦唇部精华蜜9g服帖饱满光泽保湿"
     },
     {
@@ -19378,6 +19503,7 @@
      "matched": true,
      "payKRW": 3002932,
      "share": 6.9,
+     "conv": 3.71,
      "cn": "韩国colorgram唇部打底哑光唇泥裸色遮盖唇色深唇"
     },
     {
@@ -19385,6 +19511,7 @@
      "matched": true,
      "payKRW": 349789,
      "share": 0.8,
+     "conv": 3.16,
      "cn": "双头修容笔棒细节高光阴影鼻影冷暖皮自然防汗修饰 · 韩国colorgram双头修容笔棒细节高光阴影鼻影自然"
     },
     {
@@ -19392,6 +19519,7 @@
      "matched": true,
      "payKRW": 332922,
      "share": 0.8,
+     "conv": 2.86,
      "cn": "卧蚕笔双头笔高光提亮阴影防汗珠光自然饱满卧蚕"
     },
     {
@@ -19399,6 +19527,7 @@
      "matched": true,
      "payKRW": 242458,
      "share": 0.6,
+     "conv": 4.36,
      "cn": "双头雾面唇线笔阴影笔丰唇打底护唇韩系口红化妆品 · 韩国唇线笔mini 0.25g丰唇饱满打底丝滑勾勒 · 哑光柔雾唇线笔阴影笔丰唇韩系oliveyoung"
     },
     {
@@ -19406,6 +19535,7 @@
      "matched": true,
      "payKRW": 170524,
      "share": 0.4,
+     "conv": 3.73,
      "cn": "蜜糖罐水雾唇釉哑光柔雾口红腮红唇颊两用持久叠涂韩国"
     },
     {
@@ -19413,6 +19543,7 @@
      "matched": true,
      "payKRW": 160684,
      "share": 0.4,
+     "conv": 2.8,
      "cn": "colorgram4色眼影盘提亮爆闪塑颜哑光四宫格修容 · 爱心12色眼影盘珠光哑光细闪韩系低饱和温柔"
     },
     {
@@ -19420,6 +19551,7 @@
      "matched": true,
      "payKRW": 148271,
      "share": 0.3,
+     "conv": 5.06,
      "cn": "雾面唇泥哑光果酱膏唇颊腮红韩系口红临期27年1月"
     },
     {
@@ -19427,11 +19559,28 @@
      "matched": false,
      "payKRW": 4818,
      "share": 0.0,
+     "conv": 12.5,
      "cn": "温柔粉底液妆前乳自然提亮遮瑕防晒隔离素颜霜推荐学生"
     }
    ]
   },
-  "note": "도우인 일자별매출·상품판매 탭(载体=全部) · 증정 제외 결제금액 · 환율 220원"
+  "carriers": {
+   "컬러그램": {
+    "라이브방송": 31334633,
+    "상품카드": 9089500,
+    "기타": 1617260,
+    "숏폼영상": 1410224,
+    "이미지·글": 60368
+   },
+   "웨이크메이크": {
+    "상품카드": 31250756,
+    "라이브방송": 23676618,
+    "숏폼영상": 4140534,
+    "기타": 3740823,
+    "이미지·글": 142723
+   }
+  },
+  "note": "매출=도우인 일자별매출(载体=全部) · ROI=매출/라이브방송지원(협업수수료) · 환율 220원"
  },
  "oyMkt": {
   "컬러그램": {
@@ -22163,5 +22312,5 @@
    "컬러그램": null
   }
  },
- "builtAt": "2026-07-14 18:37"
+ "builtAt": "2026-07-15 09:50"
 }
