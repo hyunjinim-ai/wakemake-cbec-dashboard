@@ -538,25 +538,52 @@ def parse_oy_mkt(sid, gid):
         out[b][ko][cat] = out[b][ko].get(cat, 0) + krw
     return out
 
-def parse_xhs_jgcid(sid, gid_jg, gid_cid):
-    """쥐광(聚光, gid_jg col4 효과광고비)+CID(gid_cid 消费) 월별 → CG 귀속 {월:{jg,cid}} KRW."""
+def parse_wm_xhs(sid, gid):
+    """'웨이크메이크 샤오홍씽-광고'(WM 소유) 월별 → {월:{jg,inflow,gmv,kol}} KRW.
+    A=월 · E(4)=쥐광(聚光) 광고비 · U(20)=샤오홍싱 유입매출 · V(21)=캠페인 GMV · X(23)=KOL 마케팅비."""
+    rows = _fetch_gid_rows(sid, gid) if gid else []
     out = {}
-    jg = _fetch_gid_rows(sid, gid_jg) if gid_jg else []
-    for r in jg[1:] if jg else []:
-        if len(r) < 5: continue
+    for r in rows[1:] if rows else []:
+        if len(r) < 24: continue
         mo = re.search(r"(\d+)", str(r[0]))
         if not mo: continue
-        out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})["jg"] += _numc(r[4]) * FX
-    cid = _fetch_gid_rows(sid, gid_cid) if gid_cid else []
-    if cid:
-        h = [str(c).strip() for c in cid[0]]
-        ic = next((i for i, c in enumerate(h) if "消费" in c), 12)
-        for r in cid[1:]:
-            if len(r) <= ic: continue
-            mo = re.search(r"(\d+)", str(r[0]))
+        d = out.setdefault(mo.group(1) + "월", {"jg": 0.0, "inflow": 0.0, "gmv": 0.0, "kol": 0.0})
+        d["jg"] += _numc(r[4]) * FX; d["inflow"] += _numc(r[20]) * FX
+        d["gmv"] += _numc(r[21]) * FX; d["kol"] += _numc(r[23]) * FX
+    return {ko: {k: round(v) for k, v in d.items()} for ko, d in out.items()}
+
+def parse_cg_xhs(sid, gid_jg, gid_cid):
+    """CG 쥐광(gid_jg='컬러그램 샤오홍씽' 消费)+CID(gid_cid='컬러그램 CID-광고' 消费) 월별 → {월:{jg,cid}} KRW."""
+    out = {}
+    def add(gid, key):
+        rows = _fetch_gid_rows(sid, gid) if gid else []
+        if not rows: return
+        h = [str(c).strip() for c in rows[0]]
+        icost = next((i for i, c in enumerate(h) if "消费" in c), -1)
+        imon = next((i for i, c in enumerate(h) if ("月份" in c or c == "월")), 0)
+        if icost < 0: return
+        for r in rows[1:]:
+            if len(r) <= max(icost, imon): continue
+            mo = re.search(r"(\d+)", str(r[imon]))
             if not mo: continue
-            out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})["cid"] += _numc(r[ic]) * FX
+            out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})[key] += _numc(r[icost]) * FX
+    add(gid_jg, "jg"); add(gid_cid, "cid")
     return {ko: {"jg": round(v["jg"]), "cid": round(v["cid"])} for ko, v in out.items()}
+
+def parse_tmall_daily_monthly(sid, gid):
+    """'티몰 일자별매출' → {브랜드:{월: 결제완료금액KRW}}. A(0)=일자·B(1)=상점명·Q(16)=결제완료금액."""
+    rows = _fetch_gid_rows(sid, gid) if gid else []
+    out = {}
+    for r in rows[1:] if rows else []:
+        if len(r) < 17: continue
+        store = str(r[1]).upper()
+        b = "웨이크메이크" if "WAKEMAKE" in store else ("컬러그램" if "COLORGRAM" in store else None)
+        if not b: continue
+        mo = re.search(r"(\d{4})[-/.]?(\d{1,2})", str(r[0]))
+        if not mo: continue
+        out.setdefault(b, {}).setdefault(int(mo.group(2)), 0.0)
+        out[b][int(mo.group(2))] += _numc(r[16]) * FX
+    return {b: {("%d월" % m): round(v) for m, v in mm.items()} for b, mm in out.items()}
 
 def parse_live_support(sid, gid):
     """라이브방송 광고내역(抖音) → {브랜드:{월:지원비KRW}} = Σ(협업수수료% × 판매GMV)."""
@@ -582,9 +609,9 @@ def parse_live_support(sid, gid):
         out[b][mo.group(1) + "월"] += _numc(r[iFee]) / 100.0 * _numc(r[iGmv]) * FX
     return {b: {ko: round(v) for ko, v in mm.items()} for b, mm in out.items()}
 
-def apply_tmall_marketing(tmall, jgcid, adp):
-    """CG 쥐광+CID를 티몰 series에 반영(paidRoas 재계산=매출/(티몰내부광고+쥐광+CID)) + CPUV/CTR(양 브랜드)."""
-    adp = adp or {}
+def apply_tmall_marketing(tmall, wmXhs, cgXhs, adp):
+    """WM 쥐광(wmXhs)·CG 쥐광+CID(cgXhs)를 티몰 series에 반영 · paidRoas=매출/(내부광고+쥐광+CID) · CPUV/CTR."""
+    adp = adp or {}; wmXhs = wmXhs or {}; cgXhs = cgXhs or {}
     impclk = {}
     for m, lst in adp.items():
         for p in lst:
@@ -594,12 +621,18 @@ def apply_tmall_marketing(tmall, jgcid, adp):
     for bko, bdata in tmall.get("tmallBrands", {}).items():
         for s in bdata["series"]:
             m = s["month"]
-            if bko == "컬러그램":
-                jc = jgcid.get(m, {"jg": 0, "cid": 0})
+            if bko == "웨이크메이크":
+                w = wmXhs.get(m, {})
+                jg = w.get("jg", 0)
+                s["xhsAdKRW"] = jg; s["jgKRW"] = jg; s["cidKRW"] = 0
+                s["kolKRW"] = w.get("kol", 0); s["xhsInflowKRW"] = w.get("inflow", 0)
+                s["paidAdKRW"] = s.get("tmallAdKRW", 0) + jg
+            else:
+                jc = cgXhs.get(m, {"jg": 0, "cid": 0})
                 xh = jc.get("jg", 0) + jc.get("cid", 0)
                 s["xhsAdKRW"] = xh; s["jgKRW"] = jc.get("jg", 0); s["cidKRW"] = jc.get("cid", 0)
                 s["paidAdKRW"] = s.get("tmallAdKRW", 0) + xh
-                s["paidRoas"] = round(s["salesKRW"] / s["paidAdKRW"] * 100) / 100 if s["paidAdKRW"] else 0
+            s["paidRoas"] = round(s["salesKRW"] / s["paidAdKRW"] * 100) / 100 if s["paidAdKRW"] else 0
             ic = impclk.get((bko, m), {"imp": 0, "clk": 0})
             s["adImp"] = ic["imp"]; s["adClk"] = ic["clk"]
             s["ctr"] = round(ic["clk"] / ic["imp"] * 1000) / 10 if ic["imp"] else 0
@@ -1340,7 +1373,7 @@ def _write_data(data):
     if os.path.exists(DATA_JSON):
         try: old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
         except Exception: old = {}
-    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand", "tmallBrands", "douyin", "oyMkt"):
+    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand", "tmallBrands", "douyin", "oyMkt", "wmXhs"):
         if k not in data and old.get(k): data[k] = old[k]
     if "dailyStatus" not in data:
         data["dailyStatus"] = daily_status_sample()
@@ -1411,20 +1444,37 @@ def main():
             print("[알림] 월별 시트 읽기 실패/미설정 → 기존 티몰 데이터 유지")
             tmall = tmall_from_datajson()
         # 신규 시트 탭 먼저 파싱 → 도우인 공식 일자별을 ②/① 소스로 승격
-        eg = cfg.get("extraGids", {}); dyx, oy, jgcid, live = {}, {}, {}, {}
+        eg = cfg.get("extraGids", {}); dyx, oy, wmXhs, cgXhs, live, tmMon = {}, {}, {}, {}, {}, {}
         if src and eg:
             try:
                 _s = _sid(src)
                 dyx = parse_douyin_sheet(_s, eg.get("도우인_일자별매출"), eg.get("도우인_상품판매"))
                 oy = parse_oy_mkt(_s, eg.get("OY마케팅비용"))
-                jgcid = parse_xhs_jgcid(_s, eg.get("쥐광_聚光"), eg.get("컬러그램_CID"))   # CG 귀속
+                wmXhs = parse_wm_xhs(_s, eg.get("웨메_샤오홍씽"))                       # WM 쥐광·유입매출·KOL
+                cgXhs = parse_cg_xhs(_s, eg.get("컬러그램_샤오홍씽"), eg.get("컬러그램_CID"))  # CG 쥐광+CID
                 live = parse_live_support(_s, eg.get("라이브방송"))
+                tmMon = parse_tmall_daily_monthly(_s, eg.get("티몰_일자별매출"))          # 매장별 월 실매출
             except Exception as e:
-                print("[알림] 신규 탭 파싱 오류: %s" % str(e)[:80]); dyx, oy, jgcid, live = {}, {}, {}, {}
-        if tmall and (jgcid or adp):
-            apply_tmall_marketing(tmall, jgcid, adp)   # CG 쥐광+CID → 티몰 ROAS · CPUV/CTR
-            print("[티몰 ROAS] CG 쥐광+CID 반영 · 6월 CG paidRoas=%s" %
-                  next((s.get("paidRoas") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-"))
+                print("[알림] 신규 탭 파싱 오류: %s" % str(e)[:80]); dyx, oy, wmXhs, cgXhs, live, tmMon = {}, {}, {}, {}, {}, {}
+        if tmall and (wmXhs or cgXhs or adp):
+            apply_tmall_marketing(tmall, wmXhs, cgXhs, adp)   # WM 쥐광 / CG 쥐광+CID → 티몰 ROAS · CPUV/CTR
+            print("[티몰 ROAS] 6월 paidRoas WM=%s / CG=%s · CPUV WM=%s/CG=%s" % (
+                next((s.get("paidRoas") for s in tmall["tmallBrands"]["웨이크메이크"]["series"] if s["month"] == "6월"), "-"),
+                next((s.get("paidRoas") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-"),
+                next((s.get("cpuv") for s in tmall["tmallBrands"]["웨이크메이크"]["series"] if s["month"] == "6월"), "-"),
+                next((s.get("cpuv") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-")))
+        if wmXhs:
+            wm_tm = (tmMon.get("웨이크메이크", {}) or {})
+            months = [m for m in (tmall["months"] if tmall else []) if m in wmXhs] or sorted(wmXhs, key=lambda x: int(x[:-1]))
+            rows = {}
+            for m in months:
+                w = wmXhs[m]; jg = w["jg"]; inf = w["inflow"]; kol = w["kol"]; tms = wm_tm.get(m, 0)
+                rows[m] = {"jgKRW": jg, "inflowKRW": inf, "gmvKRW": w["gmv"], "kolKRW": kol, "tmallSalesKRW": tms,
+                           "inflowShare": round(inf / tms * 1000) / 10 if tms else 0,
+                           "jgRoi": round(inf / jg * 100) / 100 if jg else 0,
+                           "totalRoi": round(inf / (jg + kol) * 100) / 100 if (jg + kol) else 0}
+            data_wmXhs = {"months": months, "rows": rows,
+                          "note": "웨이크메이크 샤오홍씽-광고 탭 · 쥐광(聚光)·KOL=OY(올리브영) 집행 · 티몰 실매출=티몰 일자별매출(WAKEMAKE 매장) · 환율 220원"}
         _local_dy, xhs = _local_douyin_xhs()
         douyin = dyx.get("daily") or _local_dy   # 공식 도우인 일자별(전월) 우선, 실패 시 로컬(부분)
         data = assemble_from_parts(tmall, douyin, xhs)
@@ -1447,6 +1497,12 @@ def main():
             data["oyMkt"] = oy
             print("[OY마케팅] 브랜드 %s · 6월 %s" %
                   (list(oy.keys()), {b: sum(oy[b].get("6월", {}).values()) for b in oy}))
+        if wmXhs:
+            data["wmXhs"] = data_wmXhs
+            r6 = data_wmXhs["rows"].get("6월", {})
+            print("[WM 샤오홍씽] 6월 쥐광 ₩%s · 유입매출 ₩%s(비중 %s%%) · 쥐광ROI %s · 전체ROI %s" %
+                  (format(r6.get("jgKRW", 0), ","), format(r6.get("inflowKRW", 0), ","),
+                   r6.get("inflowShare"), r6.get("jgRoi"), r6.get("totalRoi")))
         if tmDaily: data["dailyTmall"] = daily_struct(tmDaily, "티몰글로벌(天猫国际) · 海外旗舰店",
                                                      "티몰 일 결제금액 · 증정 제외 · 환율 220원")
         ds, mp, tbb = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)
