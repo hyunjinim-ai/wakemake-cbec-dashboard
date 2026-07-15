@@ -556,22 +556,29 @@ def parse_wm_xhs(sid, gid):
     return {ko: {k: round(v) for k, v in d.items()} for ko, d in out.items()}
 
 def parse_cg_xhs(sid, gid_jg, gid_cid):
-    """CG 쥐광(gid_jg='컬러그램 샤오홍씽' 消费)+CID(gid_cid='컬러그램 CID-광고' 消费) 월별 → {월:{jg,cid}} KRW."""
+    """CG 信息流(gid_jg='컬러그램 샤오홍씽' 消费)+CID(gid_cid 消费·유입GMV) 월별 → {월:{jg,cid,cidGmv}} KRW."""
     out = {}
-    def add(gid, key):
+    def col(h, *keys):
+        for k in keys:
+            for i, c in enumerate(h):
+                if k in c: return i
+        return -1
+    def add(gid, key, gmvkey=None):
         rows = _fetch_gid_rows(sid, gid) if gid else []
         if not rows: return
         h = [str(c).strip() for c in rows[0]]
-        icost = next((i for i, c in enumerate(h) if "消费" in c), -1)
-        imon = next((i for i, c in enumerate(h) if ("月份" in c or c == "월")), 0)
+        icost = col(h, "消费"); imon = col(h, "月份", "월"); imon = imon if imon >= 0 else 0
+        igmv = col(h, "成交GMV", "GMV") if gmvkey else -1
         if icost < 0: return
         for r in rows[1:]:
-            if len(r) <= max(icost, imon): continue
-            mo = re.search(r"(\d+)", str(r[imon]))
+            if len(r) <= icost: continue
+            mo = re.search(r"(\d+)", str(r[imon]) if 0 <= imon < len(r) else "")
             if not mo: continue
-            out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0})[key] += _numc(r[icost]) * FX
-    add(gid_jg, "jg"); add(gid_cid, "cid")
-    return {ko: {"jg": round(v["jg"]), "cid": round(v["cid"])} for ko, v in out.items()}
+            d = out.setdefault(mo.group(1) + "월", {"jg": 0.0, "cid": 0.0, "cidGmv": 0.0})
+            d[key] += _numc(r[icost]) * FX
+            if gmvkey and 0 <= igmv < len(r): d[gmvkey] += _numc(r[igmv]) * FX
+    add(gid_jg, "jg"); add(gid_cid, "cid", "cidGmv")
+    return {ko: {"jg": round(v["jg"]), "cid": round(v["cid"]), "cidGmv": round(v["cidGmv"])} for ko, v in out.items()}
 
 def parse_tmall_daily_monthly(sid, gid):
     """'티몰 일자별매출' → {브랜드:{월: 결제완료금액KRW}}. A(0)=일자·B(1)=상점명·Q(16)=결제완료금액."""
@@ -1376,7 +1383,7 @@ def _write_data(data):
     if os.path.exists(DATA_JSON):
         try: old = json.load(open(DATA_JSON, "r", encoding="utf-8"))
         except Exception: old = {}
-    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand", "tmallBrands", "douyin", "oyMkt", "wmXhs"):
+    for k in ("dailyTmall", "dailyStatus", "monthlyPlatform", "tmallByBrand", "tmallBrands", "douyin", "oyMkt", "xhsEff"):
         if k not in data and old.get(k): data[k] = old[k]
     if "dailyStatus" not in data:
         data["dailyStatus"] = daily_status_sample()
@@ -1466,18 +1473,30 @@ def main():
                 next((s.get("paidRoas") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-"),
                 next((s.get("cpuv") for s in tmall["tmallBrands"]["웨이크메이크"]["series"] if s["month"] == "6월"), "-"),
                 next((s.get("cpuv") for s in tmall["tmallBrands"]["컬러그램"]["series"] if s["month"] == "6월"), "-")))
-        if wmXhs:
-            wm_tm = (tmMon.get("웨이크메이크", {}) or {})
-            months = [m for m in (tmall["months"] if tmall else []) if m in wmXhs] or sorted(wmXhs, key=lambda x: int(x[:-1]))
-            rows = {}
+        # 샤오홍씽 광고효율(브랜드 공통 구조 xhsEff) — main=효과광고(WM 쥐광 / CG CID), sub=KOL계열(WM KOL / CG 信息流), inflow=유입매출/GMV
+        def _eff_rows(src, months, tm, getad, getsub, getinf):
+            rr = {}
             for m in months:
-                w = wmXhs[m]; jg = w["jg"]; inf = w["inflow"]; kol = w["kol"]; tms = wm_tm.get(m, 0)
-                rows[m] = {"jgKRW": jg, "inflowKRW": inf, "gmvKRW": w["gmv"], "kolKRW": kol, "tmallSalesKRW": tms,
-                           "inflowShare": round(inf / tms * 1000) / 10 if tms else 0,
-                           "jgRoi": round(inf / jg * 100) / 100 if jg else 0,
-                           "totalRoi": round(inf / (jg + kol) * 100) / 100 if (jg + kol) else 0}
-            data_wmXhs = {"months": months, "rows": rows,
-                          "note": "웨이크메이크 샤오홍씽-광고 탭 · 쥐광(聚光)·KOL=OY(올리브영) 집행 · 티몰 실매출=티몰 일자별매출(WAKEMAKE 매장) · 환율 220원"}
+                s = src[m]; ad = getad(s); sub = getsub(s); inf = getinf(s); tms = tm.get(m, 0)
+                rr[m] = {"adKRW": ad, "subKRW": sub, "inflowKRW": inf, "tmallSalesKRW": tms,
+                         "inflowShare": round(inf / tms * 1000) / 10 if tms else 0,
+                         "adRoi": round(inf / ad * 100) / 100 if ad else 0,
+                         "totalRoi": round(inf / (ad + sub) * 100) / 100 if (ad + sub) else 0}
+            return rr
+        xhsEff = {}
+        _allm = tmall["months"] if tmall else []
+        if wmXhs:
+            ms = [m for m in _allm if m in wmXhs] or sorted(wmXhs, key=lambda x: int(x[:-1]))
+            xhsEff["웨이크메이크"] = {"months": ms,
+                "rows": _eff_rows(wmXhs, ms, tmMon.get("웨이크메이크", {}) or {}, lambda s: s["jg"], lambda s: s["kol"], lambda s: s["inflow"]),
+                "labels": {"main": "쥐광(聚光)", "sub": "KOL", "inflow": "샤오홍씽 유입매출", "owner": "OY"},
+                "note": "쥐광(聚光)·KOL = OY(올리브영) 집행 · 유입매출·티몰 실매출 = 티몰 일자별매출(WAKEMAKE 매장)"}
+        if cgXhs:
+            ms = [m for m in _allm if m in cgXhs] or sorted(cgXhs, key=lambda x: int(x[:-1]))
+            xhsEff["컬러그램"] = {"months": ms,
+                "rows": _eff_rows(cgXhs, ms, tmMon.get("컬러그램", {}) or {}, lambda s: s["cid"], lambda s: s["jg"], lambda s: s["cidGmv"]),
+                "labels": {"main": "CID 효과광고", "sub": "信息流(KOL)", "inflow": "CID 유입 GMV", "owner": "OY"},
+                "note": "CID·信息流 = OY(올리브영) 집행 · 유입 = CID 성사 GMV(30일 기여) · 티몰 실매출 = 티몰 일자별매출(COLORGRAM 매장) · 데이터 1~5월"}
         _local_dy, xhs = _local_douyin_xhs()
         douyin = dyx.get("daily") or _local_dy   # 공식 도우인 일자별(전월) 우선, 실패 시 로컬(부분)
         data = assemble_from_parts(tmall, douyin, xhs)
@@ -1500,12 +1519,14 @@ def main():
             data["oyMkt"] = oy
             print("[OY마케팅] 브랜드 %s · 6월 %s" %
                   (list(oy.keys()), {b: sum(oy[b].get("6월", {}).values()) for b in oy}))
-        if wmXhs:
-            data["wmXhs"] = data_wmXhs
-            r6 = data_wmXhs["rows"].get("6월", {})
-            print("[WM 샤오홍씽] 6월 쥐광 ₩%s · 유입매출 ₩%s(비중 %s%%) · 쥐광ROI %s · 전체ROI %s" %
-                  (format(r6.get("jgKRW", 0), ","), format(r6.get("inflowKRW", 0), ","),
-                   r6.get("inflowShare"), r6.get("jgRoi"), r6.get("totalRoi")))
+        if xhsEff:
+            data["xhsEff"] = xhsEff
+            for b in xhsEff:
+                lm = xhsEff[b]["months"][-1] if xhsEff[b]["months"] else None
+                r = xhsEff[b]["rows"].get(lm, {}) if lm else {}
+                print("[샤오홍씽 효율] %s %s: 효과광고 ₩%s · 유입 ₩%s(비중 %s%%) · ROI %s / 전체 %s" %
+                      (b, lm, format(r.get("adKRW", 0), ","), format(r.get("inflowKRW", 0), ","),
+                       r.get("inflowShare"), r.get("adRoi"), r.get("totalRoi")))
         if tmDaily: data["dailyTmall"] = daily_struct(tmDaily, "티몰글로벌(天猫国际) · 海外旗舰店",
                                                      "티몰 일 결제금액 · 증정 제외 · 환율 220원")
         ds, mp, tbb = parse_daily_status(cfg)   # 실시간 일자별 현황(신규 시트)

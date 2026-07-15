@@ -19660,78 +19660,143 @@
    }
   }
  },
- "wmXhs": {
-  "months": [
-   "1월",
-   "2월",
-   "3월",
-   "4월",
-   "5월",
-   "6월"
-  ],
-  "rows": {
-   "1월": {
-    "jgKRW": 6802165,
-    "inflowKRW": 14668975,
-    "gmvKRW": 5353258,
-    "kolKRW": 4461600,
-    "tmallSalesKRW": 246147174,
-    "inflowShare": 6.0,
-    "jgRoi": 2.16,
-    "totalRoi": 1.3
+ "xhsEff": {
+  "웨이크메이크": {
+   "months": [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월"
+   ],
+   "rows": {
+    "1월": {
+     "adKRW": 6802165,
+     "subKRW": 4461600,
+     "inflowKRW": 14668975,
+     "tmallSalesKRW": 246147174,
+     "inflowShare": 6.0,
+     "adRoi": 2.16,
+     "totalRoi": 1.3
+    },
+    "2월": {
+     "adKRW": 3506316,
+     "subKRW": 580800,
+     "inflowKRW": 8847021,
+     "tmallSalesKRW": 182586100,
+     "inflowShare": 4.8,
+     "adRoi": 2.52,
+     "totalRoi": 2.16
+    },
+    "3월": {
+     "adKRW": 7458977,
+     "subKRW": 5938152,
+     "inflowKRW": 16496143,
+     "tmallSalesKRW": 198125895,
+     "inflowShare": 8.3,
+     "adRoi": 2.21,
+     "totalRoi": 1.23
+    },
+    "4월": {
+     "adKRW": 8807847,
+     "subKRW": 1900800,
+     "inflowKRW": 23904129,
+     "tmallSalesKRW": 250767218,
+     "inflowShare": 9.5,
+     "adRoi": 2.71,
+     "totalRoi": 2.23
+    },
+    "5월": {
+     "adKRW": 13706143,
+     "subKRW": 7735200,
+     "inflowKRW": 13412199,
+     "tmallSalesKRW": 197972520,
+     "inflowShare": 6.8,
+     "adRoi": 0.98,
+     "totalRoi": 0.63
+    },
+    "6월": {
+     "adKRW": 22497515,
+     "subKRW": 5121600,
+     "inflowKRW": 19522494,
+     "tmallSalesKRW": 149689305,
+     "inflowShare": 13.0,
+     "adRoi": 0.87,
+     "totalRoi": 0.71
+    }
    },
-   "2월": {
-    "jgKRW": 3506316,
-    "inflowKRW": 8847021,
-    "gmvKRW": 4011960,
-    "kolKRW": 580800,
-    "tmallSalesKRW": 182586100,
-    "inflowShare": 4.8,
-    "jgRoi": 2.52,
-    "totalRoi": 2.16
+   "labels": {
+    "main": "쥐광(聚光)",
+    "sub": "KOL",
+    "inflow": "샤오홍씽 유입매출",
+    "owner": "OY"
    },
-   "3월": {
-    "jgKRW": 7458977,
-    "inflowKRW": 16496143,
-    "gmvKRW": 9730461,
-    "kolKRW": 5938152,
-    "tmallSalesKRW": 198125895,
-    "inflowShare": 8.3,
-    "jgRoi": 2.21,
-    "totalRoi": 1.23
-   },
-   "4월": {
-    "jgKRW": 8807847,
-    "inflowKRW": 23904129,
-    "gmvKRW": 12314196,
-    "kolKRW": 1900800,
-    "tmallSalesKRW": 250767218,
-    "inflowShare": 9.5,
-    "jgRoi": 2.71,
-    "totalRoi": 2.23
-   },
-   "5월": {
-    "jgKRW": 13706143,
-    "inflowKRW": 13412199,
-    "gmvKRW": 8234503,
-    "kolKRW": 7735200,
-    "tmallSalesKRW": 197972520,
-    "inflowShare": 6.8,
-    "jgRoi": 0.98,
-    "totalRoi": 0.63
-   },
-   "6월": {
-    "jgKRW": 22497515,
-    "inflowKRW": 19522494,
-    "gmvKRW": 9637085,
-    "kolKRW": 5121600,
-    "tmallSalesKRW": 149689305,
-    "inflowShare": 13.0,
-    "jgRoi": 0.87,
-    "totalRoi": 0.71
-   }
+   "note": "쥐광(聚光)·KOL = OY(올리브영) 집행 · 유입매출·티몰 실매출 = 티몰 일자별매출(WAKEMAKE 매장)"
   },
-  "note": "웨이크메이크 샤오홍씽-광고 탭 · 쥐광(聚光)·KOL=OY(올리브영) 집행 · 티몰 실매출=티몰 일자별매출(WAKEMAKE 매장) · 환율 220원"
+  "컬러그램": {
+   "months": [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월"
+   ],
+   "rows": {
+    "1월": {
+     "adKRW": 351916,
+     "subKRW": 4538059,
+     "inflowKRW": 319783,
+     "tmallSalesKRW": 115758447,
+     "inflowShare": 0.3,
+     "adRoi": 0.91,
+     "totalRoi": 0.07
+    },
+    "2월": {
+     "adKRW": 2185799,
+     "subKRW": 1597165,
+     "inflowKRW": 3895283,
+     "tmallSalesKRW": 81879862,
+     "inflowShare": 4.8,
+     "adRoi": 1.78,
+     "totalRoi": 1.03
+    },
+    "3월": {
+     "adKRW": 2724071,
+     "subKRW": 9241500,
+     "inflowKRW": 6753657,
+     "tmallSalesKRW": 101211889,
+     "inflowShare": 6.7,
+     "adRoi": 2.48,
+     "totalRoi": 0.56
+    },
+    "4월": {
+     "adKRW": 3145971,
+     "subKRW": 7374860,
+     "inflowKRW": 6715084,
+     "tmallSalesKRW": 77722469,
+     "inflowShare": 8.6,
+     "adRoi": 2.13,
+     "totalRoi": 0.64
+    },
+    "5월": {
+     "adKRW": 2426290,
+     "subKRW": 0,
+     "inflowKRW": 5148099,
+     "tmallSalesKRW": 103609728,
+     "inflowShare": 5.0,
+     "adRoi": 2.12,
+     "totalRoi": 2.12
+    }
+   },
+   "labels": {
+    "main": "CID 효과광고",
+    "sub": "信息流(KOL)",
+    "inflow": "CID 유입 GMV",
+    "owner": "OY"
+   },
+   "note": "CID·信息流 = OY(올리브영) 집행 · 유입 = CID 성사 GMV(30일 기여) · 티몰 실매출 = 티몰 일자별매출(COLORGRAM 매장) · 데이터 1~5월"
+  }
  },
  "dailyStatus": {
   "sample": false,
@@ -22377,5 +22442,5 @@
    "컬러그램": null
   }
  },
- "builtAt": "2026-07-15 11:38"
+ "builtAt": "2026-07-15 13:40"
 }
