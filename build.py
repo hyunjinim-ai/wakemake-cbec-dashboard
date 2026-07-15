@@ -352,6 +352,7 @@ def fetch_tmall_ad_products(sid, gid):
     iM, iId, iNm = ci("통계 일자"), ci("상품 ID"), ci("상품명")
     iAd = ci("광고 소모액(마케팅 비용)", "광고 소모액")
     iGmv, iRoi, iImp, iClk = ci("직접 유입 거래 금액"), ci("광고 직접 ROI"), ci("노출량"), ci("클릭수")
+    iBrand = ci("브랜드명", "브랜드")   # 시트 기록 브랜드명으로 귀속(키워드 아님)
     idx = build_map_index()
     out = {}
     for r in rows[1:]:
@@ -362,7 +363,9 @@ def fetch_tmall_ad_products(sid, gid):
         ad = _numc(r[iAd]) if 0 <= iAd < len(r) else 0
         if ad <= 0: continue
         nm = str(r[iNm]) if 0 <= iNm < len(r) else ""
-        brand = "컬러그램" if "COLORGRAM" in nm.upper().replace(" ", "") else "웨이크메이크"
+        bv = str(r[iBrand]).strip().upper() if 0 <= iBrand < len(r) else ""
+        brand = ("컬러그램" if "COLORGRAM" in bv else "웨이크메이크" if "WAKEMAKE" in bv
+                 else "컬러그램" if "COLORGRAM" in nm.upper().replace(" ", "") else "웨이크메이크")
         out.setdefault(m, []).append({
             "id": pid, "name": kname(pid, nm), "brand": brand,
             "adKRW": round(ad * FX),

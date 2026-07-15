@@ -19,10 +19,10 @@
    "costKRW": 21794300,
    "oyKRW": 14013780,
    "stKRW": 7780520,
-   "tmallAdKRW": 7780470,
-   "paidAdKRW": 14582635,
+   "tmallAdKRW": 7733418,
+   "paidAdKRW": 14535583,
    "roas": 11.29,
-   "paidRoas": 16.88,
+   "paidRoas": 16.93,
    "xhsAdKRW": 6802165,
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
@@ -32,9 +32,9 @@
    "cidKRW": 0,
    "kolKRW": 4461600,
    "xhsInflowKRW": 14668975,
-   "adImp": 622939,
-   "adClk": 72489,
-   "ctr": 11.6,
+   "adImp": 614486,
+   "adClk": 71721,
+   "ctr": 11.7,
    "cpuv": 73
   },
   {
@@ -47,10 +47,10 @@
    "costKRW": 17474160,
    "oyKRW": 8685380,
    "stKRW": 8788780,
-   "tmallAdKRW": 5378491,
-   "paidAdKRW": 8884807,
+   "tmallAdKRW": 5297457,
+   "paidAdKRW": 8803773,
    "roas": 10.45,
-   "paidRoas": 20.55,
+   "paidRoas": 20.74,
    "xhsAdKRW": 3506316,
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
@@ -60,10 +60,10 @@
    "cidKRW": 0,
    "kolKRW": 580800,
    "xhsInflowKRW": 8847021,
-   "adImp": 505918,
-   "adClk": 55777,
-   "ctr": 11.0,
-   "cpuv": 53
+   "adImp": 492179,
+   "adClk": 54563,
+   "ctr": 11.1,
+   "cpuv": 52
   },
   {
    "month": "3월",
@@ -75,10 +75,10 @@
    "costKRW": 28372300,
    "oyKRW": 16712520,
    "stKRW": 11659780,
-   "tmallAdKRW": 9797433,
-   "paidAdKRW": 17256410,
+   "tmallAdKRW": 9768600,
+   "paidAdKRW": 17227577,
    "roas": 6.98,
-   "paidRoas": 11.48,
+   "paidRoas": 11.5,
    "xhsAdKRW": 7458977,
    "xhsGmvKRW": 0,
    "xhsRoas": 0,
@@ -88,8 +88,8 @@
    "cidKRW": 0,
    "kolKRW": 5938152,
    "xhsInflowKRW": 16496143,
-   "adImp": 843347,
-   "adClk": 82679,
+   "adImp": 833340,
+   "adClk": 81579,
    "ctr": 9.8,
    "cpuv": 104
   },
@@ -103,8 +103,8 @@
    "costKRW": 40364500,
    "oyKRW": 17063200,
    "stKRW": 23301300,
-   "tmallAdKRW": 10938972,
-   "paidAdKRW": 19746819,
+   "tmallAdKRW": 10936440,
+   "paidAdKRW": 19744287,
    "roas": 6.21,
    "paidRoas": 12.7,
    "xhsAdKRW": 8807847,
@@ -116,8 +116,8 @@
    "cidKRW": 0,
    "kolKRW": 1900800,
    "xhsInflowKRW": 23904129,
-   "adImp": 921165,
-   "adClk": 83892,
+   "adImp": 919990,
+   "adClk": 83788,
    "ctr": 9.1,
    "cpuv": 92
   },
@@ -1000,22 +1000,6 @@
      "clk": 1330,
      "ids": [
       "981293620333"
-     ]
-    },
-    {
-     "id": "1011452683285",
-     "name": "-",
-     "brand": "웨이크메이크",
-     "adKRW": 47052,
-     "directGmvKRW": 174858,
-     "roi": 3.72,
-     "imp": 8453,
-     "clk": 768,
-     "ids": [
-      "1011452683285",
-      "981753721267",
-      "981750777775",
-      "919048200590"
      ]
     },
     {
@@ -2002,20 +1986,6 @@
      "clk": 261,
      "ids": [
       "943692099726"
-     ]
-    },
-    {
-     "id": "1011452683285",
-     "name": "-",
-     "brand": "웨이크메이크",
-     "adKRW": 81034,
-     "directGmvKRW": 128619,
-     "roi": 1.59,
-     "imp": 13739,
-     "clk": 1214,
-     "ids": [
-      "1011452683285",
-      "981753721267"
      ]
     },
     {
@@ -3028,19 +2998,6 @@
      "ids": [
       "1025567503245"
      ]
-    },
-    {
-     "id": "1011452683285",
-     "name": "-",
-     "brand": "웨이크메이크",
-     "adKRW": 28833,
-     "directGmvKRW": 25718,
-     "roi": 0.89,
-     "imp": 10007,
-     "clk": 1100,
-     "ids": [
-      "1011452683285"
-     ]
     }
    ],
    "costItems": [
@@ -3985,19 +3942,6 @@
      "clk": 808,
      "ids": [
       "944132243773"
-     ]
-    },
-    {
-     "id": "1011452683285",
-     "name": "-",
-     "brand": "웨이크메이크",
-     "adKRW": 2532,
-     "directGmvKRW": 0,
-     "roi": 0.0,
-     "imp": 1175,
-     "clk": 104,
-     "ids": [
-      "1011452683285"
      ]
     }
    ],
@@ -5954,10 +5898,10 @@
      "costKRW": 21794300,
      "oyKRW": 14013780,
      "stKRW": 7780520,
-     "tmallAdKRW": 7780470,
-     "paidAdKRW": 14582635,
+     "tmallAdKRW": 7733418,
+     "paidAdKRW": 14535583,
      "roas": 11.29,
-     "paidRoas": 16.88,
+     "paidRoas": 16.93,
      "xhsAdKRW": 6802165,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -5967,9 +5911,9 @@
      "cidKRW": 0,
      "kolKRW": 4461600,
      "xhsInflowKRW": 14668975,
-     "adImp": 622939,
-     "adClk": 72489,
-     "ctr": 11.6,
+     "adImp": 614486,
+     "adClk": 71721,
+     "ctr": 11.7,
      "cpuv": 73
     },
     {
@@ -5982,10 +5926,10 @@
      "costKRW": 17474160,
      "oyKRW": 8685380,
      "stKRW": 8788780,
-     "tmallAdKRW": 5378491,
-     "paidAdKRW": 8884807,
+     "tmallAdKRW": 5297457,
+     "paidAdKRW": 8803773,
      "roas": 10.45,
-     "paidRoas": 20.55,
+     "paidRoas": 20.74,
      "xhsAdKRW": 3506316,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -5995,10 +5939,10 @@
      "cidKRW": 0,
      "kolKRW": 580800,
      "xhsInflowKRW": 8847021,
-     "adImp": 505918,
-     "adClk": 55777,
-     "ctr": 11.0,
-     "cpuv": 53
+     "adImp": 492179,
+     "adClk": 54563,
+     "ctr": 11.1,
+     "cpuv": 52
     },
     {
      "month": "3월",
@@ -6010,10 +5954,10 @@
      "costKRW": 28372300,
      "oyKRW": 16712520,
      "stKRW": 11659780,
-     "tmallAdKRW": 9797433,
-     "paidAdKRW": 17256410,
+     "tmallAdKRW": 9768600,
+     "paidAdKRW": 17227577,
      "roas": 6.98,
-     "paidRoas": 11.48,
+     "paidRoas": 11.5,
      "xhsAdKRW": 7458977,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -6023,8 +5967,8 @@
      "cidKRW": 0,
      "kolKRW": 5938152,
      "xhsInflowKRW": 16496143,
-     "adImp": 843347,
-     "adClk": 82679,
+     "adImp": 833340,
+     "adClk": 81579,
      "ctr": 9.8,
      "cpuv": 104
     },
@@ -6038,8 +5982,8 @@
      "costKRW": 40364500,
      "oyKRW": 17063200,
      "stKRW": 23301300,
-     "tmallAdKRW": 10938972,
-     "paidAdKRW": 19746819,
+     "tmallAdKRW": 10936440,
+     "paidAdKRW": 19744287,
      "roas": 6.21,
      "paidRoas": 12.7,
      "xhsAdKRW": 8807847,
@@ -6051,8 +5995,8 @@
      "cidKRW": 0,
      "kolKRW": 1900800,
      "xhsInflowKRW": 23904129,
-     "adImp": 921165,
-     "adClk": 83892,
+     "adImp": 919990,
+     "adClk": 83788,
      "ctr": 9.1,
      "cpuv": 92
     },
@@ -6935,22 +6879,6 @@
        "clk": 1330,
        "ids": [
         "981293620333"
-       ]
-      },
-      {
-       "id": "1011452683285",
-       "name": "-",
-       "brand": "웨이크메이크",
-       "adKRW": 47052,
-       "directGmvKRW": 174858,
-       "roi": 3.72,
-       "imp": 8453,
-       "clk": 768,
-       "ids": [
-        "1011452683285",
-        "981753721267",
-        "981750777775",
-        "919048200590"
        ]
       },
       {
@@ -7937,20 +7865,6 @@
        "clk": 261,
        "ids": [
         "943692099726"
-       ]
-      },
-      {
-       "id": "1011452683285",
-       "name": "-",
-       "brand": "웨이크메이크",
-       "adKRW": 81034,
-       "directGmvKRW": 128619,
-       "roi": 1.59,
-       "imp": 13739,
-       "clk": 1214,
-       "ids": [
-        "1011452683285",
-        "981753721267"
        ]
       },
       {
@@ -8963,19 +8877,6 @@
        "ids": [
         "1025567503245"
        ]
-      },
-      {
-       "id": "1011452683285",
-       "name": "-",
-       "brand": "웨이크메이크",
-       "adKRW": 28833,
-       "directGmvKRW": 25718,
-       "roi": 0.89,
-       "imp": 10007,
-       "clk": 1100,
-       "ids": [
-        "1011452683285"
-       ]
       }
      ],
      "costItems": [
@@ -9920,19 +9821,6 @@
        "clk": 808,
        "ids": [
         "944132243773"
-       ]
-      },
-      {
-       "id": "1011452683285",
-       "name": "-",
-       "brand": "웨이크메이크",
-       "adKRW": 2532,
-       "directGmvKRW": 0,
-       "roi": 0.0,
-       "imp": 1175,
-       "clk": 104,
-       "ids": [
-        "1011452683285"
        ]
       }
      ],
@@ -11886,13 +11774,13 @@
      "achv": 121.9,
      "uv": 133154,
      "pv": 0,
-     "costKRW": 6002860,
+     "costKRW": 6049912,
      "oyKRW": 0,
-     "stKRW": 6002860,
-     "tmallAdKRW": 6002860,
-     "paidAdKRW": 10892835,
-     "roas": 19.28,
-     "paidRoas": 10.63,
+     "stKRW": 6049912,
+     "tmallAdKRW": 6049912,
+     "paidAdKRW": 10939887,
+     "roas": 19.13,
+     "paidRoas": 10.58,
      "xhsAdKRW": 4889975,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -11900,9 +11788,9 @@
      "xhsUV": 0,
      "jgKRW": 4538059,
      "cidKRW": 351916,
-     "adImp": 410490,
-     "adClk": 69825,
-     "ctr": 17.0,
+     "adImp": 418943,
+     "adClk": 70593,
+     "ctr": 16.9,
      "cpuv": 82
     },
     {
@@ -11912,13 +11800,13 @@
      "achv": 105.0,
      "uv": 110263,
      "pv": 0,
-     "costKRW": 4778234,
+     "costKRW": 4859268,
      "oyKRW": 0,
-     "stKRW": 4778234,
-     "tmallAdKRW": 4778234,
-     "paidAdKRW": 8561198,
-     "roas": 17.14,
-     "paidRoas": 9.56,
+     "stKRW": 4859268,
+     "tmallAdKRW": 4859268,
+     "paidAdKRW": 8642232,
+     "roas": 16.85,
+     "paidRoas": 9.47,
      "xhsAdKRW": 3782964,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -11926,9 +11814,9 @@
      "xhsUV": 0,
      "jgKRW": 1597165,
      "cidKRW": 2185799,
-     "adImp": 355086,
-     "adClk": 56524,
-     "ctr": 15.9,
+     "adImp": 368825,
+     "adClk": 57738,
+     "ctr": 15.7,
      "cpuv": 78
     },
     {
@@ -11938,13 +11826,13 @@
      "achv": 104.3,
      "uv": 122668,
      "pv": 0,
-     "costKRW": 4968292,
+     "costKRW": 4997125,
      "oyKRW": 0,
-     "stKRW": 4968292,
-     "tmallAdKRW": 4968292,
-     "paidAdKRW": 16933863,
-     "roas": 20.37,
-     "paidRoas": 5.98,
+     "stKRW": 4997125,
+     "tmallAdKRW": 4997125,
+     "paidAdKRW": 16962696,
+     "roas": 20.25,
+     "paidRoas": 5.97,
      "xhsAdKRW": 11965571,
      "xhsGmvKRW": 0,
      "xhsRoas": 0,
@@ -11952,8 +11840,8 @@
      "xhsUV": 0,
      "jgKRW": 9241500,
      "cidKRW": 2724071,
-     "adImp": 409078,
-     "adClk": 51618,
+     "adImp": 419085,
+     "adClk": 52718,
      "ctr": 12.6,
      "cpuv": 138
     },
@@ -11964,12 +11852,12 @@
      "achv": 99.6,
      "uv": 112766,
      "pv": 0,
-     "costKRW": 4530604,
+     "costKRW": 4533136,
      "oyKRW": 0,
-     "stKRW": 4530604,
-     "tmallAdKRW": 4530604,
-     "paidAdKRW": 15051435,
-     "roas": 17.16,
+     "stKRW": 4533136,
+     "tmallAdKRW": 4533136,
+     "paidAdKRW": 15053967,
+     "roas": 17.15,
      "paidRoas": 5.16,
      "xhsAdKRW": 10520831,
      "xhsGmvKRW": 0,
@@ -11978,8 +11866,8 @@
      "xhsUV": 0,
      "jgKRW": 7374860,
      "cidKRW": 3145971,
-     "adImp": 504554,
-     "adClk": 47624,
+     "adImp": 505729,
+     "adClk": 47728,
      "ctr": 9.4,
      "cpuv": 133
     },
@@ -12594,6 +12482,22 @@
        "clk": 878
       },
       {
+       "id": "1011452683285",
+       "name": "-",
+       "brand": "컬러그램",
+       "adKRW": 47052,
+       "directGmvKRW": 174858,
+       "roi": 3.72,
+       "imp": 8453,
+       "clk": 768,
+       "ids": [
+        "1011452683285",
+        "981753721267",
+        "981750777775",
+        "919048200590"
+       ]
+      },
+      {
        "id": "910609138598",
        "name": "틴토리 잼",
        "brand": "컬러그램",
@@ -13158,6 +13062,20 @@
        "clk": 1063,
        "ids": [
         "912657490915"
+       ]
+      },
+      {
+       "id": "1011452683285",
+       "name": "-",
+       "brand": "컬러그램",
+       "adKRW": 81034,
+       "directGmvKRW": 128619,
+       "roi": 1.59,
+       "imp": 13739,
+       "clk": 1214,
+       "ids": [
+        "1011452683285",
+        "981753721267"
        ]
       },
       {
@@ -13857,6 +13775,19 @@
        "clk": 583,
        "ids": [
         "952182158473"
+       ]
+      },
+      {
+       "id": "1011452683285",
+       "name": "-",
+       "brand": "컬러그램",
+       "adKRW": 28833,
+       "directGmvKRW": 25718,
+       "roi": 0.89,
+       "imp": 10007,
+       "clk": 1100,
+       "ids": [
+        "1011452683285"
        ]
       },
       {
@@ -14588,6 +14519,19 @@
        "clk": 53,
        "ids": [
         "994368851340"
+       ]
+      },
+      {
+       "id": "1011452683285",
+       "name": "-",
+       "brand": "컬러그램",
+       "adKRW": 2532,
+       "directGmvKRW": 0,
+       "roi": 0.0,
+       "imp": 1175,
+       "clk": 104,
+       "ids": [
+        "1011452683285"
        ]
       },
       {
@@ -22433,5 +22377,5 @@
    "컬러그램": null
   }
  },
- "builtAt": "2026-07-15 11:34"
+ "builtAt": "2026-07-15 11:38"
 }
