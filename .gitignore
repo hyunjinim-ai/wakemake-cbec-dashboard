@@ -20,3 +20,10 @@ sheets_seed/
 sheet.config.json
 *.sa.json
 service-account*.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
